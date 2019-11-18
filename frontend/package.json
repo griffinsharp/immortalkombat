@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ion-phaser/react": "^1.2.0",
+    "nodemon": "^1.19.4",
     "phaser": "^3.20.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
@@ -11,6 +12,7 @@
     "react-scripts": "3.2.0"
   },
   "scripts": {
+    "start:debug": "nodemon --inspect index.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
