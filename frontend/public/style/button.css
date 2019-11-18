@@ -1,9 +1,14 @@
-.btn{
-    border:1px solid black;
-    background-color:green;
-    margin:15px;
+.btn {
+  color: white;
+  padding: 16px 32px;
+  border-radius: 4px;
+  font-weight: bold;
+  background: linear-gradient(#167FFB, #0F60C4);
+  transition: background 0.3s ease;
+  border: 1px solid #0F60C4;
 }
 
-.btn:hover{
-
+.btn:hover {
+  background: linear-gradient(#147EFF, #0F67DA);
+  color: white;
 }

@@ -1,4 +1,22 @@
-.container{
-    display: flex;
-    
+/*styling the container for homepage*/
+body{
+    background-color: #000244;
 }
+.container{
+    background-color:#0093D8;
+    display: flex;
+    flex-direction: column; 
+    width:40%;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    margin:80px auto;
+    border:2px solid gray;
+    border-radius:5px;
+    padding:20px 60px;
+}
+
+.title{
+    /* text-align: center; */
+}
+
