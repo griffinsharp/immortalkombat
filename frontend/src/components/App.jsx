@@ -1,7 +1,11 @@
 import React from "react"
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+
+//components imports
 import Game from './Game'
 import Home from './Home'
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Login from './auth/Login'
+import Signup from './auth/Signup'
 
 function App() {
   return (
@@ -11,6 +15,8 @@ function App() {
             renders the first one that matches the current URL. */}
         <Switch>
           <Route exact path="/game" component={Game} />
+          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/login" component={Login} />
           <Route path="/" component={Home} />
         </Switch>
     </Router>
