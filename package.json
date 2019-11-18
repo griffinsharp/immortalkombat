@@ -2,10 +2,10 @@
   "name": "immortalkombat",
   "version": "1.0.0",
   "description": "2v2 fighting game",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "server": "nodemon --inspect index.js",
+    "server": "nodemon index.js",
     "frontend-install": "npm install --prefix frontend",
     "frontend": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run frontend\""
