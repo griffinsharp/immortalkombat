@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { IonPhaser } from '@ion-phaser/react'
 import scene from '../phaser/scene'
  
