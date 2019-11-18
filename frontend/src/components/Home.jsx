@@ -1,5 +1,5 @@
 import React from 'react'
-
+import {Link} from 'react-router-dom'
 
 const Home = () => {
     return (
@@ -22,7 +22,8 @@ const Home = () => {
                      Early games in this series were also noted for their realistic digitized sprites and an extensive use of palette swapping to create new characters. Following Midway's bankruptcy, the Mortal Kombat development team was acquired by Warner Bros. and turned into NetherRealm Studios. Warner Bros. Interactive Entertainment currently owns the rights to the franchise, which it rebooted in 2011.
                 </p>
             </div>
-            <button className='btn'>Play</button>
+            
+                <button className='btn'><Link to='/game'>Play</Link></button>
             
         </div>
         </>
