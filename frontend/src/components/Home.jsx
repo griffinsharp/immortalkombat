@@ -10,7 +10,7 @@ const Home = () => {
                     Repellat nemo sint sapiente labore deserunt, quas eaque, corporis 
                     quasi enim officia ad vel architecto odio ipsam similique ratione, veritatis illo obcaecati.
                 </p>
-                <button>Play</button>
+                <button className='btn'>Play</button>
             </div>
         </div>
         </>
