@@ -4,7 +4,8 @@
   "description": "2v2 fighting game",
   "main": "app.js",
   "scripts": {
-    "start:debug": "nodemon --inspect index.js",
+    "start": "node index.js",
+    "server": "nodemon --inspect index.js",
     "frontend-install": "npm install --prefix frontend",
     "frontend": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run frontend\""
