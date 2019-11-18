@@ -30,7 +30,7 @@ export default class Login extends Component {
         return (
             <React.Fragment>
 
-                <form onSubmit={this.handleSubmit} className=''>
+                <form onSubmit={this.handleSubmit} className='container'>
 
                     <input type="username"
                         name="username"
