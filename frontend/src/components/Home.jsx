@@ -5,7 +5,7 @@ const Home = () => {
     return (
         <>
         <div className="container">
-            <h1 className='title'>Mortaaal Kombut</h1>
+            <h1 className='title'>Mortality Kombutcha</h1>
             <div>
                 <p>
                     Mortal Kombat is an American media franchise centered on a 
@@ -22,9 +22,7 @@ const Home = () => {
                      Early games in this series were also noted for their realistic digitized sprites and an extensive use of palette swapping to create new characters. Following Midway's bankruptcy, the Mortal Kombat development team was acquired by Warner Bros. and turned into NetherRealm Studios. Warner Bros. Interactive Entertainment currently owns the rights to the franchise, which it rebooted in 2011.
                 </p>
             </div>
-            
-                <button className='btn'><Link to='/game'>Play</Link></button>
-            
+            <button className='btn'><Link to='/game' style={{color:'white', textDecoration:'none'}}>Play</Link></button>            
         </div>
         </>
     )
