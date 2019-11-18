@@ -22,10 +22,10 @@ function App() {
             renders the first one that matches the current URL. */}
         <Switch>
           <Route path="/game">
-            <Game />
+            <Game/>
           </Route>
           <Route path="/">
-            <Home />
+            <Home/>
           </Route>
         </Switch>
       </div>

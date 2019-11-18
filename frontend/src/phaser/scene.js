@@ -1,4 +1,10 @@
 import Phaser from "phaser";
+import floor from './assets/sprites/stages/floor1.jpg'
+
+
+//global variables
+let backgroundImage;
+
 
 const scene = {
   game: {
@@ -6,6 +12,7 @@ const scene = {
     height: "100%",
     type: Phaser.AUTO,
     scene: {
+      preload: preload,
       init: init,
       create: create,
       update: update
@@ -13,25 +20,30 @@ const scene = {
   }
 };
 
+function preload () {
+  console.log(floor)
+  this.load.image('floor1', floor);
+}
+
 function init() {
-  this.cameras.main.setBackgroundColor("#24252A");
 }
 
 function create() {
-  this.helloWorld = this.add.text(
-    this.cameras.main.centerX,
-    this.cameras.main.centerY,
-    "Hello World",
-    {
-      font: "40px Arial",
-      fill: "#ffffff"
-    }
-  );
-  this.helloWorld.setOrigin(0.5);
+  renderStage.apply(this);
+    
 }
 
 function update() {
-  this.helloWorld.angle += 1;
 }
 
+function renderStage ()  {
+    backgroundImage = this.add.image(0, 0, 'floor1').setOrigin(0,0)
+    backgroundImage.smoothed = false;
+}
+
+
 export default scene;
+
+
+
+
