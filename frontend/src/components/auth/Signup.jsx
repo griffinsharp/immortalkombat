@@ -18,7 +18,7 @@ class SignupForm extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.signedIn === true) {
-			this.props.history.push("/login");
+			this.props.history.push("/login"); // NOT LOGIN BUT PROFILE 
 		}
 
 		this.setState({ errors: nextProps.errors });
@@ -90,7 +90,6 @@ class SignupForm extends React.Component {
 						<button type="submit" className="btn btn-flat">
 							Submit
 						</button>
-						{/* <input type="submit" value="Submit" /> */}
 						{this.renderErrors()}
 					</div>
 				</form>
@@ -100,4 +99,3 @@ class SignupForm extends React.Component {
 }
 
 export default withRouter(SignupForm);
-

@@ -17,7 +17,7 @@ class LoginForm extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		if (nextProps.currentUser === true) {
-			this.props.history.push("/tweets");
+			this.props.history.push("/tweets"); //NOT THE RIGHT ROUTE
 		}
 
 		this.setState({ errors: nextProps.errors });
@@ -73,7 +73,6 @@ class LoginForm extends React.Component {
 						<button type="submit" className="btn btn-flat">
 							Login
 						</button>
-						{/* <input type="submit" value="Submit" /> */}
 						{this.renderErrors()}
 					</div>
 				</form>
@@ -83,27 +82,3 @@ class LoginForm extends React.Component {
 }
 
 export default withRouter(LoginForm);
-
-{/* <form onSubmit={this.handleSubmit} className="container">
-	<input
-		type="username"
-		name="username"
-		placeholder="username"
-		defaultValue={this.state.username}
-		onChange={this.handleChange}
-		required
-	/>
-
-	<input
-		type="password"
-		name="password"
-		placeholder="password"
-		defaultValue={this.state.passowrd}
-		onChange={this.handleChange}
-		required
-	/>
-
-	<button type="submit" className="btn btn-flat">
-		Login
-	</button>
-</form>; */}
