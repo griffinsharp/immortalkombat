@@ -10,7 +10,7 @@ let mario;
 let platforms;
 let width = 900;
 let height = 600;
-let speed = 30;
+let speed = 80;
 let cursors;
 let facing = 'standing';
 
@@ -44,8 +44,8 @@ function preload () {
   this.load.image('floor', floor);
 
   this.load.spritesheet('mario', marioSprite, {
-     frameWidth: 38.9,
-     frameHeight: 38.2,
+     frameWidth: 46,
+     frameHeight: 42,
     })
 
 }
@@ -90,8 +90,8 @@ function renderSprites ()  {
     this.anims.create({
       key: 'left',
       frames: this.anims.generateFrameNumbers('mario', {
-        start: 20,
-         end: 21 }),
+        start: 0,
+         end: 1 }),
       frameRate: 5,
       repeat: -1
     });
@@ -99,29 +99,29 @@ function renderSprites ()  {
   this.anims.create({
     key: 'right',
     frames: this.anims.generateFrameNumbers('mario', {
-       start: 28,
-       end: 29 }),
+       start: 6,
+       end: 7 }),
     frameRate: 5,
     repeat: -1
   });
 
   this.anims.create({
     key: 'standing',
-    frames: this.anims.generateFrameNumbers('mario', { start: 23, end: 23 }),
+    frames: this.anims.generateFrameNumbers('mario', { start: 3, end: 3 }),
     frameRate: 30,
     repeat: -1
   });
 
   this.anims.create({
     key: 'face-right',
-    frames: this.anims.generateFrameNumbers('mario', { frames: [25] }),
+    frames: this.anims.generateFrameNumbers('mario', { frames: [5] }),
     frameRate: 30,
     repeat: -1
   });
 
   this.anims.create({
     key: 'face-left',
-    frames: this.anims.generateFrameNumbers('mario', { frames: [24] }),
+    frames: this.anims.generateFrameNumbers('mario', { frames: [4] }),
     frameRate: 30,
     repeat: -1
   });
@@ -129,8 +129,8 @@ function renderSprites ()  {
   this.anims.create({
     key: 'jump-right',
     frames: this.anims.generateFrameNumbers('mario', {
-       start: 35,
-        end: 36 }),
+       start: 10,
+        end: 11 }),
     frameRate: 5,
     repeat: -1
   });
@@ -138,8 +138,8 @@ function renderSprites ()  {
   this.anims.create({
     key: 'jump-left',
     frames: this.anims.generateFrameNumbers('mario', {
-       start: 33,
-        end: 34 }),
+       start: 8,
+        end: 9 }),
     frameRate: 5,
     repeat: -1
   });
@@ -147,7 +147,7 @@ function renderSprites ()  {
   this.anims.create({
     key: 'hammer-right',
     frames: this.anims.generateFrameNumbers('mario',
-    { frames: [75, 76, 77, 78, 79] }),
+    { frames: [30, 29, 28, 27, 26, 25, 24] }),
     frameRate: 9,
     repeat: -1
   });
@@ -155,7 +155,7 @@ function renderSprites ()  {
   this.anims.create({
     key: 'hammer-left',
     frames: this.anims.generateFrameNumbers('mario', {
-       frames: [74, 73, 72, 71, 70] }),
+       frames: [16, 17, 18, 19, 20, 21, 22] }),
     frameRate: 9,
     repeat: -1
   });
@@ -165,32 +165,48 @@ function renderSprites ()  {
 function inputHandle (player, time,delta) {
   // if (player.body.onFloor()) && player.play('jumping', true);
 
+  
     if (cursors.space.isDown && (cursors.right.isDown || player.body.facing === 14)){
-    player.play('hammer-right', 1)
-      }
+      player.play('hammer-right', 1).setCrop(0, 1, 43, 42);
+
+   }
     else if (cursors.space.isDown && (cursors.left.isDown || player.body.facing === 13)){
-    player.play('hammer-left', 1)
-      }
+    player.play('hammer-left', 1).setCrop(2, 2, 44, 42);
+
+    }
     else if (cursors.left.isDown) {
         // player.x -= speed * delta;
         player.setVelocityX(-speed)
         mario.facing = 'left'
         player.play('left', 1)
+
+      if (cursors.up.isDown && mario.body.touching.down) {
+          player.setVelocityY(-speed * 4)
+          player.play('jump-left', 1)
+      } 
+        
     }
     else if (cursors.right.isDown) {
       // player.x += speed * delta;
       player.setVelocityX(speed)
       mario.facing = 'right'
       player.play('right', 1)
+
+      if (cursors.up.isDown && mario.body.touching.down) {
+        player.setVelocityY(-speed * 4)
+        player.play('jump-right', 1)
+
+      }
     }
-    else if (cursors.up.isDown){
+    else if (cursors.up.isDown && mario.body.touching.down){
       player.setVelocityY(-speed * 4)
       player.play('jump-left', 1)
     }
-    else if (cursors.up.isDown && cursors.right.isDown){
+    else if (cursors.up.isDown && cursors.right.isDown && mario.body.touching.down){
+      player.setVelocityY(-speed * 4)
       player.play('jump-right', 1)
-
-    } else if (player.body.facing === 13){
+    }
+    else if (player.body.facing === 13){
     player.play('face-left', 1) 
 
     } else if (player.body.facing === 14){
