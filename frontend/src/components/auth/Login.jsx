@@ -1,53 +1,84 @@
-import React, { Component } from 'react'
-//comments
-export default class Login extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            username: '',
-            password: '',
-            loginErrors: ''
-        }
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-    }
+import React from "react";
+import { withRouter } from "react-router-dom";
 
-    handleSubmit(event) {
-        event.preventDefault();
-        const user = this.state;
-        //NEED TO CALL THE RIGHT API ENDPOINT
-        this.props.login(user)
-    }
+class LoginForm extends React.Component {
+	constructor(props) {
+		super(props);
 
-    handleChange(event) {
+		this.state = {
+			username: "",
+			password: "",
+			errors: {}
+		};
 
-        this.setState({
-            [event.target.name]: event.target.value
-        });
-    }
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.renderErrors = this.renderErrors.bind(this);
+	}
 
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.currentUser === true) {
+			this.props.history.push("/tweets"); //NOT THE RIGHT ROUTE
+		}
 
-    render() {
-        return (
-            <React.Fragment>
+		this.setState({ errors: nextProps.errors });
+	}
 
-                <form onSubmit={this.handleSubmit} className='container'>
+	update(field) {
+		return e =>
+			this.setState({
+				[field]: e.currentTarget.value
+			});
+	}
 
-                    <input type="username"
-                        name="username"
-                        placeholder="username"
-                        defaultValue={this.state.username} onChange={this.handleChange} required />
+	handleSubmit(e) {
+		e.preventDefault();
 
-                    <input type="password"
-                        name="password"
-                        placeholder="password"
-                        defaultValue={this.state.passowrd} onChange={this.handleChange} required />
+		let user = {
+			username: this.state.username,
+			password: this.state.password
+		};
 
-                    <button type='submit' className='btn btn-flat'>
-                        Login
-                        </button>
-                </form>
-            </React.Fragment>
-        )
-    }
+		this.props.login(user);
+	}
+
+	renderErrors() {
+		return (
+			<ul>
+				{Object.keys(this.state.errors).map((error, i) => (
+					<li key={`error-${i}`}>{this.state.errors[error]}</li>
+				))}
+			</ul>
+		);
+	}
+
+	render() {
+		return (
+			<div>
+				<form onSubmit={this.handleSubmit} className="container">
+					<div>
+						<input
+							type="text"
+							value={this.state.username}
+							onChange={this.update("username")}
+							placeholder="Username"
+						/>
+						<br />
+						<input
+							type="password"
+							value={this.state.password}
+							onChange={this.update("password")}
+							placeholder="Password"
+						/>
+						<br />
+						<button type="submit" className="btn btn-flat">
+							Login
+						</button>
+						{this.renderErrors()}
+					</div>
+				</form>
+			</div>
+		);
+	}
 }
+
+export default withRouter(LoginForm);
