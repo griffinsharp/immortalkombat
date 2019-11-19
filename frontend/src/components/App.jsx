@@ -6,6 +6,7 @@ import Game from './Game'
 import Home from './Home'
 import Login from './auth/Login'
 import Signup from './auth/Signup'
+import { AuthRoute, ProtectedRoute } from '../util/route_util.jsx.js'
 
 function App() {
   return (
@@ -15,9 +16,9 @@ function App() {
             renders the first one that matches the current URL. */}
         <Switch>
 
-          <Route exact path="/game" component={Game} />
-          <Route exact path="/signup" component={Signup} />
-          <Route exact path="/login" component={Login} />
+          <ProtectedRoute Route exact path="/game" component={Game} />
+          <AuthRoute exact path="/signup" component={Signup} />
+          <AuthRoute exact path="/login" component={Login} />
           <Route path="/" component={Home} />
         </Switch>
     </Router>
