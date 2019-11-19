@@ -155,7 +155,6 @@ function renderSprites ()  {
 }
 
 function inputHandle (player, time,delta) {
-
   // if (player.body.onFloor()) && player.play('jumping', true);
 
     if (cursors.space.isDown && (cursors.right.isDown || player.body.facing === 14)){
