@@ -1,8 +1,9 @@
 import React from 'react'
+
 //components
 import Navbar from './Navbar'
 
-export default function profile() {
+export default function Profile() {
     return (
         <>
         <div className='container'>
