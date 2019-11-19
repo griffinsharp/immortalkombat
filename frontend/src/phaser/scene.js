@@ -1,5 +1,4 @@
 import Phaser from "phaser";
-import floor from './assets/sprites/stages/floor.png';
 import marioSprite from './assets/sprites/mario/mario.png';
 import marioBackground from './assets/sprites/stages/mario-background.jpg';
 
@@ -8,13 +7,16 @@ let backgroundImage;
 let mario;
 let platforms;
 let width = 900;
-let height = 500;
+let height = 600;
+let speed = 30
+let cursors;
+let facing = 'standing'
 
 
 const scene = {
   game: {
-    width: width,
-    height: height,
+    width,
+    height,
     type: Phaser.AUTO,
     physics: {
       default: 'arcade',
@@ -32,29 +34,46 @@ const scene = {
   }
 };
 
-function preload () {
-  this.load.image('background', marioBackground);
-  this.load.image('floor', floor);
-  this.load.spritesheet('mario', marioSprite, { frameWidth: 38, frameHeight: 38 });
-}
-
 function init() {
 }
 
+function preload () {
+  this.load.image('background', marioBackground);
+
+  this.load.spritesheet('mario', marioSprite, {
+     frameWidth: 38.9,
+     frameHeight: 38.2,
+    //  startFrame: 6,
+    //   endFrame: 8
+    })
+
+}
+
 function create() {
-  backgroundImage = this.add.image(400, 300, 'background').setOrigin(0, 0);
+  // load background 
+  backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
   backgroundImage.smoothed = false;
 
-  platforms = this.physics.add.staticGroup();
-  platforms.create(450, 250, 'floor').setScale(2).refreshBody();
-  mario = this.physics.add.sprite(100, 450, 'mario');
+
+  mario = this.physics.add.sprite(300, 500, 'mario');
+
+  mario.body.drag.x = 200;
+  mario.body.drag.y = 0;
+  mario.body.friction.x = 200;
+  mario.body.friction.y = 200;
+
 
   renderSprites.apply(this);
+
+  // add a keyboard as cursor
+    cursors = this.input.keyboard.createCursorKeys();
 
     
 }
 
-function update() {
+function update(time, delta) {
+  console.log(mario.body.facing)
+  inputHandle.apply(this, [mario, time, delta])
 }
 
 function renderSprites ()  {
@@ -64,62 +83,123 @@ function renderSprites ()  {
 
     this.anims.create({
       key: 'left',
-      frames: this.anims.generateFrameNumbers('mario', {start: 21, end: 22 }),
-      frameRate: 30,
+      frames: this.anims.generateFrameNumbers('mario', {
+        start: 20,
+         end: 21 }),
+      frameRate: 5,
       repeat: -1
     });
 
   this.anims.create({
     key: 'right',
-    frames: this.anims.generateFrameNumbers('mario', { start: 29, end: 30 }),
-    frameRate: 30,
+    frames: this.anims.generateFrameNumbers('mario', {
+       start: 28,
+       end: 29 }),
+    frameRate: 5,
     repeat: -1
   });
 
   this.anims.create({
     key: 'standing',
-    frames: this.anims.generateFrameNumbers('mario', { start: 24, end: 24 }),
+    frames: this.anims.generateFrameNumbers('mario', { start: 23, end: 23 }),
     frameRate: 30,
     repeat: -1
   });
 
   this.anims.create({
-    key: 'standing',
-    frames: this.anims.generateFrameNumbers('mario', { start: 24, end: 24 }),
+    key: 'face-right',
+    frames: this.anims.generateFrameNumbers('mario', { frames: [25] }),
     frameRate: 30,
+    repeat: -1
+  });
+
+  this.anims.create({
+    key: 'face-left',
+    frames: this.anims.generateFrameNumbers('mario', { frames: [24] }),
+    frameRate: 30,
+    repeat: -1
+  });
+
+
+  this.anims.create({
+    key: 'jump-right',
+    frames: this.anims.generateFrameNumbers('mario', {
+       start: 35,
+        end: 36 }),
+    frameRate: 5,
     repeat: -1
   });
 
   this.anims.create({
     key: 'jump-left',
-    frames: this.anims.generateFrameNumbers('mario', { start: 45, end: 45 }),
-    frameRate: 30,
-    repeat: -1
-  });
-
-  this.anims.create({
-    key: 'jump-right',
-    frames: this.anims.generateFrameNumbers('mario', { start: 46, end: 46 }),
-    frameRate: 30,
-    repeat: -1
-  });
-
-  this.anims.create({
-    key: 'hammer-left',
-    frames: this.anims.generateFrameNumbers('mario', { outputArray: [84, 83, 82, 81] }),
-    frameRate: 30,
+    frames: this.anims.generateFrameNumbers('mario', {
+       start: 33,
+        end: 34 }),
+    frameRate: 5,
     repeat: -1
   });
 
   this.anims.create({
     key: 'hammer-right',
-    frames: this.anims.generateFrameNumbers('mario', { start: 87, end: 90 }),
-    frameRate: 30,
+    frames: this.anims.generateFrameNumbers('mario',
+    { frames: [75, 76, 77, 78, 79] }),
+    frameRate: 9,
+    repeat: -1
+  });
+
+  this.anims.create({
+    key: 'hammer-left',
+    frames: this.anims.generateFrameNumbers('mario', {
+       frames: [74, 73, 72, 71, 70] }),
+    frameRate: 9,
     repeat: -1
   });
     
 }
 
+function inputHandle (player, time,delta) {
+
+    if (cursors.space.isDown && (cursors.right.isDown || player.body.facing === 14)){
+    player.play('hammer-right', 1)
+      }
+    else if (cursors.space.isDown && (cursors.left.isDown || player.body.facing === 13)){
+    player.play('hammer-left', 1)
+      }
+    else if (cursors.left.isDown) {
+        // player.x -= speed * delta;
+        player.setVelocityX(-speed)
+        mario.facing = 'left'
+        player.play('left', 1)
+    }
+    else if (cursors.right.isDown)
+    {
+
+      // player.x += speed * delta;
+      player.setVelocityX(speed)
+      mario.facing = 'right'
+      player.play('right', 1)
+    }
+    else if (cursors.up.isDown && cursors.left.isDown){
+      player.play('jump-left', 1)
+    }
+    else if (cursors.up.isDown && cursors.right.isDown){
+      player.play('jump-right', 1)
+      }
+    else if (player.facing = 'standing') {
+    player.play('standing', 1)
+
+    } else if ( player.facing = 'left'){
+    player.play('face-left', 1) 
+
+    } else if ( player.facing = 'right'){
+    player.play('face-right', 1)
+    } else {
+      player.setVelocityX(0);
+
+    }
+
+
+}
 
 
 export default scene;

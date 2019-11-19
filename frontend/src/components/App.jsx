@@ -13,6 +13,9 @@ function App() {
   return (
     <div>
         <Switch>
+          {/* debugging  */}
+          <Route exact path="/testgame" component={Game} />
+          
           <ProtectedRoute exact path="/game" component={Game} />
           <AuthRoute exact path="/signup" component={Signup} />
           <AuthRoute exact path="/login" component={Login} />
