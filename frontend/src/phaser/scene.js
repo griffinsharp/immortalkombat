@@ -1,16 +1,18 @@
 import Phaser from "phaser";
 import marioSprite from './assets/sprites/mario/mario.png';
 import marioBackground from './assets/sprites/stages/mario-background.jpg';
+import floor from './assets/sprites/stages/floor.png';
 
 //global variables
 let backgroundImage;
+let floorImage;
 let mario;
 let platforms;
 let width = 900;
 let height = 600;
-let speed = 30
+let speed = 30;
 let cursors;
-let facing = 'standing'
+let facing = 'standing';
 
 
 const scene = {
@@ -39,6 +41,7 @@ function init() {
 
 function preload () {
   this.load.image('background', marioBackground);
+  this.load.image('floor', floor);
 
   this.load.spritesheet('mario', marioSprite, {
      frameWidth: 38.9,
@@ -48,14 +51,19 @@ function preload () {
 }
 
 function create() {
-  // load background 
-  backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
+  // load background
+  backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0).setScale(0.45);
   backgroundImage.smoothed = false;
 
 
-  mario = this.physics.add.sprite(300, 500, 'mario');
+  platforms = this.physics.add.staticGroup();
+  platforms.create(400, 600, 'floor').setScale(1).refreshBody();
 
-  mario.setGravityY(100)
+  mario = this.physics.add.sprite(300, 500, 'mario');
+  this.physics.add.collider(mario, platforms);
+
+  mario.setGravityY(100);
+  mario.setScale(2);
 
   mario.body.drag.x = 200;
   mario.body.drag.y = 0;
