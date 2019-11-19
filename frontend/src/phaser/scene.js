@@ -43,8 +43,6 @@ function preload () {
   this.load.spritesheet('mario', marioSprite, {
      frameWidth: 38.9,
      frameHeight: 38.2,
-    //  startFrame: 6,
-    //   endFrame: 8
     })
 
 }
@@ -57,6 +55,8 @@ function create() {
 
   mario = this.physics.add.sprite(300, 500, 'mario');
 
+  mario.setGravityY(100)
+
   mario.body.drag.x = 200;
   mario.body.drag.y = 0;
   mario.body.friction.x = 200;
@@ -67,8 +67,6 @@ function create() {
 
   // add a keyboard as cursor
     cursors = this.input.keyboard.createCursorKeys();
-
-    
 }
 
 function update(time, delta) {
@@ -120,7 +118,6 @@ function renderSprites ()  {
     repeat: -1
   });
 
-
   this.anims.create({
     key: 'jump-right',
     frames: this.anims.generateFrameNumbers('mario', {
@@ -159,6 +156,8 @@ function renderSprites ()  {
 
 function inputHandle (player, time,delta) {
 
+  // if (player.body.onFloor()) && player.play('jumping', true);
+
     if (cursors.space.isDown && (cursors.right.isDown || player.body.facing === 14)){
     player.play('hammer-right', 1)
       }
@@ -171,35 +170,34 @@ function inputHandle (player, time,delta) {
         mario.facing = 'left'
         player.play('left', 1)
     }
-    else if (cursors.right.isDown)
-    {
-
+    else if (cursors.right.isDown) {
       // player.x += speed * delta;
       player.setVelocityX(speed)
       mario.facing = 'right'
       player.play('right', 1)
     }
-    else if (cursors.up.isDown && cursors.left.isDown){
+    else if (cursors.up.isDown){
+      player.setVelocityY(-speed * 4)
       player.play('jump-left', 1)
     }
     else if (cursors.up.isDown && cursors.right.isDown){
       player.play('jump-right', 1)
-      }
-    else if (player.facing = 'standing') {
-    player.play('standing', 1)
 
-    } else if ( player.facing = 'left'){
+    } else if (player.body.facing === 13){
     player.play('face-left', 1) 
 
-    } else if ( player.facing = 'right'){
+    } else if (player.body.facing === 14){
     player.play('face-right', 1)
+
     } else {
+    
+      player.play('standing', 1)
       player.setVelocityX(0);
 
     }
 
-
 }
+
 
 
 export default scene;
