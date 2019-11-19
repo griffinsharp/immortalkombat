@@ -1,23 +1,24 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 
-class LoginForm extends React.Component {
+class SignupForm extends React.Component {
 	constructor(props) {
 		super(props);
-
 		this.state = {
+			email: "",
 			username: "",
 			password: "",
+			password2: "",
 			errors: {}
 		};
 
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.renderErrors = this.renderErrors.bind(this);
+		this.clearedErrors = false;
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.currentUser === true) {
-			this.props.history.push("/profile"); 
+		if (nextProps.signedIn === true) {
+			this.props.history.push("/profile");
 		}
 
 		this.setState({ errors: nextProps.errors });
@@ -32,13 +33,14 @@ class LoginForm extends React.Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
-
 		let user = {
+			email: this.state.email,
 			username: this.state.username,
-			password: this.state.password
+			password: this.state.password,
+			password2: this.state.password2
 		};
 
-		this.props.login(user);
+		this.props.signup(user, this.props.history);
 	}
 
 	renderErrors() {
@@ -53,9 +55,17 @@ class LoginForm extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<div className="login-form-container">
 				<form onSubmit={this.handleSubmit} className="container">
-					<div>
+					<div className="login-form">
+						<br />
+						<input
+							type="text"
+							value={this.state.email}
+							onChange={this.update("email")}
+							placeholder="Email"
+						/>
+						<br />
 						<input
 							type="text"
 							value={this.state.username}
@@ -70,8 +80,15 @@ class LoginForm extends React.Component {
 							placeholder="Password"
 						/>
 						<br />
+						<input
+							type="password"
+							value={this.state.password2}
+							onChange={this.update("password2")}
+							placeholder="Confirm Password"
+						/>
+						<br />
 						<button type="submit" className="btn btn-flat">
-							Login
+							Submit
 						</button>
 						{this.renderErrors()}
 					</div>
@@ -81,4 +98,4 @@ class LoginForm extends React.Component {
 	}
 }
 
-export default withRouter(LoginForm);
+export default withRouter(SignupForm);
