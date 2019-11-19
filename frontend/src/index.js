@@ -24,6 +24,9 @@ document.addEventListener('DOMContentLoaded',()=> {
     } else {
         store = configureStore({});
     }
+    // use logout until we have logout button on page
+    window.store = store;
+    window.logout = logout;
     const root = document.getElementById("root");
     ReactDOM.render(<Root store={store} />, root);
     // ReactDOM.render(<App />, document.getElementById("root"));
