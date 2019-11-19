@@ -13,8 +13,16 @@ mongoose
     .then(() => console.log("Connected to MongoDB successfully!"))
     .catch(err => console.log(err));
 
-io.on("connection", (socket) => {
-    socket.emit("welcome", "You are connected.");
+io
+    .of("/games")
+    .on("connection", (socket) => {
+        console.log("New Client");
+        socket.emit("welcome", "You are connected to games area.");
+
+    socket.on("joinRoom", (room) => {
+        socket.join(room);
+        return socket.emit("success", "You have successfully joined this room")
+    });
 });
 
 app.use(passport.initialize());
