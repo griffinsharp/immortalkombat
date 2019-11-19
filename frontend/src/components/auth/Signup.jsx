@@ -30,7 +30,7 @@ export default class Login extends Component {
     render() {
         return (
             <React.Fragment>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} className='container'>
 
                     <input type="email"
                         name="email"
