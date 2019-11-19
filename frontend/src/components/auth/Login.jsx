@@ -16,6 +16,7 @@ export default class Login extends Component {
         event.preventDefault();
         const user = this.state;
         //NEED TO CALL THE RIGHT API ENDPOINT
+        this.props.login(user)
     }
 
     handleChange(event) {
