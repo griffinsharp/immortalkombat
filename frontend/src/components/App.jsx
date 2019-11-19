@@ -8,7 +8,7 @@ import WaitRoom from './waitRoom'
 import Login from './auth/login_form_container'
 import Signup from './auth/signup_form_container'
 import { AuthRoute, ProtectedRoute } from '../util/route_util'
-import Profile from './Profile'
+import Profile from './profile'
 import Stats from './Stats'
 
 function App() {
