@@ -7,10 +7,7 @@ import SignupFormContainer from "./auth/signup_form_container";
 import PlayContainer from "./play/play_container";
 import MainPage from "./main/main_page";
 
-
-//components imports
 import Game from './Game'
-import Home from './Home'
 import WaitRoom from './waitRoom'
 import Stats from './stats/stats'
 import Controller from "./Controller";
