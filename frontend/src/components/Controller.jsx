@@ -22,9 +22,9 @@ export default class Controller extends Component {
                     <div className='controllerLeft'>
                         <div className='circle'></div>
                         <div className='crossCenter'>
-                            <div className='crossTop' onClick={()=>console.log(' hello')}></div>
-                            <div className='crossBottom'></div>
-                            <div className='crossLeft'></div>
+                            
+                            
+                            <div className='crossLeft' onClick={() => console.log(' hello')}></div>
                             <div className='crossRight'></div>
                             <div className='crossCircle'></div>
                         </div>
@@ -34,10 +34,10 @@ export default class Controller extends Component {
                             <div className= 'cornerLeft1'></div>
                             <div className= 'cornerRight1'></div>
                         </div>
-                        <div className='backButton2Center'>
+                        {/* <div className='backButton2Center'>
                             <div className= 'cornerLeft2'></div>
                             <div className= 'cornerRight2'></div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
