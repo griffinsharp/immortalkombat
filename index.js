@@ -18,9 +18,12 @@ io
     .on("connection", (socket) => {
         console.log("New Client");
         socket.emit("welcome", "You are connected to games area.");
-
     socket.on("joinRoom", (room) => {
         socket.join(room);
+        io
+            .of("/games")
+            .in(room)
+            .emit("newUser", `Player joined ${room}`)
         return socket.emit("success", "You have successfully joined this room")
     });
 });
