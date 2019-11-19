@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+const server = require("http").Server(app);
+const io = require("socket.io")(server);
 const bodyParser = require("body-parser");
 const passport = require("passport");
 const mongoose = require("mongoose");
@@ -10,14 +12,30 @@ mongoose
     .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log("Connected to MongoDB successfully!"))
     .catch(err => console.log(err));
-    
+
+io
+    .of("/games")
+    .on("connection", (socket) => {
+        console.log("New Client");
+        socket.emit("welcome", "You are connected to games area.");
+    socket.on("joinRoom", (room) => {
+        socket.join(room);
+        io.of("/games").in(room).emit("newUser", `Player joined ${room}`)
+    });
+    socket.on("message", (msg) => {
+        let data = JSON.parse(msg);
+        io.of("games").in(data.room).emit("message", data.msg)
+    });
+});
+
 app.use(passport.initialize());
 require("./config/passport")(passport);
-    
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use("/api/users", users);
 
 const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`Server is running on port ${port}`));
+server.listen(port, () => console.log(`Server is running on port ${port}`));
+// app.listen(port, () => console.log(`Server is running on port ${port}`));
