@@ -8,18 +8,22 @@ import WaitRoom from './waitRoom'
 import Login from './auth/login_form_container'
 import Signup from './auth/signup_form_container'
 import { AuthRoute, ProtectedRoute } from '../util/route_util'
+import Profile from './Profile'
+import Stats from './Stats'
 
 function App() {
   return (
-    <div>
+    <>
         <Switch>
           <ProtectedRoute exact path="/game" component={Game} />
           <AuthRoute exact path="/signup" component={Signup} />
           <AuthRoute exact path="/login" component={Login} />
+          <Route exact path='/stats' component={Stats} />
+          <Route exact path='/profile' component={Profile} />
           <Route exact path="/waitroom" component={WaitRoom} />
           <Route path="/" component={Home} />
         </Switch>
-    </div>
+    </>
   );
 }
 
