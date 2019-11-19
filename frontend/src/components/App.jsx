@@ -11,14 +11,12 @@ import { AuthRoute, ProtectedRoute } from '../util/route_util'
 function App() {
   return (
     <>
-    <Router>
         <Switch>
           <ProtectedRoute exact path="/game" component={Game} />
           <AuthRoute exact path="/signup" component={Signup} />
           <AuthRoute exact path="/login" component={Login} />
           <Route path="/" component={Home} />
         </Switch>
-    </Router>
     </>
   );
 }
