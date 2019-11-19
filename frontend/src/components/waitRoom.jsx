@@ -9,8 +9,8 @@ export default class WaitRoom extends Component {
             console.log("Received: ", msg);
         });
         this.socket.emit("joinRoom", "mario")
-        // this.socket.on("err", (err) => console.log(err));
-        this.socket.on("success", (res) => console.log(res));
+        this.socket.on("newUser", (res) => console.log(res));
+        this.socket.on("message", msg => console.log(msg));
     }
 
     render() {

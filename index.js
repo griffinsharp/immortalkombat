@@ -20,11 +20,11 @@ io
         socket.emit("welcome", "You are connected to games area.");
     socket.on("joinRoom", (room) => {
         socket.join(room);
-        io
-            .of("/games")
-            .in(room)
-            .emit("newUser", `Player joined ${room}`)
-        return socket.emit("success", "You have successfully joined this room")
+        io.of("/games").in(room).emit("newUser", `Player joined ${room}`)
+    });
+    socket.on("message", (msg) => {
+        let data = JSON.parse(msg);
+        io.of("games").in(data.room).emit("message", data.msg)
     });
 });
 

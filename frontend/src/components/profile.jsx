@@ -20,11 +20,8 @@ export default class Profile extends Component {
     }
     
     handleSubmit(e) {
-        e.preventDefault();
+        e.preventDefault();        
         this.socket = io.connect("http://localhost:5000/games");
-        this.socket.on("welcome", (msg) => {
-            console.log("Received: ", msg);
-        });
         this.socket.emit("joinRoom", this.state.code)
         this.socket.on('newUser', (res) => console.log(res));
         this.setState({code: ''})
@@ -34,14 +31,25 @@ export default class Profile extends Component {
         return (
             <div >
                 <Navbar /> 
-                <form onSubmit={this.handleSubmit} className='container'>
+                <form className='container'>
                     <input 
                         type="text"
                         placeholder='Code'
                         value={this.state.code}
                         onChange={this.update('code')} />
-                    <button className='btn btn-flat' type="submit">
+                    <button className='btn btn-flat' type="submit"
+                    
+                        onClick={ () => {
+                            this.socket = io.connect("http://localhost:5000/games");
+                            this.socket.emit("joinRoom", this.state.code)
+                            this.socket.on('newUser', (res) => console.log(res));
+                            this.socket.on('message', msg => console.log(msg));
+                        }}>
                         Go!
+                    </button>
+                    <button 
+                        onClick={() => this.socket.emit("message", JSON.stringify({ msg: "Hi", room: this.state.code }))}>
+                        Send Msg
                     </button>
                 </form>
             </div>
