@@ -1,0 +1,243 @@
+*{
+  margin: auto;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body{
+  background-color: #FEFEFE;
+}
+
+.controller{
+  margin-top: 100px;
+  height: 200px;
+  width: 400px;
+  background-color: #E6E6E6;
+  position: relative;
+  box-shadow: 15px 15px 15px rgba(0,0,0,0.2);
+}
+
+.controllerLeft{
+  height: 250px;
+  width: 250px;
+  background-color: #E6E6E6;
+  position: absolute;
+  border-radius: 100%;
+  margin-left: -125px;
+  box-shadow: -15px 8px 15px rgba(0,0,0,0.2);
+}
+
+.controllerRight{
+  height: 250px;
+  width: 250px;
+  background-color: #B8B8B8;
+  position: relative;
+  border-radius: 100%;
+  margin-right: -125px;
+  border: solid 15px rgba(230, 230, 230,1);
+  box-shadow: 15px 8px 15px rgba(0,0,0,0.2);
+}
+
+.circle{
+  height: 150px;
+  width: 150px;
+  background-color: #E6E6E6;
+  position: absolute;
+  border-radius: 100%;
+  border: solid 5px rgba(184, 184, 184, 1);
+  margin-left: 42px;
+  margin-top: 52px;
+}
+
+.crossCenter{
+  background-color: #333333;
+  width: 35px;
+  height: 35px;
+  margin-top: 110px;
+  margin-left: 100px;
+  position: relative;
+}
+
+.crossCircle{
+  background-color: #292929;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  border-radius: 100%;
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+.crossTop{
+  background-color: #333333;
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  border-radius: 15%;
+  margin-top: -30px;
+}
+
+.crossBottom{
+  background-color: #333333;
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  border-radius: 15%;
+  margin-top: 30px;
+}
+
+.crossLeft{
+  background-color: #333333;
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  border-radius: 15%;
+  margin-left: -30px;
+}
+
+.crossRight{
+  background-color: #333333;
+  width: 35px;
+  height: 35px;
+  position: absolute;
+  border-radius: 15%;
+  margin-left: 30px;
+}
+
+.centerBlue{
+  position: absolute;
+  width: 50px;
+  height: 20px;
+  margin-left: 175px;
+  margin-top: 30px;
+  background-color: #0099FF;
+}
+
+.centerLeft{
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  margin-left: -10px;
+  margin-top: 0px;
+  background-color: #0099FF;
+  border-radius: 100%;
+}
+
+.centerRight{
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  margin-left: 40px;
+  margin-top: 0px;
+  background-color: #0099FF;
+  border-radius: 100%;
+}
+
+.backButton1Center{
+  position: absolute;
+  width: 80px;
+  height: 50px;
+  background-color: #E6E6E6;
+  -webkit-transform: rotate(-30deg);
+  margin-top: 60px;
+  margin-left: 45px;
+}
+
+.backButton2Center{
+  position: absolute;
+  width: 80px;
+  height: 50px;
+  background-color: #E6E6E6;
+  -webkit-transform: rotate(-30deg);
+  margin-top: 115px;
+  margin-left: 90px;
+}
+
+.cornerLeft1{
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: #00B800;
+  border-radius: 100%;
+  margin-left: -20px;
+  border: solid 5px rgba(230, 230, 230, 1)
+}
+
+.cornerRight1{
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: #6699FF;
+  border-radius: 100%;
+  margin-left: 60px;
+  border: solid 5px rgba(230, 230, 230, 1)
+}
+
+.cornerLeft2{
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: #CFCF00;
+  border-radius: 100%;
+  margin-left: -20px;
+  border: solid 5px rgba(230, 230, 230, 1)
+}
+
+.cornerRight2{
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: #7D230D;
+  border-radius: 100%;
+  margin-left: 60px;
+  border: solid 5px rgba(230, 230, 230, 1)
+}
+
+.centerStart{
+  background-color: #B8B8B8;
+  position: absolute;
+  height: 35px;
+  width: 10px;
+  margin-left: 180px;
+  margin-top: 110px;
+  -webkit-transform: rotate(20deg);
+}
+
+.centerSelect{
+  background-color: #B8B8B8;
+  position: absolute;
+  height: 35px;
+  width: 10px;
+  margin-left: 205px;
+  margin-top: 110px;
+  -webkit-transform: rotate(20deg);
+}
+
+.SLeft{
+  background-color: #B8B8B8;
+  position: absolute;
+  border-radius: 100%;
+  height: 10px;
+  width: 10px;
+  margin-top: 30px;
+}
+
+.SRight{
+  background-color: #B8B8B8;
+  position: absolute;
+  border-radius: 100%;
+  height: 10px;
+  width: 10px;
+  margin-top: -5px;
+}
+
+.cable{
+  background-color: black;
+  width: 10px;
+  height: 150px;
+  position: absolute;
+  margin-left: 49.7%;
+  margin-top: -100px;
+  box-shadow: 7px 8px 15px rgba(0,0,0,0.2);
+}

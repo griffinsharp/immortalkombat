@@ -10,6 +10,7 @@ import Signup from './auth/signup_form_container'
 import { AuthRoute, ProtectedRoute } from '../util/route_util'
 import Profile from './profile'
 import Stats from './Stats'
+import Controller from "./Controller";
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
         <Switch>
           {/* debugging  */}
           <Route exact path="/testgame" component={Game} />
-          
+          <Route path='/controller' component={Controller} />
           <ProtectedRoute exact path="/game" component={Game} />
           <AuthRoute exact path="/signup" component={Signup} />
           <AuthRoute exact path="/login" component={Login} />
