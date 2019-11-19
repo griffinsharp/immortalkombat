@@ -6,7 +6,7 @@ import Game from './Game'
 import Home from './Home'
 import Login from './auth/Login'
 import Signup from './auth/Signup'
-import { AuthRoute, ProtectedRoute } from '../../util/route_util.jsx'
+import { AuthRoute, ProtectedRoute } from '../util/route_util.jsx.js'
 
 function App() {
   return (
