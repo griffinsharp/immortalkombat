@@ -1,57 +1,103 @@
-import React, { Component } from 'react'
-//comments 
-export default class Login extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: '',
-            password: '',
-            username:'',
-            loginErrors: ''
-        }
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-    }
+import React from "react";
+import { withRouter } from "react-router-dom";
 
-    handleSubmit(event) {
-        event.preventDefault();
-        const user = this.state;
-        //NEED TO CALL THE RIGHT API ENDPOINT
-    }
+class SignupForm extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			email: "",
+			username: "",
+			password: "",
+			password2: "",
+			errors: {}
+		};
 
-    handleChange(event) {
+		this.handleSubmit = this.handleSubmit.bind(this);
+		this.clearedErrors = false;
+	}
 
-        this.setState({
-            [event.target.name]: event.target.value
-        });
-    }
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.signedIn === true) {
+			this.props.history.push("/login");
+		}
 
+		this.setState({ errors: nextProps.errors });
+	}
 
-    render() {
-        return (
-            <React.Fragment>
-                <form onSubmit={this.handleSubmit} className='container'>
+	update(field) {
+		return e =>
+			this.setState({
+				[field]: e.currentTarget.value
+			});
+	}
 
-                    <input type="email"
-                        name="email"
-                        placeholder="email"
-                        defaultValue={this.state.email} onChange={this.handleChange} required />
+	handleSubmit(e) {
+		e.preventDefault();
+		let user = {
+			email: this.state.email,
+			username: this.state.username,
+			password: this.state.password,
+			password2: this.state.password2
+		};
 
-                    <input type="username"
-                        name="username"
-                        placeholder="username"
-                        defaultValue={this.state.username} onChange={this.handleChange} required />
+		this.props.signup(user, this.props.history);
+	}
 
-                    <input type="password"
-                        name="password"
-                        placeholder="password"
-                        defaultValue={this.state.passowrd} onChange={this.handleChange} required />
+	renderErrors() {
+		return (
+			<ul>
+				{Object.keys(this.state.errors).map((error, i) => (
+					<li key={`error-${i}`}>{this.state.errors[error]}</li>
+				))}
+			</ul>
+		);
+	}
 
-                    <button type='submit' className='btn btn-flat'>
-                        Login
-                        </button>
-                </form>
-            </React.Fragment>
-        )
-    }
+	render() {
+		return (
+			<div className="login-form-container">
+				<form onSubmit={this.handleSubmit} className="container">
+					<div className="login-form">
+						<br />
+						<input
+							type="text"
+							value={this.state.email}
+							onChange={this.update("email")}
+							placeholder="Email"
+						/>
+						<br />
+						<input
+							type="text"
+							value={this.state.username}
+							onChange={this.update("username")}
+							placeholder="Username"
+						/>
+						<br />
+						<input
+							type="password"
+							value={this.state.password}
+							onChange={this.update("password")}
+							placeholder="Password"
+						/>
+						<br />
+						<input
+							type="password"
+							value={this.state.password2}
+							onChange={this.update("password2")}
+							placeholder="Confirm Password"
+						/>
+						<br />
+						<button type="submit" className="btn btn-flat">
+							Submit
+						</button>
+						{/* <input type="submit" value="Submit" /> */}
+						{this.renderErrors()}
+					</div>
+				</form>
+			</div>
+		);
+	}
 }
+
+export default withRouter(SignupForm);
+
