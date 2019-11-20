@@ -17,6 +17,14 @@ export default class Play extends Component {
 			});
 	}
 
+	createAction(action) {
+		return JSON.stringify({
+			action: action,
+			username: this.state.username,
+			room: this.state.code
+		});
+	}
+
 	render() {
 		return (
 			<div>
@@ -46,16 +54,26 @@ export default class Play extends Component {
 						onClick={() =>
 							this.socket.emit(
 								"message",
-								JSON.stringify({
-									action: "send msg",
-									username: this.state.username,
-									room: this.state.code
-								})
-							)
-						}
-					>
-						Send Msg
-					</button>
+								this.createAction('up'))}
+					>up</button>
+					<button
+						onClick={() =>
+							this.socket.emit(
+								"message",
+								this.createAction('down'))}
+					>down</button>
+					<button
+						onClick={() =>
+							this.socket.emit(
+								"message",
+								this.createAction('jump'))}
+					>jump</button>
+					<button
+						onClick={() =>
+							this.socket.emit(
+								"message",
+								this.createAction('hammer'))}
+					>hammer</button>
 				</form>
 			</div>
 		);
