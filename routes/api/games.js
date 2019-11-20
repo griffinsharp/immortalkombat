@@ -13,3 +13,4 @@ router.post('/',(req,res)=>{
     });
     newGame.save().then((game) => res.json(game))
 })
+//new
