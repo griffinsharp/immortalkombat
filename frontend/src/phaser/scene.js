@@ -5,6 +5,7 @@ import marioBackground from './assets/sprites/stages/mario-background.jpg';
 import floor from './assets/sprites/stages/floor.png';
 import gameOver from './assets/sprites/stages/gameover1.png';
 import pipe from './assets/sprites/stages/pipe.png';
+import pipeRotated from './assets/sprites/stages/piperotated.png';
 import {renderSprites} from './sprite_animation';
 import {inputKeyboardHandle} from './inputs';
 import {hammerTime, checkHealth} from './attack';
@@ -72,6 +73,7 @@ function init() {
 function preload () {
   this.load.image('background', marioBackground);
   this.load.image('pipe', pipe);
+  this.load.image('pipeRotated', pipeRotated);
   this.load.image('floor', floor);
 
   this.load.spritesheet('mario', marioSprite, {
@@ -95,7 +97,8 @@ function create() {
 
 
   platforms = this.physics.add.staticGroup();
-  platforms.create(100, 500, 'pipe').setScale(0.4).refreshBody();
+  platforms.create(70, 500, 'pipe').setScale(0.4).refreshBody();
+  platforms.create(850, 430, 'pipeRotated').setScale(0.4).refreshBody();
   platforms.create(400, 600, 'floor').setScale(1).refreshBody();
 
   //define players init pos
