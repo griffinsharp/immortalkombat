@@ -16,7 +16,14 @@ export default class WaitRoom extends Component {
         this.socket = io.connect("http://localhost:5000/games");
         this.socket.on("welcome", (msg) => console.log("Received: ", msg));
         this.socket.emit("joinRoom", JSON.stringify(this.state));
-        this.socket.on("newUser", (res) => console.log(res));
+        this.socket.on("newUser", (res) => {
+            let data = JSON.parse(res)
+            console.log(data.msg)
+            if (this.players.length < 3 && data.username !== 'Game'){
+                this.players.push(data.username);
+            }
+            console.log(this.players);
+        });
         this.socket.on("message", msg => console.log(msg));
     }
 

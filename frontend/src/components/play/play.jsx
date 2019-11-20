@@ -33,7 +33,10 @@ export default class Play extends Component {
 						onClick={() => {
 							this.socket = io.connect("http://localhost:5000/games");
 							this.socket.emit("joinRoom", JSON.stringify(this.state));
-							this.socket.on("newUser", res => console.log(res));
+							this.socket.on("newUser", res => {
+								let data = JSON.parse(res);
+								console.log(data.msg);
+							});
 							this.socket.on("message", msg => console.log(msg));
 						}}
 					>

@@ -22,7 +22,10 @@ io
         let msg = JSON.parse(data);
         socket.join(msg.code);
         io.of("/games").in(msg.code)
-            .emit("newUser", `${msg.username} joined ${msg.code}`)
+            .emit("newUser", JSON.stringify({
+                msg: `${msg.username} joined ${msg.code}`,
+                username: msg.username
+            }))
     });
     socket.on("message", (data) => {
         let msg = JSON.parse(data);
@@ -40,4 +43,3 @@ app.use("/api/users", users);
 
 const port = process.env.PORT || 5000;
 server.listen(port, () => console.log(`Server is running on port ${port}`));
-// app.listen(port, () => console.log(`Server is running on port ${port}`));
