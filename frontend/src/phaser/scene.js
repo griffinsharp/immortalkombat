@@ -15,8 +15,8 @@ let width = 900;
 let height = 600;
 let speed = 100;
 let cursors;
-let lPrevFacing;
-let mPrevFacing;
+let lPrevFacing; // Array< currentFacingValue, prevFacingValue >
+let mPrevFacing; // Array< currentFacingValue, prevFacingValue >
 
 
 const scene = {
@@ -72,8 +72,8 @@ function create() {
   luigi = this.physics.add.sprite(300, 510, 'luigi');
   mario = this.physics.add.sprite(600, 510, 'mario');
 
-  mPrevFacing = mario.body.facing
-  lPrevFacing = luigi.body.facing
+  mPrevFacing = [mario.body.facing, mario.body.facing, 0]
+  lPrevFacing = [luigi.body.facing, mario.body.facing, 0]
 
   // set colision and global phisycs
   this.physics.add.collider(platforms, mario);
@@ -93,10 +93,10 @@ function create() {
   // add a keyboard as cursor
     cursors = this.input.keyboard.createCursorKeys();
 }
-
+// c=13 prev 10
 function update(time, delta) {
-  if (mario.body.facing !== mPrevFacing) { mPrevFacing = mario.body.facing }
-  if (luigi.body.facing !== lPrevFacing) { lPrevFacing = luigi.body.facing }
+  if (mario.body.facing !== mPrevFacing[0]) { mPrevFacing[1] = mPrevFacing[0]; mPrevFacing[0] = mario.body.facing }
+  if (luigi.body.facing !== lPrevFacing[0]) { lPrevFacing[1] = lPrevFacing[0]; lPrevFacing[0] = luigi.body.facing }
   inputHandle.apply(this, [{mario, luigi}, speed, cursors, time, delta, {mPrevFacing, lPrevFacing}])
 }
 
