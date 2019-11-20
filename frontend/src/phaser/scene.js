@@ -17,6 +17,10 @@ let speed = 100;
 let cursors;
 let marioSwingTimer = false;
 let luigiSwingTimer = false;
+let marioFacing = 'left';
+let luigiFacing = 'right';
+let setMarioFacing = (facing) => {marioFacing = facing}
+let setLuigiFacing = (facing) => {luigiFacing = facing}
 let lPrevFacing; // Array< currentFacingValue, prevFacingValue >
 let mPrevFacing; // Array< currentFacingValue, prevFacingValue >
 
@@ -134,14 +138,13 @@ function hammerTime(mario, luigi) {
     luigiSwingTimer = true;
     window.setTimeout(() => { luigiSwingTimer = false; }, 2000);
   }
-
+}
 
 
 function update(time, delta) {
   if (mario.body.facing !== mPrevFacing[0]) { mPrevFacing[1] = mPrevFacing[0]; mPrevFacing[0] = mario.body.facing }
   if (luigi.body.facing !== lPrevFacing[0]) { lPrevFacing[1] = lPrevFacing[0]; lPrevFacing[0] = luigi.body.facing }
-  inputHandle.apply(this, [{mario, luigi}, speed, cursors, time, delta, {mPrevFacing, lPrevFacing}])
-
+  inputHandle.apply(this, [{mario, luigi}, speed, cursors, time, delta, {marioFacing, luigiFacing, setLuigiFacing, setMarioFacing}])
 }
 
 export default scene;
