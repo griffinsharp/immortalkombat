@@ -3,7 +3,7 @@ import marioSprite from './assets/sprites/mario/mario.png';
 import luigiSprite from './assets/sprites/luigi/luigi.png';
 import marioBackground from './assets/sprites/stages/mario-background.jpg';
 import floor from './assets/sprites/stages/floor.png';
-import gameOver from './assets/sprites/stages/gameover.png';
+import gameOver from './assets/sprites/stages/gameover1.png';
 import pipe from './assets/sprites/stages/pipe.png';
 import {renderSprites} from './sprite_animation';
 import {inputHandle} from './inputs';
