@@ -3,12 +3,19 @@ import * as io from "socket.io-client";
 
 export default class WaitRoom extends Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            code: `${Math.floor(10000 + Math.random() * 90000)}`
+        }
+    }
+
     componentDidMount() {
         this.socket = io.connect("http://localhost:5000/games");
         this.socket.on("welcome", (msg) => {
             console.log("Received: ", msg);
         });
-        this.socket.emit("joinRoom", "mario")
+        this.socket.emit("joinRoom", this.state.code);
         this.socket.on("newUser", (res) => console.log(res));
         this.socket.on("message", msg => console.log(msg));
     }
@@ -17,6 +24,11 @@ export default class WaitRoom extends Component {
         return (
             <div className="waitroom-container">
                 WaitRoom
+                <br/>
+                <p>
+                    Enter the following code on your phone
+                </p>
+                <span>{this.state.code}</span>
             </div>
         )
     }
