@@ -8,7 +8,6 @@ export default class Play extends Component {
 			code: "",
 			username: this.props.currentUser.username
 		};
-		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
 	update(field) {
@@ -16,14 +15,6 @@ export default class Play extends Component {
 			this.setState({
 				[field]: e.currentTarget.value
 			});
-	}
-
-	handleSubmit(e) {
-		e.preventDefault();
-		this.socket = io.connect("http://localhost:5000/games");
-		this.socket.emit("joinRoom", this.state.code);
-		this.socket.on("newUser", res => console.log(res));
-		this.setState({ code: "" });
 	}
 
 	render() {
@@ -41,7 +32,7 @@ export default class Play extends Component {
 						type="submit"
 						onClick={() => {
 							this.socket = io.connect("http://localhost:5000/games");
-							this.socket.emit("joinRoom", this.state.code);
+							this.socket.emit("joinRoom", JSON.stringify(this.state));
 							this.socket.on("newUser", res => console.log(res));
 							this.socket.on("message", msg => console.log(msg));
 						}}
@@ -52,7 +43,11 @@ export default class Play extends Component {
 						onClick={() =>
 							this.socket.emit(
 								"message",
-								JSON.stringify({ msg: "Hi", room: this.state.code })
+								JSON.stringify({
+									action: "send msg",
+									username: this.state.username,
+									room: this.state.code
+								})
 							)
 						}
 					>

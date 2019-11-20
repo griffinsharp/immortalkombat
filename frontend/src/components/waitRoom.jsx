@@ -9,14 +9,13 @@ export default class WaitRoom extends Component {
             code: `${Math.floor(10000 + Math.random() * 90000)}`,
             username: 'Game'
         }
+        this.players = [];
     }
 
     componentDidMount() {
         this.socket = io.connect("http://localhost:5000/games");
-        this.socket.on("welcome", (msg) => {
-            console.log("Received: ", msg);
-        });
-        this.socket.emit("joinRoom", this.state.code);
+        this.socket.on("welcome", (msg) => console.log("Received: ", msg));
+        this.socket.emit("joinRoom", JSON.stringify(this.state));
         this.socket.on("newUser", (res) => console.log(res));
         this.socket.on("message", msg => console.log(msg));
     }

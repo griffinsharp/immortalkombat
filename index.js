@@ -18,13 +18,15 @@ io
     .on("connection", (socket) => {
         console.log("New Client");
         socket.emit("welcome", "You are connected to games area.");
-    socket.on("joinRoom", (room) => {
-        socket.join(room);
-        io.of("/games").in(room).emit("newUser", `Player joined ${room}`)
+    socket.on("joinRoom", (data) => {
+        let msg = JSON.parse(data);
+        socket.join(msg.code);
+        io.of("/games").in(msg.code)
+            .emit("newUser", `${msg.username} joined ${msg.code}`)
     });
-    socket.on("message", (msg) => {
-        let data = JSON.parse(msg);
-        io.of("games").in(data.room).emit("message", data.msg)
+    socket.on("message", (data) => {
+        let msg = JSON.parse(data);
+        io.of("games").in(msg.room).emit("message", msg)
     });
 });
 
