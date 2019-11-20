@@ -112,7 +112,7 @@ export function inputHandle ({luigi, mario}, speed, cursors, time, delta, {mPrev
 
   // play animation if body in the air
 
-  console.log(luigi.body.facing, lPrevFacing)
+ 
 if (!luigi.body.touching.down){
     if (lPrevFacing === 13) {
         luigi.play('l-jump-left', 1).setCrop(0, 1, 43, 42);

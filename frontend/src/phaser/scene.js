@@ -17,6 +17,8 @@ let speed = 100;
 let cursors;
 let lPrevFacing;
 let mPrevFacing;
+let marioSwingTimer = false;
+let luigiSwingTimer = false;
 
 
 const scene = {
@@ -75,9 +77,15 @@ function create() {
   mPrevFacing = mario.body.facing
   lPrevFacing = luigi.body.facing
 
+
   // set colision and global phisycs
   this.physics.add.collider(platforms, mario);
   this.physics.add.collider(platforms, luigi);
+  // this.physics.add.collider(mario, luigi);
+  this.physics.add.overlap(mario, luigi, hammerTime, null, this);
+
+  
+
 
   [luigi, mario].forEach( player => {
     player.setGravityY(100);
@@ -92,12 +100,49 @@ function create() {
   renderSprites.apply(this, [luigi, mario]);
   // add a keyboard as cursor
     cursors = this.input.keyboard.createCursorKeys();
+
+
+  
 }
+
 
 function update(time, delta) {
   if (mario.body.facing !== mPrevFacing) { mPrevFacing = mario.body.facing }
   if (luigi.body.facing !== lPrevFacing) { lPrevFacing = luigi.body.facing }
-  inputHandle.apply(this, [{mario, luigi}, speed, cursors, time, delta, {mPrevFacing, lPrevFacing}])
+  inputHandle.apply(this, [{ mario, luigi }, speed, cursors, time, delta, { mPrevFacing, lPrevFacing }])
+}
+
+function hammerTime(mario, luigi) {
+  // given mario and luigi are colliding:
+  // mario hammering right, facing right, and luigi is to the right of mario
+  if ((mario.anims.getCurrentKey() === 'm-hammer-right') && (mario.body.facing === 14) && (mario.x < luigi.x) && (marioSwingTimer === false)) {
+    console.log("mario hits luigi with a right swing from the left of luigi");
+    marioSwingTimer = true;
+    window.setTimeout( () => { marioSwingTimer = false; }, 2000);
+  
+
+
+    // mario hammering left, facing left, and luigi is to the left of mario
+  } else if ((mario.anims.getCurrentKey() === 'm-hammer-left') && (mario.body.facing === 13) && (mario.x > luigi.x) && (marioSwingTimer === false)) {
+    console.log("mario hits luigi with a left swing from the right of luigi");
+    marioSwingTimer = true;
+    window.setTimeout(() => { marioSwingTimer = false; }, 2000);
+    
+
+    // luigi hammering right, facing right, and mario is to the right of luigi
+  } else if ((luigi.anims.getCurrentKey() === 'l-hammer-right') && (luigi.body.facing === 14) && (luigi.x < mario.x) && (luigiSwingTimer === false)) {
+    console.log("luigi hits mario with a right swing from the left of mario");
+    luigiSwingTimer = true;
+    window.setTimeout(() => { luigiSwingTimer = false; }, 2000);
+
+    // luigi hammering left, facing left, and mario is to the left of luigi
+  } else if ((luigi.anims.getCurrentKey() === 'l-hammer-left') && (luigi.body.facing === 13) && (luigi.x > mario.x) && (luigiSwingTimer === false)) {
+    console.log("luigi hits mario with a left swing from the right of mario");
+    luigiSwingTimer = true;
+    window.setTimeout(() => { luigiSwingTimer = false; }, 2000);
+  }
+
+
 }
 
 export default scene;
