@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import * as io from "socket.io-client";
 
 export default class Play extends Component {
 	constructor(props) {
@@ -17,14 +16,6 @@ export default class Play extends Component {
 			});
 	}
 
-	createAction(action) {
-		return JSON.stringify({
-			action: action,
-			username: this.state.username,
-			room: this.state.code
-		});
-	}
-
 	render() {
 		return (
 			<div>
@@ -39,41 +30,10 @@ export default class Play extends Component {
 						className="btn btn-flat"
 						type="submit"
 						onClick={() => {
-							this.socket = io.connect("http://localhost:5000/games");
-							this.socket.emit("joinRoom", JSON.stringify(this.state));
-							this.socket.on("newUser", res => {
-								let data = JSON.parse(res);
-								console.log(data.msg);
-							});
-							this.socket.on("message", msg => console.log(msg));
-						}}
-					>
-						Go!
-					</button>
-					<button
-						onClick={() =>
-							this.socket.emit(
-								"message",
-								this.createAction('up'))}
-					>up</button>
-					<button
-						onClick={() =>
-							this.socket.emit(
-								"message",
-								this.createAction('down'))}
-					>down</button>
-					<button
-						onClick={() =>
-							this.socket.emit(
-								"message",
-								this.createAction('jump'))}
-					>jump</button>
-					<button
-						onClick={() =>
-							this.socket.emit(
-								"message",
-								this.createAction('hammer'))}
-					>hammer</button>
+							this.props.addGameRoom(this.state.code)
+							this.props.history.push('/controller')}
+						}
+					>Go!</button>
 				</form>
 			</div>
 		);
