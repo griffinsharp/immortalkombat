@@ -10,7 +10,7 @@ import MainPage from "./main/main_page";
 import Game from './Game'
 import WaitRoom from './waitRoom'
 import Stats from './stats/stats'
-import Controller from "./Controller";
+import ControllerContainer from "./controller/controller_container";
 
 function App() {
   return (
@@ -26,7 +26,7 @@ function App() {
 				{/* <ProtectedRoute exact path="/game" component={Game} /> */}
 
 				<Route exact path="/testgame" component={Game} />
-				<Route path="/controller" component={Controller} />
+				<ProtectedRoute path="/controller" component={ControllerContainer} />
 				<Route exact path="/waitroom" component={WaitRoom} />
 			</Switch>
 		</div>
