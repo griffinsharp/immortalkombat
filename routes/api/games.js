@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const passport = require("passport");
-const keys = require("../../config/keys");
 const Game = require("../../models/Game");
 
 router.post('/',(req,res)=>{
@@ -13,4 +12,5 @@ router.post('/',(req,res)=>{
     });
     newGame.save().then((game) => res.json(game))
 })
-//new
+//we could need validations if we want for the game but lets add them after 
+// checking if it works 
