@@ -21,6 +21,12 @@ export default class WaitRoom extends Component {
             console.log(data.msg)
             if (this.players.length < 3 && data.username !== 'Game'){
                 this.players.push(data.username);
+                if (this.players.length === 2) {
+                    window.localStorage.setItem('gameRoom', JSON.stringify({
+                        code: this.state.code,
+                        players: this.players
+                    }))
+                }
             }
             console.log(this.players);
         });
