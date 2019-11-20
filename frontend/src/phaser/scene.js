@@ -16,9 +16,13 @@ let width = 900;
 let height = 600;
 let speed = 100;
 let cursors;
-let lPrevFacing;
-let mPrevFacing;
 
+let marioFacing = 'left';
+let luigiFacing = 'right';
+let setMarioFacing = (facing) => {marioFacing = facing}
+let setLuigiFacing = (facing) => {luigiFacing = facing}
+let lPrevFacing; // Array< currentFacingValue, prevFacingValue >
+let mPrevFacing; // Array< currentFacingValue, prevFacingValue >
 
 const scene = {
   game: {
@@ -105,7 +109,6 @@ function create() {
 
   
 }
-
 
 function update(time, delta) {
   if (mario.body.facing !== mPrevFacing) { mPrevFacing = mario.body.facing }

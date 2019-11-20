@@ -69,8 +69,8 @@ export function renderSprites (luigi, mario)  {
   this.anims.create({
     key: 'm-jump-right',
     frames: this.anims.generateFrameNumbers('mario', {
-       start: 10,
-        end: 11 }),
+      frames: [10]
+         }),
     frameRate: 5,
     repeat: -1
   });
@@ -78,8 +78,8 @@ export function renderSprites (luigi, mario)  {
   this.anims.create({
     key: 'm-jump-left',
     frames: this.anims.generateFrameNumbers('mario', {
-       start: 8,
-        end: 9 }),
+      frames: [9] 
+         }),
     frameRate: 5,
     repeat: -1
   });
@@ -89,7 +89,7 @@ export function renderSprites (luigi, mario)  {
     frames: this.anims.generateFrameNumbers('mario',
     { frames: [30, 29, 28, 27, 26, 25, 24] }),
     frameRate: 9,
-    repeat: -1
+    repeat: 1
   });
 
   this.anims.create({
@@ -97,7 +97,7 @@ export function renderSprites (luigi, mario)  {
     frames: this.anims.generateFrameNumbers('mario', {
        frames: [16, 17, 18, 19, 20, 21, 22] }),
     frameRate: 9,
-    repeat: -1
+    repeat: 1
   });
 
 
@@ -162,8 +162,8 @@ export function renderSprites (luigi, mario)  {
   this.anims.create({
     key: 'l-jump-right',
     frames: this.anims.generateFrameNumbers('luigi', {
-       start: 9,
-        end: 10}),
+      frames: [10]
+        }),
     frameRate: 5,
     repeat: -1
   });
@@ -171,8 +171,8 @@ export function renderSprites (luigi, mario)  {
   this.anims.create({
     key: 'l-jump-left',
     frames: this.anims.generateFrameNumbers('luigi', {
-       start: 11,
-        end: 12 }),
+      frames: [9]
+         }),
     frameRate: 5,
     repeat: -1
   });
