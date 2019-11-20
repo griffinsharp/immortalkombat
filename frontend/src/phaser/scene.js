@@ -4,7 +4,7 @@ import luigiSprite from './assets/sprites/luigi/luigi.png';
 import marioBackground from './assets/sprites/stages/mario-background.jpg';
 import floor from './assets/sprites/stages/floor.png';
 import {renderSprites} from './sprite_animation';
-import {inputHandle} from './inputs';
+import {inputKeyboardHandle} from './inputs';
 import {hammerTime, checkHealth} from './attack';
 import * as io from 'socket.io-client'
 
@@ -19,6 +19,7 @@ let width = 900;
 let height = 600;
 let speed = 100;
 let cursors;
+let gameState;
 
 let marioFacing = 'left';
 let luigiFacing = 'right';
@@ -52,17 +53,17 @@ const scene = {
 
 
 function init() {
-  socket = io.connect("http://localhost:5000/games");
-  const gameState = JSON.parse(window.localStorage.getItem('gameRoom'))
 
-  console.log(gameState)
-
-  socket.on("welcome", (msg) => console.log("Received: ", msg));
-  // connect to the server room
-  socket.emit("joinRoom", JSON.stringify({code: gameState.code, username: "game"}));
+  // socket = io.connect("http://localhost:5000/games");
+  // gameState = JSON.parse(window.localStorage.getItem('gameRoom'))
 
 
-  socket.on("message", msg => console.log(msg));
+  // socket.on("welcome", (msg) => console.log("Received: ", msg));
+  // // connect to the server room
+  // socket.emit("joinRoom", JSON.stringify({code: gameState.code, username: "game"}));
+
+
+  // socket.on("message", msg => console.log(msg));
   
 }
 
@@ -97,7 +98,9 @@ function create() {
   luigi = this.physics.add.sprite(300, 410, 'luigi');
   mario = this.physics.add.sprite(600, 410, 'mario');
 
-  
+  // assign username to player
+  // luigi.setName(gameState.players[0])
+  // mario.setName(gameState.players[1])
 
   //set default hitbox size
   mario.setSize(14,31)
@@ -137,7 +140,7 @@ function create() {
 }
 
 function update(time, delta) {
-  inputHandle.apply(this, [{ mario, luigi }, speed, cursors, time, delta, { marioFacing, luigiFacing, setMarioFacing, setLuigiFacing}]);
+ inputKeyboardHandle.apply(this, [{ mario, luigi }, speed, cursors, time, delta, {gameState, marioFacing, luigiFacing, setMarioFacing, setLuigiFacing}]);
   checkHealth();
 
 
