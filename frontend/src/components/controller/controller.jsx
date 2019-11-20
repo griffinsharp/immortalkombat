@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 
 export default class Controller extends Component {
+
+    componentDidMount() {
+        console.log(this.props.game.room);
+    }
+
     render() {
         return (
             <div>
