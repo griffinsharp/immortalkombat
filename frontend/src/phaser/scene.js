@@ -3,6 +3,8 @@ import marioSprite from './assets/sprites/mario/mario.png';
 import luigiSprite from './assets/sprites/luigi/luigi.png';
 import marioBackground from './assets/sprites/stages/mario-background.jpg';
 import floor from './assets/sprites/stages/floor.png';
+import gameOver from './assets/sprites/stages/gameover.png';
+import pipe from './assets/sprites/stages/pipe.png';
 import {renderSprites} from './sprite_animation';
 import {inputHandle} from './inputs';
 import {hammerTime, checkHealth} from './attack';
@@ -48,6 +50,7 @@ function init() {
 
 function preload () {
   this.load.image('background', marioBackground);
+  this.load.image('pipe', pipe);
   this.load.image('floor', floor);
 
   this.load.spritesheet('mario', marioSprite, {
@@ -69,6 +72,7 @@ function create() {
 
 
   platforms = this.physics.add.staticGroup();
+  platforms.create(100, 500, 'pipe').setScale(0.4).refreshBody();
   platforms.create(400, 600, 'floor').setScale(1).refreshBody();
 
   //define players init pos
@@ -100,8 +104,6 @@ function create() {
   renderSprites.apply(this, [luigi, mario]);
   // add a keyboard as cursor
     cursors = this.input.keyboard.createCursorKeys();
-
-
   
 }
 
