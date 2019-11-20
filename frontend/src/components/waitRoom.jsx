@@ -6,7 +6,8 @@ export default class WaitRoom extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            code: `${Math.floor(10000 + Math.random() * 90000)}`
+            code: `${Math.floor(10000 + Math.random() * 90000)}`,
+            username: 'Game'
         }
     }
 

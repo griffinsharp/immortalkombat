@@ -5,7 +5,8 @@ export default class Play extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			code: ""
+			code: "",
+			username: this.props.currentUser.username
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
