@@ -3,8 +3,9 @@ import marioSprite from './assets/sprites/mario/mario.png';
 import luigiSprite from './assets/sprites/luigi/luigi.png';
 import marioBackground from './assets/sprites/stages/mario-background.jpg';
 import floor from './assets/sprites/stages/floor.png';
-import {renderSprites} from './sprite_animation'
-import {inputHandle} from './inputs'
+import {renderSprites} from './sprite_animation';
+import {inputHandle} from './inputs';
+import {hammerTime, checkHealth} from './attack';
 
 //global variables
 let backgroundImage;
@@ -15,15 +16,13 @@ let width = 900;
 let height = 600;
 let speed = 100;
 let cursors;
-let marioSwingTimer = false;
-let luigiSwingTimer = false;
+
 let marioFacing = 'left';
 let luigiFacing = 'right';
 let setMarioFacing = (facing) => {marioFacing = facing}
 let setLuigiFacing = (facing) => {luigiFacing = facing}
 let lPrevFacing; // Array< currentFacingValue, prevFacingValue >
 let mPrevFacing; // Array< currentFacingValue, prevFacingValue >
-
 
 const scene = {
   game: {
@@ -85,7 +84,9 @@ function create() {
   // set colision and global phisycs
   this.physics.add.collider(platforms, mario);
   this.physics.add.collider(platforms, luigi);
-  // this.physics.add.collider(mario, luigi);
+
+  // overlap does its own built in bind, so no need to do .apply here. 
+  // The scope of 'this' is preserved;
   this.physics.add.overlap(mario, luigi, hammerTime, null, this);
 
   
@@ -109,42 +110,11 @@ function create() {
   
 }
 
-function hammerTime(mario, luigi) {
-  // given mario and luigi are colliding:
-  // mario hammering right, facing right, and luigi is to the right of mario
-  if ((mario.anims.getCurrentKey() === 'm-hammer-right') && (mario.body.facing === 14) && (mario.x < luigi.x) && (marioSwingTimer === false)) {
-    console.log("mario hits luigi with a right swing from the left of luigi");
-    marioSwingTimer = true;
-    window.setTimeout( () => { marioSwingTimer = false; }, 2000);
-  
-
-
-    // mario hammering left, facing left, and luigi is to the left of mario
-  } else if ((mario.anims.getCurrentKey() === 'm-hammer-left') && (mario.body.facing === 13) && (mario.x > luigi.x) && (marioSwingTimer === false)) {
-    console.log("mario hits luigi with a left swing from the right of luigi");
-    marioSwingTimer = true;
-    window.setTimeout(() => { marioSwingTimer = false; }, 2000);
-    
-
-    // luigi hammering right, facing right, and mario is to the right of luigi
-  } else if ((luigi.anims.getCurrentKey() === 'l-hammer-right') && (luigi.body.facing === 14) && (luigi.x < mario.x) && (luigiSwingTimer === false)) {
-    console.log("luigi hits mario with a right swing from the left of mario");
-    luigiSwingTimer = true;
-    window.setTimeout(() => { luigiSwingTimer = false; }, 2000);
-
-    // luigi hammering left, facing left, and mario is to the left of luigi
-  } else if ((luigi.anims.getCurrentKey() === 'l-hammer-left') && (luigi.body.facing === 13) && (luigi.x > mario.x) && (luigiSwingTimer === false)) {
-    console.log("luigi hits mario with a left swing from the right of mario");
-    luigiSwingTimer = true;
-    window.setTimeout(() => { luigiSwingTimer = false; }, 2000);
-  }
-}
-
-
 function update(time, delta) {
-  if (mario.body.facing !== mPrevFacing[0]) { mPrevFacing[1] = mPrevFacing[0]; mPrevFacing[0] = mario.body.facing }
-  if (luigi.body.facing !== lPrevFacing[0]) { lPrevFacing[1] = lPrevFacing[0]; lPrevFacing[0] = luigi.body.facing }
-  inputHandle.apply(this, [{mario, luigi}, speed, cursors, time, delta, {marioFacing, luigiFacing, setLuigiFacing, setMarioFacing}])
+  if (mario.body.facing !== mPrevFacing) { mPrevFacing = mario.body.facing }
+  if (luigi.body.facing !== lPrevFacing) { lPrevFacing = luigi.body.facing }
+  inputHandle.apply(this, [{ mario, luigi }, speed, cursors, time, delta, { mPrevFacing, lPrevFacing }]);
+  checkHealth();
 }
 
 export default scene;
