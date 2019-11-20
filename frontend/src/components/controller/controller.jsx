@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import * as io from "socket.io-client";
+import Repeatable from 'react-repeatable';
 
 export default class Controller extends Component {
 
@@ -21,7 +22,7 @@ export default class Controller extends Component {
                 let data = JSON.parse(res);
                 console.log(data.msg);
             });
-            this.socket.on("message", msg => console.log(msg));
+            // this.socket.on("message", msg => console.log(msg));
         }
     }
 
@@ -31,6 +32,23 @@ export default class Controller extends Component {
             username: this.state.username,
             room: this.state.code
         });
+    }
+
+    setAction(action) {        
+        this.socket.emit("message", this.createAction(action));
+    }
+
+    renderButton(btnClassName, action) {
+        return (
+					<Repeatable
+						className={btnClassName}
+						onPress={() => this.setAction(action)}
+						onHoldStart={() => this.setAction(action)}
+						onHold={() => this.setAction(action)}
+						onHoldEnd={() => this.setAction("")}
+						onRelease={() => this.setAction("")}
+					/>
+				);
     }
 
     render() {
@@ -54,35 +72,15 @@ export default class Controller extends Component {
                     <div className='controllerLeft'>
                         <div className='circle'></div>
                         <div className='crossCenter'>
-                            <div className='crossLeft' 
-                                onClick={() => 
-                                    this.socket.emit(
-                                        "message",
-                                        this.createAction('left'))}>
-                            </div>
-                            <div className='crossRight'
-                                onClick={() =>
-                                    this.socket.emit(
-                                        "message",
-                                        this.createAction('right'))}>
-                            </div>
+                            {this.renderButton('crossLeft', 'left')}
+                            {this.renderButton('crossRight', 'right')}
                             <div className='crossCircle'></div>
                         </div>
                     </div>
                     <div className='controllerRight'>
                         <div className='backButton1Center'>
-                            <div className= 'cornerLeft1'
-                                onClick={() =>
-                                    this.socket.emit(
-                                        "message",
-                                        this.createAction('jump'))}
-                            ></div>
-                            <div className= 'cornerRight1'
-                                onClick={() =>
-                                    this.socket.emit(
-                                        "message",
-                                        this.createAction('hammer'))}
-                            ></div>
+                            {this.renderButton('cornerLeft1', 'jump')}
+                            {this.renderButton('cornerRight1', 'hammer')}
                         </div>
                         {/* <div className='backButton2Center'>
                             <div className= 'cornerLeft2'></div>
@@ -90,30 +88,6 @@ export default class Controller extends Component {
                         </div> */}
                     </div>
                 </div>
-                {/* <button
-                    onClick={() =>
-                        this.socket.emit(
-                            "message",
-                            this.createAction('up'))}
-                >up</button>
-                <button
-                    onClick={() =>
-                        this.socket.emit(
-                            "message",
-                            this.createAction('down'))}
-                >down</button>
-                <button
-                    onClick={() =>
-                        this.socket.emit(
-                            "message",
-                            this.createAction('jump'))}
-                >jump</button>
-                <button
-                    onClick={() =>
-                        this.socket.emit(
-                            "message",
-                            this.createAction('hammer'))}
-                >hammer</button> */}
             </div>
         )
     }
