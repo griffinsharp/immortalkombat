@@ -24,9 +24,7 @@ export default class WaitRoom extends Component {
         return (
             <div className="waitroom-container">
                 WaitRoom
-
                 <br/>
-
                 <p>
                     Enter the following code on your phone
                 </p>
