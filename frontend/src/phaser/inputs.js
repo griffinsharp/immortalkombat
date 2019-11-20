@@ -72,6 +72,8 @@ export function inputHandle ({luigi, mario}, speed, cursors, time, delta, {mPrev
 
   // play animation if body in the air
 
+
+
     //going up
 // if (!luigi.body.touching.down){
 //     lPrevFacing[2] = lPrevFacing[1]
