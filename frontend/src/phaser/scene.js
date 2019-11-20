@@ -73,8 +73,8 @@ function create() {
   luigi = this.physics.add.sprite(300, 510, 'luigi');
   mario = this.physics.add.sprite(600, 510, 'mario');
 
-  mPrevFacing = mario.body.facing
-  lPrevFacing = luigi.body.facing
+  mPrevFacing = [mario.body.facing, mario.body.facing, 0]
+  lPrevFacing = [luigi.body.facing, mario.body.facing, 0]
 
 
   // set colision and global phisycs
@@ -112,10 +112,6 @@ function update(time, delta) {
   if (luigi.body.facing !== lPrevFacing) { lPrevFacing = luigi.body.facing }
   inputHandle.apply(this, [{ mario, luigi }, speed, cursors, time, delta, { mPrevFacing, lPrevFacing }]);
   checkHealth();
-
 }
-
-
-
 
 export default scene;
