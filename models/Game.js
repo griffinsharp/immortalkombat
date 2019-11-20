@@ -2,16 +2,16 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const GameSchema = new Schema({
-    playerTwo: {
+    winner: {
         type: Schema.ObjectId,
         required: true
     },
-    playerOne: {
+    loser: {
         type: Schema.ObjectId,
         required: true
     },
-    winner:{
-        type: Schema.ObjectId,
+    score: {
+        type: Number,
         required: true
     },
     date: {
