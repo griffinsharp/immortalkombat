@@ -71,6 +71,7 @@ function preload () {
   this.load.image('pipe', pipe);
   this.load.image('pipeRotated', pipeRotated);
   this.load.image('floor', floor);
+  this.load.image('gameover', gameOver);
 
   this.load.spritesheet('mario', marioSprite, {
      frameWidth: 46,
@@ -123,10 +124,10 @@ function create() {
   this.physics.add.collider(platforms, mario);
   this.physics.add.collider(platforms, luigi);
 
-  this.physics.add.collider(mario, luigi);
+  this.physics.add.collider(mario, luigi, hammerTime, null, this);
   // overlap does its own built in bind, so no need to do .apply here. 
   // The scope of 'this' is preserved;
-  // this.physics.add.overlap(mario, luigi, hammerTime, null, this);
+  this.physics.add.overlap(mario, luigi, hammerTime, null, this);
 
   
 

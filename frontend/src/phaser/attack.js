@@ -3,10 +3,13 @@ let marioSwingTimer = false;
 let luigiSwingTimer = false;
 let marioHealth = 20;
 let luigiHealth = 20;
+let gameOver = false;
 
 export function checkHealth() {
     if (marioHealth <= 0 || luigiHealth <= 0) {
         console.log('GAME OVER!');
+        let gameoverImage= this.add.image(0, 0, 'gameover').setOrigin(0, 0).setScale(0.5);
+        gameOver = true;
     }
 }
 
@@ -16,6 +19,7 @@ export function hammerTime (mario, luigi) {
     // mario hammering right, facing right, and luigi is to the right of mario
 
     if (marioHealth > 0 && luigiHealth > 0) {
+        debugger
         if ((mario.anims.getCurrentKey() === 'm-hammer-right') && (mario.body.facing === 14) && (mario.x < luigi.x) && (marioSwingTimer === false)) {
             console.log("mario hits luigi with a right swing from the left of luigi");
             luigiHealth -= 10;
