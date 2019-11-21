@@ -9,7 +9,7 @@ export default class stats extends Component {
         }
     }
     componentDidMount(){
-        axios.get('/api/user/highscore')
+        axios.get('/api/users/highscore')
         .then(res => {
             console.log(res);
             this.setState({users: res});
