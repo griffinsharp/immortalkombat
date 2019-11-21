@@ -69,8 +69,8 @@ export default class WaitRoom extends Component {
                 <h1>Waiting for players to join...</h1>
                 
                 <ol>
-                    <li>Open the website in a smartphone</li>
-                    <li>Click Join Game</li>
+                    <li>Open our website (in browser) on a smartphone</li>
+                    <li>Click 'Join Game'</li>
                     <li>Enter the code below:</li>
                 </ol>
                 <span>{this.state.code}</span>
