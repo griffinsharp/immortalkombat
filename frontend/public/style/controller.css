@@ -1,9 +1,3 @@
-*{
-  margin: auto;
-  padding: 0;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
 
 body{
   background-color: #FEFEFE;
@@ -16,6 +10,11 @@ body{
   background-color: #E6E6E6;
   position: relative;
   box-shadow: 15px 15px 15px rgba(0,0,0,0.2);
+  margin: auto;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  
 }
 
 .controllerLeft{
@@ -29,6 +28,10 @@ body{
 }
 
 .controllerRight{
+  margin: auto;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   height: 250px;
   width: 250px;
   background-color: #B8B8B8;
@@ -37,6 +40,7 @@ body{
   margin-right: -125px;
   border: solid 15px rgba(230, 230, 230,1);
   box-shadow: 15px 8px 15px rgba(0,0,0,0.2);
+  
 }
 
 .circle{
