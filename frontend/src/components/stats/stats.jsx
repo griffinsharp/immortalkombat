@@ -5,14 +5,15 @@ export default class stats extends Component {
     constructor(props){
         super(props);
         this.state={
-            users = ''
+            users:['']
         }
     }
     componentDidMount(){
         axios.get('/api/users/highscore')
         .then(res => {
-            console.log(res);
-            this.setState({users: res});
+            console.log('here')
+            console.log(res.data);
+            this.setState({users: res.data});
         })
     }
 
@@ -21,7 +22,7 @@ export default class stats extends Component {
             <div className='container'>
                 <ol>
                     {this.state.users.map((user) => {
-                    return <li>{user.username} {user.highscore}</li>
+                    return <li>{user.username} {user.highscore}</li> 
                     })}
                 </ol>
             </div>
