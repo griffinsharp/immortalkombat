@@ -1,22 +1,27 @@
 /*styling the container for homepage*/
-body{
-    background-color: #000244;
+
+.home-background {
+    background-color: #6096ff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
 }
+
 .container{
     background-color:#0093D8;
     display: flex;
     flex-direction: column; 
     width:40%;
     justify-content: center;
-    align-items: center;
     align-content: center;
-    margin:80px auto;
+    margin: auto;
     border:2px solid gray;
     border-radius:5px;
     padding:20px 60px;
+    font-family: 'Press Start 2P', cursive;
 }
 
 .title{
     /* text-align: center; */
 }
-

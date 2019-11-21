@@ -26,7 +26,7 @@ function App() {
 				{/* <ProtectedRoute exact path="/game" component={Game} /> */}
 
 				<Route exact path="/testgame" component={Game} />
-				<ProtectedRoute path="/controller" component={ControllerContainer} />
+				<ProtectedRoute patzh="/controller" component={ControllerContainer} />
 				<Route exact path="/waitroom" component={WaitRoom} />
 			</Switch>
 		</div>
