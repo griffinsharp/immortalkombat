@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import * as io from "socket.io-client";
+import mario from './assets/mario_peace.png';
+import luigi from './assets/luigi_peace.png';
 
 export default class WaitRoom extends Component {
 
@@ -41,21 +43,21 @@ export default class WaitRoom extends Component {
 
     renderPlayers() {
         if (this.players.length === 1) {
-            return <div>
-                <div>
+            return <div className="players">
+                <div >
                     <span>{this.players[0]}</span>
-                    <img src="" />
+                    <img src={mario} className="mario"/>
                 </div>
             </div>
         } else if (this.players.length === 2) {
-            return <div>
-                <div>
+            return <div className="players">
+                <div >
                     <span>{this.players[0]}</span>
-                    <img src="" />
+                    <img src={mario} className="mario"/>
                 </div>
-                <div>
+                <div >
+                    <img src={luigi} className="luigi"/>
                     <span>{this.players[1]}</span>
-                    <img src="" />
                 </div>
             </div>
         }

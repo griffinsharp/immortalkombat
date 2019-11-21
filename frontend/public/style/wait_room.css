@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .waitroom-container {
     background-color: #96cedf;
     height: 100vh;
@@ -7,3 +8,45 @@
     font-family: 'Montserrat', sans-serif;
     align-items: center;
 }
+=======
+.players {
+    width: 60%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.instructions div {
+    display: flex;
+    justify-content: center;
+}
+
+.instructions p {
+    text-align: center;
+}
+
+.players div {
+    width: 230px;
+    padding: 0;
+    display: flex;
+    /* margin-right: 200px; */
+}
+
+.players span {
+    width: 100%;
+    line-height: 400px;
+    margin: 0px 20px;
+}
+
+.mario {
+    width: 95%;
+    height: auto;
+}
+
+.luigi {
+    width: 100%;
+    height: auto;
+}
+
+
+>>>>>>> origin/master
