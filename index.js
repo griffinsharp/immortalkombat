@@ -7,6 +7,14 @@ const passport = require("passport");
 const mongoose = require("mongoose");
 const db = require('./config/keys').mongoURI;
 const users = require("./routes/api/users");
+const path = require("path");
+
+if (process.env.NODE_ENV === "production") {
+	app.use(express.static("frontend/build"));
+	app.get("/", (req, res) => {
+		res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"));
+	});
+}
 
 mongoose
     .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -16,7 +24,7 @@ mongoose
 io
     .of("/games")
     .on("connection", (socket) => {
-        console.log("New Client");
+        // console.log("New Client");
         socket.emit("welcome", "You are connected to games area.");
     socket.on("joinRoom", (data) => {
         let msg = JSON.parse(data);

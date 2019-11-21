@@ -13,7 +13,9 @@ export default class WaitRoom extends Component {
     }
 
     componentDidMount() {
-        this.socket = io.connect("http://localhost:5000/games");
+        let hostname = window.location.hostname === 'localhost' ? 
+            'http://localhost:5000/games' : `https://${window.location.hostname}/games`
+        this.socket = io.connect(hostname);
         this.socket.on("welcome", (msg) => console.log("Received: ", msg));
         this.socket.emit("joinRoom", JSON.stringify(this.state));
         this.socket.on("newUser", (res) => {
