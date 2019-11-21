@@ -23,11 +23,7 @@ let height = 600;
 let speed = 100;
 let cursors;
 let gameState;
-
-let marioFacing = 'left';
-let luigiFacing = 'right';
-let setMarioFacing = (facing) => {marioFacing = facing}
-let setLuigiFacing = (facing) => {luigiFacing = facing}
+let hammers;
 
 const scene = {
   game: {
@@ -86,8 +82,6 @@ function preload () {
      frameHeight: 42,
     })
 
-
-
 }
 
 function create() {
@@ -104,6 +98,14 @@ function create() {
   //define players init pos
   luigi = this.physics.add.sprite(300, 410, 'luigi');
   mario = this.physics.add.sprite(600, 410, 'mario');
+
+  //default facing
+  luigi.setData('facing','right')
+  mario.setData('facing','left')
+
+  //define projectile hammer
+  hammers = this.physics.add.group({ immovable: true, allowGravity: false})
+  hammers.enableBody = true;
 
   // assign username to player
   // luigi.setName(gameState.players[0])
@@ -145,15 +147,42 @@ function create() {
 }
 
 function update(time, delta) {
- inputKeyboardHandle.apply(this, [{ mario, luigi }, speed, cursors, time, delta, {gameState, marioFacing, luigiFacing, setMarioFacing, setLuigiFacing}]);
+ inputKeyboardHandle.apply(this, [{ mario, luigi }, speed, cursors, time, delta, {swingHammer, gameState}]);
   checkHealth();
-
-
-
-
-
-
 }
 
 
+function swingHammer (player) {
+    let now = this.time.now
+    let hammer;
+
+    // player facing left
+    if (player.data.values.facing === 'left'){
+      hammer = hammers.create( player.x + 40 , player.y + 25 )
+      hammer.setSize(20,20)
+      setTimeout(() =>{hammer.x = player.x + 42; hammer.y = player.y + 20}, 100)
+      setTimeout(() =>{hammer.x = player.x + 30; hammer.y = player.y + 0}, 200)
+      setTimeout(() =>{hammer.x = player.x + 0; hammer.y = player.y - 20}, 300)
+      setTimeout(() =>{hammer.x = player.x - 25; hammer.y = player.y - 5}, 400)
+      setTimeout(() =>{hammer.x = player.x - 22; hammer.y = player.y + 15}, 500)
+      // setTimeout(() =>{hammer.x = player.x - 40; hammer.y = player.y }, 600)
+      setTimeout(() =>{hammer.destroy()}, 700)
+    }else {
+      hammer = hammers.create( player.x - 25 , player.y + 30 )
+      hammer.setSize(20,20)
+      setTimeout(() =>{hammer.x = player.x - 42; hammer.y = player.y + 20}, 100)
+      setTimeout(() =>{hammer.x = player.x - 30; hammer.y = player.y + 0}, 200)
+      setTimeout(() =>{hammer.x = player.x + 0; hammer.y = player.y - 20}, 300)
+      setTimeout(() =>{hammer.x = player.x + 25; hammer.y = player.y - 5}, 400)
+      setTimeout(() =>{hammer.x = player.x + 22; hammer.y = player.y + 15}, 500)
+      // setTimeout(() =>{hammer.x = player.x - 40; hammer.y = player.y }, 600)
+      setTimeout(() =>{hammer.destroy()}, 700)
+
+    }
+
+   
+}
+
 export default scene;
+
+
