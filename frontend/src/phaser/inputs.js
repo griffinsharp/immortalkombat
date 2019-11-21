@@ -1,4 +1,4 @@
-export function inputKeyboardHandle ({luigi, mario}, speed, cursors, time, delta, {swingHammer, marioFacing, luigiFacing, setMarioFacing, setLuigiFacing}) {
+export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHammer}) {
   // if (mario.body.onFloor()) && mario.play('jumping', true);
 
 
@@ -65,6 +65,7 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, time, delta
 
     // hit with hammer
     if (cursors.space.isDown){
+      swingHammer.apply(this, [luigi])
 
       // check if right or left 
       if (luigi.data.values.facing === 'right') { luigi.play('l-hammer-right', 1).setCrop(0, 1, 43, 42);
@@ -183,7 +184,7 @@ export function handleMessage ({luigi, mario, msg}, speed, {swingHammer}) {
 
     // hit with hammer
     if (msg.action === 'hammer'){
-
+      swingHammer.apply(this, [luigi])
       // check if right or left 
       if (luigi.data.values.facing === 'right') { luigi.play('l-hammer-right', 1).setCrop(0, 1, 43, 42);
       }
