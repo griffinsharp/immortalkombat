@@ -11,9 +11,9 @@ export default class stats extends Component {
     componentDidMount(){
         axios.get('/api/users/highscore')
         .then(res => {
-            console.log('here')
-            console.log(res.data);
+                
             this.setState({users: res.data});
+            
         })
     }
 
@@ -21,10 +21,21 @@ export default class stats extends Component {
         return (
             <div className='container'>
                 <ol>
-                    {this.state.users.map((user) => {
-                    return <li>{user.username} {user.highscore}</li> 
+                    {this.state.users.map((user,idx) => {
+                    if(idx<10){
+                    return <li>{user.username} {user.highscore}</li>
+                    }
                     })}
                 </ol>
+                <hr/>
+                <hr/>
+                <>
+                {this.state.users.map((user, idx) => {
+                    if (user.username === window.store.getState().session.user.username){
+                        return <> {idx}. {user.username} {user.highscore}</>
+                    }
+                    })}
+                </>
             </div>
         )
     }
