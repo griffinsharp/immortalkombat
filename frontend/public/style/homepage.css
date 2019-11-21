@@ -1,27 +1,38 @@
 /*styling the container for homepage*/
 
-.home-background {
-    background-color: #6096ff;
+.home-container {
+    background-color: #96cedf;;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+
+.title {
+    font-family: 'Press Start 2P', sans-serif;
+    font-weight: none;
+    font-size: 50px;
+}
+
+.home-inner-container{ 
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin: 100px auto;
+    height: 100%;
+}
+
+.title {
+    font-weight: 700;
+}
+
+.tagline {
 
 }
 
-.container{
-    background-color:#0093D8;
-    display: flex;
-    flex-direction: column; 
-    width:40%;
-    justify-content: center;
-    align-content: center;
-    margin: auto;
-    border:2px solid gray;
-    border-radius:5px;
-    padding:20px 60px;
-    font-family: 'Press Start 2P', cursive;
-}
-
-.title{
-    /* text-align: center; */
+.iphone-mockup {
+    width: 30%;
+    transform: rotate(20deg)
 }

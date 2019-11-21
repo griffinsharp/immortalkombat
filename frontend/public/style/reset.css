@@ -17,6 +17,7 @@ time, mark, audio, video {
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
+	font-weight: none;
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
@@ -25,6 +26,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	background-color: #0093D8;
 }
 ol, ul {
 	list-style: none;
@@ -42,7 +44,7 @@ table {
 	border-spacing: 0;
 }
 
-/* font-family: 'Roboto', sans-serif;
+/* font-family: 'Roboto', Montserrat', sans-serif;
 font-family: 'Montserrat', sans-serif;
 font-family: 'Press Start 2P', cursive; */
 
