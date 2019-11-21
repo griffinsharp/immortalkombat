@@ -45,4 +45,9 @@
     height: auto;
 }
 
+.startmsg p {
+    padding-top: 50px;
+    text-align: center;
+}
+
 

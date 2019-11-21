@@ -11,7 +11,8 @@ export default class WaitRoom extends Component {
             code: `${Math.floor(10000 + Math.random() * 90000)}`,
             username: 'Game',
             player1: '',
-            player2: ''
+            player2: '',
+            startGame: ''
         }
         this.players = [];
     }
@@ -33,7 +34,13 @@ export default class WaitRoom extends Component {
                         code: this.state.code,
                         players: this.players
                     }))
-                    this.setState({player2: data.username});
+                    this.setState({
+                        player2: data.username,
+                        startGame: 'Starting game now...'
+                    });
+                    setTimeout(() => {
+                        this.props.history.push('/testgame')
+                    }, 3000)
                 }
             }
             console.log(this.players);
@@ -63,6 +70,12 @@ export default class WaitRoom extends Component {
         }
     }
 
+    renderStartMsg() {
+        if (this.state.startGame != '') return <div className="startmsg">
+            <p>{this.state.startGame}</p>
+        </div>
+    }
+
     render() {
         return (
             <div className="waitroom-container">
@@ -75,6 +88,7 @@ export default class WaitRoom extends Component {
                 </ol>
                 <span>{this.state.code}</span>
                 {this.renderPlayers()}
+                {this.renderStartMsg()}
             </div>
         )
     }

@@ -10,7 +10,8 @@ import {inputKeyboardHandle, handleMessage} from './inputs';
 import * as io from 'socket.io-client'
 
 //global variables
-let inputDevice = 'keyboard' || 'socket'
+// let inputDevice = 'keyboard' || 'socket'
+let inputDevice = 'socket'
 let socket;
 let debug = true;
 let backgroundImage;
