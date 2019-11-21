@@ -44,18 +44,18 @@ export default class WaitRoom extends Component {
             return <div>
                 <div>
                     <span>{this.players[0]}</span>
-                    <div>Player 1 image</div>
+                    <img src="" />
                 </div>
             </div>
         } else if (this.players.length === 2) {
             return <div>
                 <div>
                     <span>{this.players[0]}</span>
-                    <div>Player 1 image</div>
+                    <img src="" />
                 </div>
                 <div>
                     <span>{this.players[1]}</span>
-                    <div>Player 2 image</div>
+                    <img src="" />
                 </div>
             </div>
         }
