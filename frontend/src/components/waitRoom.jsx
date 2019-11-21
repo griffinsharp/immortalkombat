@@ -66,16 +66,14 @@ export default class WaitRoom extends Component {
     render() {
         return (
             <div className="waitroom-container">
-                <div className="instructions">
-                    <div>
-                        <ol>
-                            <li>Open the website in a smartphone</li>
-                            <li>Click Join Game</li> 
-                            <li>Enter the code below</li>
-                        </ol>
-                    </div>
-                    <p>{this.state.code}</p>
-                </div>
+                <h1>Waiting for players to join...</h1>
+                
+                <ol>
+                    <li>Open our website (in browser) on a smartphone</li>
+                    <li>Click 'Join Game'</li>
+                    <li>Enter the code below:</li>
+                </ol>
+                <span>{this.state.code}</span>
                 {this.renderPlayers()}
             </div>
         )
