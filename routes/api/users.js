@@ -101,5 +101,15 @@ router.get(
 	}
 );
 
+// get for highscore 
+// all the users highscores, sorted from greatest to least greatest
+router.get("/highscore", (req, res) => {
+	User
+	.find()
+	.sort({highscore: -1})
+	.then(users => res.json(users))
+	.catch(err => res.status.json(err));
+});
+
 
 module.exports = router;
