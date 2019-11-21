@@ -71,6 +71,8 @@ function init() {
 
 function preload () {
 
+  // this.load.audio('mortal_kombat', )
+
   this.load.image('background', marioBackground);
   this.load.image('pipe', pipe);
   this.load.image('pipeRotated', pipeRotated);
