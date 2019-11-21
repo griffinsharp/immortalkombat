@@ -12,25 +12,37 @@ const Home = () => {
                     <h1 className='title'>Immario Kombat</h1>
                     <h3 className='subtitle'>A Mobile Multiplayer Webgame</h3>
             </div>
-            
-            <div className='tagline'>
-                <p>
-                    Like mortal kombat and super mario bros had a baby...
-                </p>
-                <p>
-                    Use your mobile device in this 2D fighter rendition of a classic title.
-                    Duke it out as Mario and Luigi to settle the age-old discussion: who has the better moustache?. 
-                </p>
-            </div>
+            <div className="top-container">
+                    
+                    <div className='cloud-container'>
+                        <img className='cloud' src={cloud} alt="" />
+                    </div>
+                    <div className='cloud-container'>
+                        <img className='cloudtwo' src={cloud} alt="" />
+                    </div>
+                    <div className="iphone-tag">
+                        <div className='tagline'>
+                            <p>
+                                Like mortal kombat and super mario bros had a baby...
+                            </p>
+                            <p>
+                                Use your mobile device in this 2D fighter rendition of a classic title.
+                                Duke it out as Mario and Luigi to settle the age-old discussion: who has the better moustache?.
+                            </p>
+                            <button className='btn btn-play '><Link to='/game' style={{ color: 'white', textDecoration: 'none' }}>Play</Link></button>  
+                        </div>
 
-                <div className='cloud-container'>
-                    <img className='cloud' src={cloud} alt="" />
-                </div>
-            <div className='iphone-mockup-container'>
-                <img className='iphone-mockup' src={iPhone} alt=""/>
+                            <img className='iphone-mockup' src={iPhone} alt="" />
+
+                    </div>
+                    
             </div>
+            
+               
+                
            
-            <button className='btn'><Link to='/game' style={{color:'white', textDecoration:'none'}}>Play</Link></button>            
+                            
+            
         </div>
         </>
     )
