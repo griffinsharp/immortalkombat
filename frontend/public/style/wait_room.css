@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 .waitroom-container {
     background-color: #96cedf;
     height: 100vh;
@@ -8,7 +7,9 @@
     font-family: 'Montserrat', sans-serif;
     align-items: center;
 }
-=======
+
+
+
 .players {
     width: 60%;
     margin: 0 auto;
@@ -19,10 +20,6 @@
 .instructions div {
     display: flex;
     justify-content: center;
-}
-
-.instructions p {
-    text-align: center;
 }
 
 .players div {
@@ -49,4 +46,3 @@
 }
 
 
->>>>>>> origin/master
