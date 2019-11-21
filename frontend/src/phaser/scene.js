@@ -7,7 +7,7 @@ import gameOver from './assets/sprites/stages/gameover1.png';
 import pipe from './assets/sprites/stages/pipe.png';
 import pipeRotated from './assets/sprites/stages/piperotated.png';
 import {renderSprites} from './sprite_animation';
-import {inputKeyboardHandle} from './inputs';
+import {inputKeyboardHandle, handleMessage} from './inputs';
 import {hammerTime, checkHealth} from './attack';
 import * as io from 'socket.io-client'
 
@@ -53,16 +53,15 @@ const scene = {
 
 function init() {
 
-  // socket = io.connect("http://localhost:5000/games");
-  // gameState = JSON.parse(window.localStorage.getItem('gameRoom'))
+  socket = io.connect("http://localhost:5000/games");
+  gameState = JSON.parse(window.localStorage.getItem('gameRoom'))
 
 
-  // socket.on("welcome", (msg) => console.log("Received: ", msg));
-  // // connect to the server room
-  // socket.emit("joinRoom", JSON.stringify({code: gameState.code, username: "game"}));
+  socket.on("welcome", (msg) => console.log("Received: ", msg));
+  // connect to the server room
+  socket.emit("joinRoom", JSON.stringify({code: gameState.code, username: "game"}));
 
-
-  // socket.on("message", msg => console.log(msg));
+  socket.on("message", msg => handleMessage.apply(this, [{ mario, luigi, msg }, speed, {swingHammer}]));
   
 }
 
@@ -109,8 +108,8 @@ function create() {
   hammers.enableBody = true;
 
   // assign username to player
-  // luigi.setName(gameState.players[0])
-  // mario.setName(gameState.players[1])
+  luigi.setName(gameState.players[0])
+  mario.setName(gameState.players[1])
 
   //set default hitbox size
   mario.setSize(14,31)
@@ -148,7 +147,7 @@ function create() {
 }
 
 function update(time, delta) {
- inputKeyboardHandle.apply(this, [{ mario, luigi }, speed, cursors, time, delta, {swingHammer, gameState}]);
+//  inputKeyboardHandle.apply(this, [{ mario, luigi }, speed, cursors, time, delta, {swingHammer, gameState}]);
   checkHealth();
 }
 
