@@ -18,8 +18,8 @@ const Home = () => {
                     Like mortal kombat and super mario bros had a baby...
                 </p>
                 <p>
-                    Use your mobile device for this 2D fighter rendition to decide 
-                    once and for all who has the better moustache. 
+                    Use your mobile device in this 2D fighter rendition of a classic title.
+                    Duke it out as Mario and Luigi to settle the age-old discussion: who has the better moustache?. 
                 </p>
             </div>
 
