@@ -100,6 +100,14 @@ export function renderSprites (luigi, mario)  {
     repeat: 1
   });
 
+  this.anims.create({
+    key: 'm-winner',
+    frames: this.anims.generateFrameNumbers('mario', {
+       frames: [14] }),
+    frameRate: 9,
+    repeat: -1
+  });
+
 
   // lugi animation
     this.anims.create({
@@ -189,6 +197,14 @@ export function renderSprites (luigi, mario)  {
     key: 'l-hammer-left',
     frames: this.anims.generateFrameNumbers('luigi', {
        frames: [22, 21, 20, 19, 18, 17, 16] }),
+    frameRate: 9,
+    repeat: -1
+  });
+
+  this.anims.create({
+    key: 'l-winner',
+    frames: this.anims.generateFrameNumbers('luigi', {
+       frames: [14] }),
     frameRate: 9,
     repeat: -1
   });
