@@ -64,10 +64,10 @@ export default class WaitRoom extends Component {
     render() {
         return (
             <div className="waitroom-container">
-                WaitRoom
-                <br/>
+                <h1>Waiting for players to join...</h1>
+                
                 <p>
-                    Enter the following code on your phone
+                    Enter the following code on your phone:
                 </p>
                 <span>{this.state.code}</span>
                 {this.renderPlayers()}

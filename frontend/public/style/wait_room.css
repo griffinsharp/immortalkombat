@@ -1,3 +1,9 @@
-/* .waitroom-container {
-    color: white;
-} */
+.waitroom-container {
+    background-color: #96cedf;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    align-items: center;
+}

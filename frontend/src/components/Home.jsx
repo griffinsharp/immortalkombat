@@ -29,7 +29,11 @@ const Home = () => {
                                 Use your mobile device in this 2D fighter rendition of a classic title.
                                 Duke it out as Mario and Luigi to settle the age-old discussion: who has the better moustache?.
                             </p>
-                            <button className='btn btn-play '><Link to='/game' style={{ color: 'white', textDecoration: 'none' }}>Play</Link></button>  
+                            <div className="button-container">
+                                <Link to='/waitroom' ><button type="button" className='btn btn-play '>Create Game</button></Link>
+                                <Link to='/login' ><button type="button" className='btn btn-play '>Join Game</button></Link>
+                            </div>
+                            
                         </div>
 
                             <img className='iphone-mockup' src={iPhone} alt="" />

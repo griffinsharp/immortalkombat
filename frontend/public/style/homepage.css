@@ -70,21 +70,29 @@
 }
 
 .btn-play {
-    width: 155px;
-    margin: 30px auto;
-    color: white;
-      font-family: 'Montserrat', sans-serif;
-        background-color: #669aff !important;
-        padding: 0.7rem 1.75rem !important;
-        
-    
+    width: 167px !important;
+    margin: 39px auto;
+    color: white !important;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #669aff !important;
+    padding: 0.7rem 1.75rem !important;
+}
+
+.btn-play:hover {
+    background-color: #4888ff !important;
+
 }
 
 .iphone-tag {
     margin: auto;
     display: flex;
-        width: 70%;
-        flex-direction: row;
-      
+    width: 70%;
+    flex-direction: row;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
