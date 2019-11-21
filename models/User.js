@@ -14,6 +14,10 @@ const UserSchema = new Schema({
 		type: String,
 		required: true
 	},
+	highscore:{
+		type: Number,
+		default: 0
+	},
 	date: {
 		type: Date,
 		default: Date.now

@@ -8,10 +8,11 @@ router.post('/',(req,res)=>{
     const newGame = new Game({
         winner: req.body.winner,
         loser: req.body.loser, 
-        score: req.body.score
+        winnerScore: req.body.score,
+        loserScore: req.body.score
     });
     newGame.save().then((game) => res.json(game))
 })
-//
+//  
 //we could need validations if we want for the game but lets add them after 
 // checking if it works 

@@ -10,7 +10,11 @@ const GameSchema = new Schema({
         type: Schema.ObjectId,
         required: true
     },
-    score: {
+    winnerScore: {
+        type: Number,
+        required: true
+    },
+    loserScore: {
         type: Number,
         required: true
     },
