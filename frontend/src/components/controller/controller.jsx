@@ -16,7 +16,9 @@ export default class Controller extends Component {
         if (this.state.code === undefined) {
             this.props.history.push('/play')
         } else {
-            this.socket = io.connect("http://localhost:5000/games");
+            let hostname = window.location.hostname === 'localhost' ? 
+            'http://localhost:5000/games' : `https://${window.location.hostname}/games`
+            this.socket = io.connect(hostname);
             this.socket.emit("joinRoom", JSON.stringify(this.state));
             this.socket.on("newUser", res => {
                 let data = JSON.parse(res);
