@@ -3,7 +3,6 @@ import marioSprite from './assets/sprites/mario/mario.png';
 import luigiSprite from './assets/sprites/luigi/luigi.png';
 import marioBackground from './assets/sprites/stages/mario-background.jpg';
 import floor from './assets/sprites/stages/floor.png';
-import gameOverImg from './assets/sprites/stages/gameover1.png';
 import pipe from './assets/sprites/stages/pipe.png';
 import pipeRotated from './assets/sprites/stages/piperotated.png';
 import {renderSprites} from './sprite_animation';
@@ -50,9 +49,6 @@ const scene = {
 };
 
 
-//websocket 
-
-
 
 function init() {
 
@@ -77,7 +73,6 @@ function preload () {
   this.load.image('pipe', pipe);
   this.load.image('pipeRotated', pipeRotated);
   this.load.image('floor', floor);
-  this.load.image('gameover', gameOver);
 
   this.load.spritesheet('mario', marioSprite, {
      frameWidth: 46,
