@@ -15,7 +15,7 @@ import ControllerContainer from "./controller/controller_container";
 function App() {
   return (
 		<div>
-			{/* <NavBarContainer /> */}
+			<NavBarContainer />
 			<Switch>
 				<AuthRoute exact path="/" component={MainPage} />
 				<AuthRoute exact path="/login" component={LoginFormContainer} />
