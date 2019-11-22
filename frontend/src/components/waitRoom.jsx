@@ -43,9 +43,9 @@ export default class WaitRoom extends Component {
                     }, 3000)
                 }
             }
-            console.log(this.players);
+            // console.log(this.players);
         });
-        this.socket.on("message", msg => console.log(msg));
+        // this.socket.on("message", msg => console.log(msg));
     }
 
     renderPlayers() {
