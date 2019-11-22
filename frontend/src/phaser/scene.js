@@ -54,7 +54,11 @@ const scene = {
 function init() {
 
   if (inputDevice !== 'keyboard'){
-    socket = io.connect("http://localhost:5000/games");
+    let hostname =
+			window.location.hostname === "localhost"
+				? "http://localhost:5000/games"
+        : `https://${window.location.hostname}/games`;
+    socket = io.connect(hostname);
     gameState = JSON.parse(window.localStorage.getItem('gameRoom'))
 
     socket.on("welcome", (msg) => console.log("Received: ", msg));
