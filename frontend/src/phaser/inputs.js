@@ -1,16 +1,28 @@
 export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHammer}) {
-  // if (mario.body.onFloor()) && mario.play('jumping', true);
+
+   let hammerActionCompleted = (player) => {
+     // return true if hammer completed
+     if (player.anims.currentAnim){ // prevent null obj for game initialize
+      if( player.anims.currentAnim.key.split('-')[1] === 'hammer'){
+          if (player.anims.currentFrame.index === 7){
+          return true
+      }
+     }
+     return false
+    }
+    }
+     
 
 
   if (!cursors.shift.isDown) {
-
     // hit with hammer
     if (cursors.space.isDown){
+        // console.log(mario.anims.currentAnim && mario.anims.currentFrame)
       swingHammer.apply(this, [mario])
       // check if right or left 
-      if (mario.data.values.facing === 'right') { mario.play('m-hammer-right', 1).setCrop(0, 1, 43, 42);
-      }
-      if (mario.data.values.facing ==='left') { mario.play('m-hammer-left', 1).setCrop(2, 2, 44, 42);
+        if (mario.data.values.facing === 'right') { mario.play('m-hammer-right',true ).setCrop(0, 1, 43, 42);
+        }
+        if (mario.data.values.facing ==='left') { mario.play('m-hammer-left', true).setCrop(2, 2, 44, 42);
       }
    }
     //jumping
@@ -23,6 +35,7 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
         mario.setVelocityX(-speed)
         // if not in the air
       if (mario.body.touching.down){
+
         mario.play('m-left', 1)
       }
     }
@@ -32,33 +45,41 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
       mario.setVelocityX(speed)
       // if not in the air 
       if (mario.body.touching.down){
-        mario.play('m-right', 1)
+
+          mario.play('m-right', 1)
       }
     } else {
     
     mario.setVelocityX(0);
 
     // display standing facing 
-    if (mario.data.values.facing === 'left'){ mario.play('m-face-left', 1) }
-    if (mario.data.values.facing === 'right'){ mario.play('m-face-right', 1) }
+    if (mario.data.values.facing === 'left'){ 
+          mario.play('m-face-left', 1)
+     }
+
+    if (mario.data.values.facing === 'right'){
+          mario.play('m-face-right', 1)
+      }
+
 
 
     // mario is going up 
+
     if (!mario.body.touching.down  &&  mario.body.facing === 11){
         // check prevFacing
-        if (mario.data.values.facing === 'left') { mario.play('m-jump-right', 1).setCrop(0,1,43,42)}
-        if  (mario.data.values.facing === 'right') { mario.play('m-jump-left', 1).setCrop(0,1,43,42)}
+        // if (currentAction(mario) !== 'hammer'){
+          if (mario.data.values.facing === 'left') { mario.play('m-jump-right', 1).setCrop(0,1,43,42)}
+          if  (mario.data.values.facing === 'right') { mario.play('m-jump-left', 1).setCrop(0,1,43,42)}
+        // }
     }
     // mario is falling
     if (!mario.body.touching.down  &&  mario.body.facing === 12){
-        if (mario.data.values.facing === 'right') { mario.play('m-falling-right', 1).setCrop(0,1,43,42)}
-        if (mario.data.values.facing === 'right') { mario.play('m-falling-left', 1).setCrop(0,1,43,42)}
+        // if (currentAction(mario) !== 'hammer'){
+          if (mario.data.values.facing === 'right') { mario.play('m-falling-right', 1).setCrop(0,1,43,42)}
+          if (mario.data.values.facing === 'right') { mario.play('m-falling-left', 1).setCrop(0,1,43,42)}
+        // }
     }
-
-
-
-
-    }
+  }
 
   } else {
     //LUIGI
@@ -98,6 +119,7 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
     
     luigi.setVelocityX(0);
 
+    if (!hammerActionCompleted(mario)) {
     // display standing facing 
     if (luigi.data.values.facing === 'left'){ luigi.play('l-face-left', 1) }
     if (luigi.data.values.facing === 'right'){ luigi.play('l-face-right', 1) }
@@ -112,8 +134,8 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
     if (!luigi.body.touching.down  &&  luigi.body.facing === 12){
         if (luigi.data.values.facing === 'left') { luigi.play('l-falling-right', 1).setCrop(0,1,43,40)}
         if (luigi.data.values.facing === 'left') { luigi.play('l-falling-left', 1).setCrop(0,1,43,42)}
+      }
     }
-
   }
 }
 
@@ -186,9 +208,9 @@ export function handleMessage ({luigi, mario, msg}, speed, {swingHammer}) {
     if (msg.action === 'hammer'){
       swingHammer.apply(this, [luigi])
       // check if right or left 
-      if (luigi.data.values.facing === 'right') { luigi.play('l-hammer-right', 1).setCrop(0, 1, 43, 42);
+      if (luigi.data.values.facing === 'right') { luigi.play('l-hammer-right', true).setCrop(0, 1, 43, 42);
       }
-      if (luigi.data.values.facing === 'left') { luigi.play('l-hammer-left', 1).setCrop(2, 2, 44, 42);
+      if (luigi.data.values.facing === 'left') { luigi.play('l-hammer-left', true).setCrop(2, 2, 44, 42);
       }
    }
     //jumping
