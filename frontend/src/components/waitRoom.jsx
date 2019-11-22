@@ -39,7 +39,7 @@ export default class WaitRoom extends Component {
                         startGame: 'Starting game now...'
                     });
                     setTimeout(() => {
-                        this.props.history.push('/testgame')
+                        this.props.history.push('/game')
                     }, 3000)
                 }
             }

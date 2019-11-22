@@ -57,7 +57,7 @@ export default class Controller extends Component {
 
     render() {
         return (
-            <div>
+            <div className='controller-container'>
                 <div className='cable'></div>
                 <div className='controller'>
                     <div className='centerBlue'>

@@ -245,3 +245,32 @@ body{
   margin-top: -100px;
   box-shadow: 7px 8px 15px rgba(0,0,0,0.2);
 }
+
+.controller-container {
+  touch-action: manipulation;
+  /* margin: 0 auto; */
+  position: absolute;
+  width: 300px;
+  height: 200px;
+  z-index: 15;
+  top: 50%;
+  left: 50%;
+  margin: -100px 0 0 -150px;
+}
+
+@media (max-width: 767px) {
+  .controller-container{
+    touch-action: none;
+    -moz-transform:rotate(90deg);
+    -webkit-transform:rotate(90deg);
+    -ms-transform:rotate(90deg);
+    transform: rotate(90deg);
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Opera and Firefox */
+  }
+}
