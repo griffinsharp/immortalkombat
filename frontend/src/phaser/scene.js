@@ -8,6 +8,19 @@ import pipeRotated from './assets/sprites/stages/piperotated.png';
 import {renderSprites} from './sprite_animation';
 import {inputKeyboardHandle, handleMessage} from './inputs';
 import * as io from 'socket.io-client'
+import themeMusicPath from './assets/audio/thememusic.mp3'
+import hit1Path from './assets/audio/hitsounds/hit1.mp3'
+import hit2Path from './assets/audio/hitsounds/hit2.mp3'
+import hit3Path from './assets/audio/hitsounds/hit3.mp3'
+import hit4Path from './assets/audio/hitsounds/hit4.mp3'
+import hit5Path from './assets/audio/hitsounds/hit5.mp3'
+import miss1Path from './assets/audio/hitsounds/miss1.mp3'
+import miss2Path from './assets/audio/hitsounds/miss2.mp3'
+import miss3Path from './assets/audio/hitsounds/miss3.mp3'
+import fightPath from './assets/audio/announcer/fight.mp3'
+import mutePath from './assets/images/mute.png'
+import speakerPath from './assets/images/speaker.png'
+
 
 //global variables
 // let inputDevice = 'keyboard' || 'socket'
@@ -27,6 +40,22 @@ let hammers;
 let luigiBar;
 let marioBar;
 let gameOverText;
+let themeMusic;
+let hitaudios;
+let missaudios;
+let hit1audio;
+let hit2audio;
+let hit3audio;
+let hit4audio;
+let hit5audio;
+let miss1audio;
+let miss2audio;
+let miss3audio;
+let fightaudio;
+let marioScore = 0;
+let luigiScore = 0;
+let textScore;
+let gameIsOver;
 
 const scene = {
   game: {
@@ -49,9 +78,11 @@ const scene = {
   }
 };
 
+//TODO: add mute/speaker button
 
 
 function init() {
+  gameIsOver = false;
 
   if (inputDevice !== 'keyboard'){
     socket = io.connect("http://localhost:5000/games");
@@ -68,7 +99,16 @@ function init() {
 
 function preload () {
 
-  // this.load.audio('mortal_kombat', )
+  this.load.audio('thememusic', themeMusicPath )
+  this.load.audio('fight', fightPath)
+  this.load.audio('hit1', hit1Path)
+  this.load.audio('hit2', hit2Path)
+  this.load.audio('hit3', hit3Path)
+  this.load.audio('hit4', hit4Path)
+  this.load.audio('hit5', hit5Path)
+  this.load.audio('miss1', miss1Path)
+  this.load.audio('miss2', miss2Path)
+  this.load.audio('miss3', miss3Path)
 
   this.load.image('background', marioBackground);
   this.load.image('pipe', pipe);
@@ -92,13 +132,47 @@ function create() {
   backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0).setScale(0.45);
   backgroundImage.smoothed = false;
 
+ 
+
+  // sound FX
+  themeMusic = this.sound.add('thememusic')
+  themeMusic.play({loop:true, volume: 0.3, delay: 2})
+  fightaudio = this.sound.add('fight')
+  fightaudio.play({delay: 1});
+  hit1audio = this.sound.add('hit1')
+  hit2audio = this.sound.add('hit2')
+  hit3audio = this.sound.add('hit3')
+  hit4audio = this.sound.add('hit4')
+  hit5audio = this.sound.add('hit5')
+  miss1audio = this.sound.add('miss1')
+  miss2audio = this.sound.add('miss2')
+  miss3audio = this.sound.add('miss3')
+
+  hitaudios = [hit1audio, hit2audio, hit3audio,hit4audio,hit5audio]
+  missaudios = [miss1audio, miss2audio, miss3audio]
 
   //game over text
   gameOverText = this.add.text();
-  gameOverText.font =  "Roboto Condensed"
   gameOverText.setOrigin(0.5)
+  gameOverText.setColor('#fff')
+  gameOverText.setFontSize(92)
+  gameOverText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2)
   gameOverText.x = width / 2
   gameOverText.y = height / 2
+
+  // game score text
+  textScore = this.add.text();
+  // textScore.setFont('Press Start 2P')
+  textScore.setOrigin(0.5)
+  textScore.x = 140
+  textScore.y = 90
+  // textScore.setPadding(10,40,10,10)
+  textScore.setFontSize(32)
+  textScore.setLineSpacing(20)
+  textScore.setColor('#fff')
+  textScore.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2)
+  textScore.text = `Mario: ${marioScore}\nLuigi: ${luigiScore}`
+
 
   platforms = this.physics.add.staticGroup({allowGravity: false, immovable: true});
   platforms.create(70, 500, 'pipe').setScale(0.4).refreshBody().setBounce(0,0);
@@ -121,9 +195,16 @@ function create() {
   luigiBar.setFillStyle(16711680)
   luigiBar.setOrigin(0,0)
 
+  // score text
+
   //default facing
   luigi.setData('facing','right')
   mario.setData('facing','left')
+
+  mario.setBounce(0.2);
+  mario.setCollideWorldBounds(true);
+  luigi.setBounce(0.2);
+  luigi.setCollideWorldBounds(true);
 
   //define projectile hammer
   hammers = this.physics.add.group({ immovable: true, allowGravity: false})
@@ -145,16 +226,29 @@ function create() {
   luigi.setSize(14,31)
   luigi.setOffset(16,12)
 
+  mario.on('animationcomplete', function (anim, frame) {
+    console.log(anim,frame)
+    // this.emit('animationcomplete_' + anim.key, anim, frame);
+  }, mario);
 
   // set colision and global phisycs
   this.physics.add.collider(platforms, mario);
   this.physics.add.collider(platforms, luigi);
 
-  this.physics.add.overlap(hammers, luigi, (player, hammer) => {if (player.name !== hammer.name) {player.data.values.health -= 0.01 } }, null );
-  this.physics.add.overlap(hammers, mario, (player, hammer) => {if (player.name !== hammer.name) {player.data.values.health -= 0.01 } }, null );
+  // hit detection
+  this.physics.add.overlap(hammers, luigi, (player, hammer) => {
+    if (player.name !== hammer.name) {
+      player.data.values.health -= 0.01;
+      playHitSound();
+     } }, null );
+
+  this.physics.add.overlap(hammers, mario, (player, hammer) => {
+    if (player.name !== hammer.name) {
+      player.data.values.health -= 0.01;
+      playHitSound();
+      } }, null );
 
   this.physics.add.collider(mario, luigi);
-
 
   [luigi, mario].forEach( player => {
     player.setGravityY(200);
@@ -166,34 +260,50 @@ function create() {
     // player.body.friction.y = 200;
   })
 
-
   renderSprites.apply(this, [luigi, mario]);
   // add a keyboard as cursor
     cursors = this.input.keyboard.createCursorKeys();
 }
 
 function update(time, delta) {
-  if (inputDevice === 'keyboard') {
-    inputKeyboardHandle.apply(this, [{ mario, luigi }, speed, cursors, {swingHammer}]);
+  if (!gameIsOver){
+    if (inputDevice === 'keyboard') {
+      inputKeyboardHandle.apply(this, [{ mario, luigi }, speed, cursors, {swingHammer}]);
+    }
+    gameOver.apply(this);
   }
-  updateBar();
-  gameOver.apply(this);
+    updateBar();
+
 }
 
 function gameOver() {
+  if (!gameIsOver) {
+
   if ([mario,luigi].some((player) => player.data.values.health <= 0)){
     let winnerList = [mario,luigi].sort( (a,b) => b.data.values.health - a.data.values.health)
-    console.log('gameOver')
-    gameOverText.fontSize = 72
-    gameOverText.color = '#fff' 
-    gameOverText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2)
+
     gameOverText.text = `Game Over!\n${winnerList[0].name} Won!`
 
-    //TODO: Add winner animation
+    
+    // add player score
+      if (winnerList[0].name === 'mario') {
+          marioScore++;
+          mario.play('m-winner')
+          luigi.play('l-back')
+        }else{
+          luigiScore++
+          luigi.play('l-winner')
+          mario.play('m-back')
+        }
+      
+      textScore.text = `Mario: ${marioScore}\nLuigi: ${luigiScore}`
+
 
     // restart game
     setTimeout( () => this.scene.restart(), 5000)
-    return (winnerList)
+
+    gameIsOver = true;
+  }
  }
 }
 
@@ -232,8 +342,20 @@ function swingHammer (player) {
    
 }
 
-function updateBar(){
 
+let inThrottle = false
+function playHitSound () {
+    if (!inThrottle) {
+      hitaudios[Math.floor(Math.random() * hitaudios.length)].play();
+      inThrottle = true
+      setTimeout(() => inThrottle = false, 1000)
+    }
+}
+function playMissSound () {
+  missaudios[Math.floor(Math.random() * missaudios.length)].play();
+}
+
+function updateBar(){
   const marioHealth = Math.floor(mario.data.values.health)
   const luigiHealth = Math.floor(luigi.data.values.health)
 
@@ -253,6 +375,14 @@ function updateBar(){
     luigiBar.alpha = ((luigiHealth - 100) / 100 ) * -1 
     marioBar.alpha = ((marioHealth - 100) / 100 ) * -1 
 
+    if (gameIsOver){
+      luigiBar.setVisible(false)
+      marioBar.setVisible(false)
+    }
+}
+
+
+function stopGame () {
 
 }
 

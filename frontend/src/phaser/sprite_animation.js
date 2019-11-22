@@ -1,10 +1,5 @@
 export function renderSprites (luigi, mario)  {
   
-    mario.setBounce(0.2);
-    mario.setCollideWorldBounds(true);
-    // mario.body.setGravityY(300);
-    luigi.setBounce(0.2);
-    luigi.setCollideWorldBounds(true);
     
 
     // mario animation
@@ -89,16 +84,16 @@ export function renderSprites (luigi, mario)  {
     frames: this.anims.generateFrameNumbers('mario',
     { frames: [30, 29, 28, 27, 26, 25, 24] }),
     frameRate: 9,
-    repeat: 1
+    repeat: 0 
   });
 
-  this.anims.create({
+   this.anims.create({
     key: 'm-hammer-left',
     frames: this.anims.generateFrameNumbers('mario', {
        frames: [16, 17, 18, 19, 20, 21, 22] }),
     frameRate: 9,
-    repeat: 1
-  });
+    repeat: 0
+  })
 
   this.anims.create({
     key: 'm-winner',
@@ -108,8 +103,27 @@ export function renderSprites (luigi, mario)  {
     repeat: -1
   });
 
+  this.anims.create({
+    key: 'm-back',
+    frames: this.anims.generateFrameNumbers('mario', {
+       frames: [2] }),
+    frameRate: 9,
+    repeat: -1
+  });
+
 
   // lugi animation
+
+    this.anims.create({
+      key: 'l-back',
+      frames: this.anims.generateFrameNumbers('luigi', {
+        frames: [2]
+         }),
+      frameRate: 5,
+      repeat: -1
+    });
+
+
     this.anims.create({
       key: 'l-left',
       frames: this.anims.generateFrameNumbers('luigi', {
