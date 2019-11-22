@@ -330,6 +330,7 @@ function gameOver() {
 
     sendStatData(gameStats);
 
+
     // restart game
     setTimeout( () => this.scene.restart(), 5000)
 
