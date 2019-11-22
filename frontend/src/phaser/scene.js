@@ -11,7 +11,7 @@ import * as io from 'socket.io-client'
 
 //global variables
 // let inputDevice = 'keyboard' || 'socket'
-let inputDevice = 'socket'
+let inputDevice = 'socket';
 let socket;
 let debug = true;
 let backgroundImage;
@@ -27,6 +27,15 @@ let hammers;
 let luigiBar;
 let marioBar;
 let gameOverText;
+let gameStats;
+let startTime;
+let endTime;
+let marioSwingTotal = 0;
+let luigiSwingTotal = 0;
+let marioHits;
+let luigiHits;
+
+
 
 const scene = {
   game: {
@@ -61,7 +70,7 @@ function init() {
     // connect to the server room
     socket.emit("joinRoom", JSON.stringify({code: gameState.code, username: "game"}));
 
-    socket.on("message", msg => handleMessage.apply(this, [{ mario, luigi, msg }, speed, {swingHammer}]));
+    socket.on("message", msg => handleMessage.apply(this, [{ mario, luigi, msg }, speed, { swingHammer }, marioSwingTotal, luigiSwingTotal]));
   }
   
 }
@@ -88,6 +97,9 @@ function preload () {
 }
 
 function create() {
+
+  startTime = this.time.now;
+
   // load background
   backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0).setScale(0.45);
   backgroundImage.smoothed = false;
@@ -174,7 +186,7 @@ function create() {
 
 function update(time, delta) {
   if (inputDevice === 'keyboard') {
-    inputKeyboardHandle.apply(this, [{ mario, luigi }, speed, cursors, {swingHammer}]);
+    inputKeyboardHandle.apply(this, [{ mario, luigi }, speed, cursors, {swingHammer}, marioSwingTotal, luigiSwingTotal]);
   }
   updateBar();
   gameOver.apply(this);
@@ -189,12 +201,30 @@ function gameOver() {
     gameOverText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2)
     gameOverText.text = `Game Over!\n${winnerList[0].name} Won!`
 
+    // calculate the total time of the game that has elapsed
+    endTime = this.time.now;
+    let totalGameTime = startTime - endTime;
     //TODO: Add winner animation
+
+    // adding game stats object after game over and calling the sendStatdData function
+    gameStats = {
+      winner: winnerList[0].name,
+      loser: winnerList[1].name,
+      time: totalGameTime,
+      // hitPercentage: 
+      
+    };
+
+    sendStatData(gameStats);
 
     // restart game
     setTimeout( () => this.scene.restart(), 5000)
     return (winnerList)
  }
+}
+
+function sendStatData(gameStats) {
+
 }
 
 function swingHammer (player) {

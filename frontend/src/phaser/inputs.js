@@ -1,4 +1,6 @@
-export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHammer}) {
+let marioSwingTotal = 0;
+let luigiSwingTotal = 0;
+export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHammer}, marioSwingTotal, luigiSwingTotal) {
   // if (mario.body.onFloor()) && mario.play('jumping', true);
 
 
@@ -7,10 +9,13 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
     // hit with hammer
     if (cursors.space.isDown){
       swingHammer.apply(this, [mario])
+      marioSwingTotal = marioSwingTotal + 1;
       // check if right or left 
-      if (mario.data.values.facing === 'right') { mario.play('m-hammer-right', 1).setCrop(0, 1, 43, 42);
+      if (mario.data.values.facing === 'right') {
+        mario.play('m-hammer-right', 1).setCrop(0, 1, 43, 42);
       }
-      if (mario.data.values.facing ==='left') { mario.play('m-hammer-left', 1).setCrop(2, 2, 44, 42);
+      if (mario.data.values.facing ==='left') {
+        mario.play('m-hammer-left', 1).setCrop(2, 2, 44, 42);
       }
    }
     //jumping
@@ -66,11 +71,15 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
     // hit with hammer
     if (cursors.space.isDown){
       swingHammer.apply(this, [luigi])
-
+      luigiSwingTotal += 1;
       // check if right or left 
-      if (luigi.data.values.facing === 'right') { luigi.play('l-hammer-right', 1).setCrop(0, 1, 43, 42);
+      if (luigi.data.values.facing === 'right') { 
+        luigi.play('l-hammer-right', 1).setCrop(0, 1, 43, 42);
+        luigiSwingTotal += 1;
       }
-      if (luigi.data.values.facing === 'left') { luigi.play('l-hammer-left', 1).setCrop(2, 2, 44, 42);
+      if (luigi.data.values.facing === 'left') {
+        luigi.play('l-hammer-left', 1).setCrop(2, 2, 44, 42);
+        luigiSwingTotal += 1;
       }
    }
     //jumping
@@ -119,7 +128,7 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
 
 }
 
-export function handleMessage ({luigi, mario, msg}, speed, {swingHammer}) {
+export function handleMessage({ luigi, mario, msg }, speed, { swingHammer }, marioSwingTotal, luigiSwingTotal) {
 
 // player is mario
 // msg.action ? right,left,jump,hammer
@@ -129,10 +138,14 @@ export function handleMessage ({luigi, mario, msg}, speed, {swingHammer}) {
     // hit with hammer
     if (msg.action === 'hammer'){
       swingHammer.apply(this, [mario])
+      marioSwingTotal = marioSwingTotal + 1;
       // check if right or left 
-      if (mario.data.values.facing === 'right') { mario.play('m-hammer-right', 1).setCrop(0, 1, 43, 42);
+      if (mario.data.values.facing === 'right') { 
+        mario.play('m-hammer-right', 1).setCrop(0, 1, 43, 42);
+
       }
-      if (mario.data.values.facing ==='left') { mario.play('m-hammer-left', 1).setCrop(2, 2, 44, 42);
+      if (mario.data.values.facing ==='left') {
+
       }
    }
     //jumping
@@ -185,10 +198,15 @@ export function handleMessage ({luigi, mario, msg}, speed, {swingHammer}) {
     // hit with hammer
     if (msg.action === 'hammer'){
       swingHammer.apply(this, [luigi])
+      luigiSwingTotal += 1;
       // check if right or left 
-      if (luigi.data.values.facing === 'right') { luigi.play('l-hammer-right', 1).setCrop(0, 1, 43, 42);
+      if (luigi.data.values.facing === 'right') {
+        luigi.play('l-hammer-right', 1).setCrop(0, 1, 43, 42);
+        luigiSwingTotal += 1;
       }
-      if (luigi.data.values.facing === 'left') { luigi.play('l-hammer-left', 1).setCrop(2, 2, 44, 42);
+      if (luigi.data.values.facing === 'left') {
+        luigi.play('l-hammer-left', 1).setCrop(2, 2, 44, 42);
+        luigiSwingTotal += 1;
       }
    }
     //jumping
