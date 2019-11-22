@@ -11,19 +11,20 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
      return false
     }
     }
-     
-
 
   if (!cursors.shift.isDown) {
     // hit with hammer
     if (cursors.space.isDown){
-        // console.log(mario.anims.currentAnim && mario.anims.currentFrame)
+      marioHammer( () => {
+
       swingHammer.apply(this, [mario])
       // check if right or left 
-        if (mario.data.values.facing === 'right') { mario.play('m-hammer-right',true ).setCrop(0, 1, 43, 42);
+        if (mario.data.values.facing === 'right') { mario.play('m-hammer-right',false ).setCrop(0, 1, 43, 42);
         }
         if (mario.data.values.facing ==='left') { mario.play('m-hammer-left', true).setCrop(2, 2, 44, 42);
       }
+
+      })
    }
     //jumping
       else if (cursors.up.isDown && mario.body.touching.down) {
@@ -86,13 +87,14 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
 
     // hit with hammer
     if (cursors.space.isDown){
-      swingHammer.apply(this, [luigi])
-
-      // check if right or left 
-      if (luigi.data.values.facing === 'right') { luigi.play('l-hammer-right', 1).setCrop(0, 1, 43, 42);
-      }
-      if (luigi.data.values.facing === 'left') { luigi.play('l-hammer-left', 1).setCrop(2, 2, 44, 42);
-      }
+    luigiHammer(() => {
+        swingHammer.apply(this, [luigi])
+        // check if right or left 
+        if (luigi.data.values.facing === 'right') { luigi.play('l-hammer-right', 1).setCrop(0, 1, 43, 42);
+        }
+        if (luigi.data.values.facing === 'left') { luigi.play('l-hammer-left', 1).setCrop(2, 2, 44, 42);
+        }
+    }) 
    }
     //jumping
       else if (cursors.up.isDown && luigi.body.touching.down) {
@@ -141,6 +143,24 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
 
 }
 
+
+let marioHammerThrottle = false
+function marioHammer (callback) {
+    if (!marioHammerThrottle) {
+      callback();
+      marioHammerThrottle = true
+      setTimeout(() => marioHammerThrottle = false, 800)
+    }
+}
+let luigiHammerThrottle = false
+function luigiHammer (callback) {
+    if (!luigiHammerThrottle) {
+      callback();
+      luigiHammerThrottle = true
+      setTimeout(() => luigiHammerThrottle = false, 800)
+    }
+}
+
 export function handleMessage ({luigi, mario, msg}, speed, {swingHammer}) {
 
 // player is mario
@@ -150,12 +170,14 @@ export function handleMessage ({luigi, mario, msg}, speed, {swingHammer}) {
 
     // hit with hammer
     if (msg.action === 'hammer'){
-      swingHammer.apply(this, [mario])
-      // check if right or left 
-      if (mario.data.values.facing === 'right') { mario.play('m-hammer-right', 1).setCrop(0, 1, 43, 42);
-      }
-      if (mario.data.values.facing ==='left') { mario.play('m-hammer-left', 1).setCrop(2, 2, 44, 42);
-      }
+      marioHammer( () => {
+        swingHammer.apply(this, [mario])
+        // check if right or left 
+        if (mario.data.values.facing === 'right') { mario.play('m-hammer-right', 1).setCrop(0, 1, 43, 42);
+        }
+        if (mario.data.values.facing ==='left') { mario.play('m-hammer-left', 1).setCrop(2, 2, 44, 42);
+        }
+      })
    }
     //jumping
       else if (msg.action === 'jump' && mario.body.touching.down) {
@@ -206,12 +228,14 @@ export function handleMessage ({luigi, mario, msg}, speed, {swingHammer}) {
 
     // hit with hammer
     if (msg.action === 'hammer'){
-      swingHammer.apply(this, [luigi])
-      // check if right or left 
-      if (luigi.data.values.facing === 'right') { luigi.play('l-hammer-right', true).setCrop(0, 1, 43, 42);
-      }
-      if (luigi.data.values.facing === 'left') { luigi.play('l-hammer-left', true).setCrop(2, 2, 44, 42);
-      }
+      luigiHammer( () => {
+        swingHammer.apply(this, [luigi])
+        // check if right or left 
+        if (luigi.data.values.facing === 'right') { luigi.play('l-hammer-right', true).setCrop(0, 1, 43, 42);
+        }
+        if (luigi.data.values.facing === 'left') { luigi.play('l-hammer-left', true).setCrop(2, 2, 44, 42);
+        }
+      })
    }
     //jumping
       else if (msg.action === 'jump' && luigi.body.touching.down) {
