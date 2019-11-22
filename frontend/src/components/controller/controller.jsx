@@ -58,6 +58,7 @@ export default class Controller extends Component {
     render() {
         return (
             <div>
+                <meta name="viewport" content="width=device-width, user-scalable=no" />
                 <div className='cable'></div>
                 <div className='controller'>
                     <div className='centerBlue'>

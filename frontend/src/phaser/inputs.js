@@ -1,5 +1,3 @@
-let marioSwingTotal = 0;
-let luigiSwingTotal = 0;
 export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHammer}, marioSwingTotal, luigiSwingTotal) {
   // if (mario.body.onFloor()) && mario.play('jumping', true);
 

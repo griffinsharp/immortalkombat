@@ -20,11 +20,12 @@ import miss3Path from './assets/audio/hitsounds/miss3.mp3'
 import fightPath from './assets/audio/announcer/fight.mp3'
 import mutePath from './assets/images/mute.png'
 import speakerPath from './assets/images/speaker.png'
+import axios from 'axios';
 
 
 //global variables
-// let inputDevice = 'keyboard' || 'socket'
-let inputDevice = 'socket';
+let inputDevice = 'keyboard' || 'socket'
+// let inputDevice = 'socket';
 let socket;
 let debug = true;
 let backgroundImage;
@@ -48,6 +49,10 @@ let marioSwingTotal = 0;
 let luigiSwingTotal = 0;
 let marioHits;
 let luigiHits;
+let marioHitPercentage = 0;
+let luigiHitPercentage = 0;
+let winnerHitPercentage = 0;
+let loserHitPercentage = 0;
 
 let themeMusic;
 let hitaudios;
@@ -164,7 +169,7 @@ function create() {
   miss2audio = this.sound.add('miss2')
   miss3audio = this.sound.add('miss3')
 
-  hitaudios = [hit1audio, hit2audio, hit3audio,hit4audio,hit5audio]
+  hitaudios = [hit1audio, hit2audio, hit3audio,hit4audio,hit5audio] 
   missaudios = [miss1audio, miss2audio, miss3audio]
 
   //game over text
@@ -254,12 +259,14 @@ function create() {
   // hit detection
   this.physics.add.overlap(hammers, luigi, (player, hammer) => {
     if (player.name !== hammer.name) {
+      marioHits = marioHits + 1;
       player.data.values.health -= 0.01;
       playHitSound();
      } }, null );
 
   this.physics.add.overlap(hammers, mario, (player, hammer) => {
     if (player.name !== hammer.name) {
+      luigiHits = luigiHits + 1;
       player.data.values.health -= 0.01;
       playHitSound();
       } }, null );
@@ -293,6 +300,7 @@ function update(time, delta) {
 }
 
 function gameOver() {
+
   if (!gameIsOver) {
 
   if ([mario,luigi].some((player) => player.data.values.health <= 0)){
@@ -303,6 +311,9 @@ function gameOver() {
     // calculate the total time of the game that has elapsed
     endTime = this.time.now;
     let totalGameTime = startTime - endTime;
+
+    marioHitPercentage = Math.floor(marioHits/marioSwingTotal);
+    luigiHitPercentage = Math.floor(luigiHits/luigiSwingTotal);
     //TODO: Add winner animation
     
     // add player score
@@ -310,10 +321,14 @@ function gameOver() {
           marioScore++;
           mario.play('m-winner')
           luigi.play('l-back')
+          winnerHitPercentage = marioHitPercentage;
+          loserHitPercentage = luigiHitPercentage;
         }else{
           luigiScore++
           luigi.play('l-winner')
           mario.play('m-back')
+          winnerHitPercentage = luigiHitPercentage;
+          loserHitPercentage = marioHitPercentage;
         }
       
       textScore.text = `Mario: ${marioScore}\nLuigi: ${luigiScore}`
@@ -324,8 +339,8 @@ function gameOver() {
       winner: winnerList[0].name,
       loser: winnerList[1].name,
       time: totalGameTime,
-      // hitPercentage: 
-      
+      winnerHitPercentage: winnerHitPercentage,
+      loserHitPercentage: loserHitPercentage
     };
 
     sendStatData(gameStats);
@@ -340,6 +355,14 @@ function gameOver() {
 }
 
 function sendStatData(gameStats) {
+
+  axios.post('/api/games/', gameStats)
+  .then(res => {
+    gameState.players[0].stats.push(res.data);
+    gameState.players[1].stats.push(res.data)
+  })
+
+  
 
 }
 
