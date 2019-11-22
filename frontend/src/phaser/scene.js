@@ -23,8 +23,8 @@ import speakerPath from './assets/images/speaker.png'
 
 
 //global variables
-// let inputDevice = 'keyboard' || 'socket'
-let inputDevice = 'socket'
+let inputDevice = 'keyboard' || 'socket'
+// let inputDevice = 'socket'
 let socket;
 let debug = true;
 let backgroundImage;
@@ -56,6 +56,11 @@ let marioScore = 0;
 let luigiScore = 0;
 let textScore;
 let gameIsOver;
+let gameCodeText;
+let muteBtn;
+let muteImg;
+let speakerImg
+let mute = false;
 
 const scene = {
   game: {
@@ -78,11 +83,13 @@ const scene = {
   }
 };
 
-//TODO: add mute/speaker button
 
 
 function init() {
   gameIsOver = false;
+
+
+
 
   if (inputDevice !== 'keyboard'){
     let hostname =
@@ -119,6 +126,9 @@ function preload () {
   this.load.image('pipeRotated', pipeRotated);
   this.load.image('floor', floor);
 
+  this.load.image('mute', mutePath);
+  this.load.image('speaker', speakerPath);
+
   this.load.spritesheet('mario', marioSprite, {
      frameWidth: 46,
      frameHeight: 42,
@@ -133,14 +143,28 @@ function preload () {
 
 function create() {
   // load background
-  backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0).setScale(0.45);
-  backgroundImage.smoothed = false;
+  backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0).setScale(0.45).setInteractive()
+  backgroundImage.smoothed = true;
 
- 
+  //mute button
+  muteBtn = this.add.rectangle().setOrigin(0,0).setInteractive()
+  muteBtn.setPosition(width - 183, 9)
+  muteBtn.setDisplaySize(30, 30)
+  muteBtn.setFillStyle(1,0)
+  muteBtn.on('pointerdown', () => toggleMute.apply(this))
+
+  muteImg = this.add.image(width -180, 10, 'mute').setScale(0.45).setOrigin(0,0)
+  muteImg.setVisible(false)
+  // muteImg.on('pointerdown', () => toggleMute.apply(this))
+  // muteBtn.on('pointerdown', () => unmuteGame.apply(this))
+
+  speakerImg = this.add.image(width -182, 10, 'speaker').setOrigin(0, 0).setScale(0.45)
+  speakerImg.setVisible(true)
+  // speakerBtn.on('pointerdown', () => toggleMute.apply(this))
 
   // sound FX
   themeMusic = this.sound.add('thememusic')
-  themeMusic.play({loop:true, volume: 0.3, delay: 2})
+  themeMusic.play({loop:true, volume: 0.2, delay: 2})
   fightaudio = this.sound.add('fight')
   fightaudio.play({delay: 1});
   hit1audio = this.sound.add('hit1')
@@ -154,29 +178,6 @@ function create() {
 
   hitaudios = [hit1audio, hit2audio, hit3audio,hit4audio,hit5audio]
   missaudios = [miss1audio, miss2audio, miss3audio]
-
-  //game over text
-  gameOverText = this.add.text();
-  gameOverText.setOrigin(0.5)
-  gameOverText.setColor('#fff')
-  gameOverText.setFontSize(92)
-  gameOverText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2)
-  gameOverText.x = width / 2
-  gameOverText.y = height / 2
-
-  // game score text
-  textScore = this.add.text();
-  // textScore.setFont('Press Start 2P')
-  textScore.setOrigin(0.5)
-  textScore.x = 140
-  textScore.y = 90
-  // textScore.setPadding(10,40,10,10)
-  textScore.setFontSize(32)
-  textScore.setLineSpacing(20)
-  textScore.setColor('#fff')
-  textScore.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2)
-  textScore.text = `Mario: ${marioScore}\nLuigi: ${luigiScore}`
-
 
   platforms = this.physics.add.staticGroup({allowGravity: false, immovable: true});
   platforms.create(70, 500, 'pipe').setScale(0.4).refreshBody().setBounce(0,0);
@@ -200,6 +201,15 @@ function create() {
   luigiBar.setOrigin(0,0)
 
   // score text
+  gameCodeText = this.add.text();
+  gameCodeText.setOrigin(0.5)
+  gameCodeText.setColor('#34d2eb')
+  gameCodeText.setFontSize(15)
+  // gameCodeText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2)
+  gameCodeText.x = width - 59
+  gameCodeText.y =  18
+  gameCodeText.text = `Room: ${gameState ? gameState.code: '#TEST'}`
+
 
   //default facing
   luigi.setData('facing','right')
@@ -216,12 +226,35 @@ function create() {
 
   // assign username to player
   if (gameState) {
-    luigi.setName(gameState.players[0])
     mario.setName(gameState.players[1])
+    luigi.setName(gameState.players[0])
   }else {
     luigi.setName('luigi')
     mario.setName('mario')
   }
+
+  //game over text
+  gameOverText = this.add.text();
+  gameOverText.setOrigin(0.5)
+  gameOverText.setColor('#d9250d')
+  gameOverText.setFontSize(92)
+  gameOverText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 2)
+  gameOverText.setX(width / 2)
+  gameOverText.setY(height / 2)
+
+  // game score text
+  textScore = this.add.text();
+  // textScore.setFont('Press Start 2P')
+  textScore.setOrigin(0.5)
+  textScore.setX(90)
+  textScore.setY(70)
+  // textScore.setPadding(10,40,10,10)
+  textScore.setFontSize(25)
+  textScore.setLineSpacing(20)
+  textScore.setColor('#07db00')
+  textScore.setStroke('#E0E4E4', 5)
+  // textScore.setShadow(3, 3, 'rgba(29,76,219,0.5)', 2)
+  textScore.text = `${mario.name}: ${marioScore}\n${luigi.name}: ${luigiScore}`
 
   //set default hitbox size
   mario.setSize(14,31)
@@ -242,13 +275,15 @@ function create() {
   // hit detection
   this.physics.add.overlap(hammers, luigi, (player, hammer) => {
     if (player.name !== hammer.name) {
-      player.data.values.health -= 0.01;
+      player.data.values.health -= 0.5;
       playHitSound();
-     } }, null );
+     }
+     
+     }, null );
 
   this.physics.add.overlap(hammers, mario, (player, hammer) => {
     if (player.name !== hammer.name) {
-      player.data.values.health -= 0.01;
+      player.data.values.health -= 0.5;
       playHitSound();
       } }, null );
 
@@ -263,6 +298,17 @@ function create() {
     player.body.friction.x = 200;
     // player.body.friction.y = 200;
   })
+
+  // check if game is muted 
+  if (mute) {
+    this.sound.setMute(mute)
+    muteImg.setVisible(true)
+    speakerImg.setVisible(false)
+  }else {
+    muteImg.setVisible(false)
+    speakerImg.setVisible(true)
+    this.sound.setMute(mute)
+  }
 
   renderSprites.apply(this, [luigi, mario]);
   // add a keyboard as cursor
@@ -300,7 +346,7 @@ function gameOver() {
           mario.play('m-back')
         }
       
-      textScore.text = `Mario: ${marioScore}\nLuigi: ${luigiScore}`
+      textScore.text = `${mario.name}: ${marioScore}\n${luigi.name}: ${luigiScore}`
 
 
     // restart game
@@ -338,25 +384,28 @@ function swingHammer (player) {
       setTimeout(() =>{hammer.x = player.x + 0; hammer.y = player.y - 30}, 300)
       setTimeout(() =>{hammer.x = player.x + 25; hammer.y = player.y - 10}, 400)
       setTimeout(() =>{hammer.x = player.x + 22; hammer.y = player.y + 15}, 500)
-      // setTimeout(() =>{hammer.x = player.x - 40; hammer.y = player.y }, 600)
       setTimeout(() =>{hammer.destroy()}, 700)
-
-    }
-
-   
-}
-
-
-let inThrottle = false
-function playHitSound () {
-    if (!inThrottle) {
-      hitaudios[Math.floor(Math.random() * hitaudios.length)].play();
-      inThrottle = true
-      setTimeout(() => inThrottle = false, 1000)
     }
 }
+
+
+let missThrottle = false
 function playMissSound () {
-  missaudios[Math.floor(Math.random() * missaudios.length)].play();
+    if (!missThrottle) {
+      missaudios[Math.floor(Math.random() * missaudios.length)].play();
+      missThrottle = true
+      setTimeout(() => missThrottle = false, 1000)
+    }
+}
+
+let hitThrottle = false
+function playHitSound () {
+    if (!hitThrottle) {
+      hitaudios[Math.floor(Math.random() * hitaudios.length)].play();
+      hitThrottle = true
+      setTimeout(() => hitThrottle = false, 1000)
+    }
+    
 }
 
 function updateBar(){
@@ -386,7 +435,22 @@ function updateBar(){
 }
 
 
-function stopGame () {
+function toggleMute () {
+  if (mute){
+    mute = false
+    muteImg.setVisible(false)
+    speakerImg.setVisible(true)
+
+    this.sound.setMute(mute)
+
+  }else {
+    mute = true
+    muteImg.setVisible(true)
+    speakerImg.setVisible(false)
+
+    this.sound.setMute(mute)
+
+  }
 
 }
 
