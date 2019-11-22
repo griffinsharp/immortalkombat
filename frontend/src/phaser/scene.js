@@ -23,7 +23,7 @@ import speakerPath from './assets/images/speaker.png'
 
 
 //global variables
-let inputDevice = 'keyboard' || 'socket'
+let inputDevice = window.location.hash === "#/testgame" ? 'keyboard' : 'socket'
 // let inputDevice = 'socket'
 let socket;
 let debug = true;
@@ -60,7 +60,7 @@ let gameCodeText;
 let muteBtn;
 let muteImg;
 let speakerImg
-let mute = false;
+let mute = true;
 
 const scene = {
   game: {
@@ -87,9 +87,6 @@ const scene = {
 
 function init() {
   gameIsOver = false;
-
-
-
 
   if (inputDevice !== 'keyboard'){
     let hostname =
