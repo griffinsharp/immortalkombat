@@ -18,6 +18,10 @@ const UserSchema = new Schema({
 		type: Number,
 		default: 0
 	},
+	stats:{
+		type: Array
+		
+	},
 	date: {
 		type: Date,
 		default: Date.now

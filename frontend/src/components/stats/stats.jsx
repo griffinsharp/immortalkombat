@@ -5,6 +5,7 @@ export default class stats extends Component {
     constructor(props){
         super(props);
         this.state={
+            user: props.currentUser,
             users:['']
         }
     }
@@ -31,8 +32,10 @@ export default class stats extends Component {
                 <hr/>
                 <>
                 {this.state.users.map((user, idx) => {
-                    if (user.username === window.store.getState().session.user.username){
-                        return <div> {idx}. {user.username} {user.highscore}</div>
+
+                    if (user.username === this.state.user.username){
+                        return <> {idx}. {user.username} {user.highscore}</>
+
                     }
                     })}
                 </>

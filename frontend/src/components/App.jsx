@@ -9,7 +9,7 @@ import MainPage from "./main/main_page";
 
 import Game from './Game'
 import WaitRoom from './waitRoom'
-import Stats from './stats/stats'
+import Stats from './stats/stats_container'
 import ControllerContainer from "./controller/controller_container";
 
 function App() {
