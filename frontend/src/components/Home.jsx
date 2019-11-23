@@ -6,7 +6,6 @@ import cloud from './assets/transparentclouds.png';
 
 const Home = () => {
     return (
-        <>
         <div className="home-inner-container">
             <div className="headers">
                     <h1 className='title'>Immario Kombat</h1>
@@ -48,7 +47,6 @@ const Home = () => {
                             
             
         </div>
-        </>
     )
 }
 

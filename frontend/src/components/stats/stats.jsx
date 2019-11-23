@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import NavBarContainer from "../nav/navbar_container";
 import axios from 'axios'
 
 export default class stats extends Component {
@@ -19,6 +20,8 @@ export default class stats extends Component {
 
     render() {
         return (
+			<>
+			<NavBarContainer />
             <div className='container'>
                 <ol>
                     {this.state.users.map((user,idx) => {
@@ -37,6 +40,7 @@ export default class stats extends Component {
                     })}
                 </>
             </div>
+            </>
         )
     }
 }
