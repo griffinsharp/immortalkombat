@@ -20,6 +20,7 @@ import miss3Path from './assets/audio/hitsounds/miss3.mp3'
 import fightPath from './assets/audio/announcer/fight.mp3'
 import mutePath from './assets/images/mute.png'
 import speakerPath from './assets/images/speaker.png'
+import fullscreenPath from './assets/sprites/ui/fullscreen.png'
 import axios from 'axios';
 
 
@@ -27,7 +28,7 @@ import axios from 'axios';
 let inputDevice = window.location.hash === "#/testgame" ? 'keyboard' : 'socket'
 // let inputDevice = 'socket'
 let socket;
-let debug = true;
+let debug = window.location.hash === "#/testgame"? true : false;
 let backgroundImage;
 let mario;
 let luigi;
@@ -75,6 +76,7 @@ let muteBtn;
 let muteImg;
 let speakerImg
 let mute = true;
+let fullscreenButton;
 
 const scene = {
   game: {
@@ -88,6 +90,10 @@ const scene = {
         debug
       }
     },
+    scale: {
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+    mode: Phaser.Scale.FIT,
+    },
     scene: {
       preload: preload,
       init: init,
@@ -97,9 +103,8 @@ const scene = {
   }
 };
 
-
-
 function init() {
+  
   gameIsOver = false;
 
   if (inputDevice !== 'keyboard'){
@@ -136,6 +141,8 @@ function preload () {
   this.load.image('pipe', pipe);
   this.load.image('pipeRotated', pipeRotated);
   this.load.image('floor', floor);
+  this.load.spritesheet('fullscreen', fullscreenPath, { frameWidth: 29.2, frameHeight: 27.8});
+
 
   this.load.image('mute', mutePath);
   this.load.image('speaker', speakerPath);
@@ -155,7 +162,6 @@ function preload () {
 function create() {
 
   startTime = this.time.now;
-
   // load background
   backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0).setScale(0.45).setInteractive()
   backgroundImage.smoothed = true;
@@ -330,6 +336,29 @@ function create() {
   renderSprites.apply(this, [luigi, mario]);
   // add a keyboard as cursor
     cursors = this.input.keyboard.createCursorKeys();
+
+    fullscreenButton = this.add.image(width - 190, 8, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
+    fullscreenButton.setCrop(1.2,1,27,27)
+
+        fullscreenButton.on('pointerup', function () {
+
+            if (this.scale.isFullscreen)
+            {
+                fullscreenButton.setFrame(0);
+
+                this.scale.stopFullscreen();
+            }
+            else
+            {
+//  29.2, frameHeight: 27.8}
+                fullscreenButton.setFrame(1)
+
+                this.scale.startFullscreen();
+            }
+
+        }, this);
+
+
 }
 
 function update(time, delta) {

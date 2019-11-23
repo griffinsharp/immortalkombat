@@ -14,9 +14,9 @@ import ControllerContainer from "./controller/controller_container";
 
 function App() {
   return (
-		<div>
-			<NavBarContainer />
-			<Switch>
+	  <>
+			<Switch style={{width: '100%', height: '100%'}}>
+				
 				<AuthRoute exact path="/" component={MainPage} />
 				<AuthRoute exact path="/login" component={LoginFormContainer} />
 				<AuthRoute exact path="/signup" component={SignupFormContainer} />
@@ -25,12 +25,12 @@ function App() {
 				<ProtectedRoute exact path="/stats" component={Stats} />
 				{/* <ProtectedRoute exact path="/game" component={Game} /> */}
 
-				<Route exact path="/testgame" component={Game} />
+				<Route style={{width: '100%', height: '100%'}} exact path="/testgame" component={Game} />
 				<Route exact path="/game" component={Game} />
 				<ProtectedRoute path="/controller" component={ControllerContainer} />
 				<Route exact path="/waitroom" component={WaitRoom} />
 			</Switch>
-		</div>
+		</>
 	);
 }
 

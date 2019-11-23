@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import NavBarContainer from "../nav/navbar_container";
 
 export default class Play extends Component {
 	constructor(props) {
@@ -18,6 +19,8 @@ export default class Play extends Component {
 
 	render() {
 		return (
+			<>
+			<NavBarContainer />
 			<div>
 				<form className="container">
 					<input
@@ -36,6 +39,7 @@ export default class Play extends Component {
 					>Go!</button>
 				</form>
 			</div>
+			</>
 		);
 	}
 }
