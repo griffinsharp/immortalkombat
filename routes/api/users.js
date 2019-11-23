@@ -111,5 +111,10 @@ router.get("/highscore", (req, res) => {
 	.catch(err => res.status.json(err));
 });
 
+router.post('/stats/:username', (req,res)=>{
+	const currentUser = User
+		.find({username: req.params.username})
+		currentUser.stats.push(req)
+})
 
 module.exports = router;
