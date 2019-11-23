@@ -20,6 +20,7 @@ import miss3Path from './assets/audio/hitsounds/miss3.mp3'
 import fightPath from './assets/audio/announcer/fight.mp3'
 import mutePath from './assets/images/mute.png'
 import speakerPath from './assets/images/speaker.png'
+import axios from 'axios';
 
 
 //global variables
@@ -40,6 +41,19 @@ let hammers;
 let luigiBar;
 let marioBar;
 let gameOverText;
+let gameStats;
+let startTime;
+let endTime;
+
+let marioSwingTotal = 0;
+let luigiSwingTotal = 0;
+let marioHits;
+let luigiHits;
+let marioHitPercentage = 0;
+let luigiHitPercentage = 0;
+let winnerHitPercentage = 0;
+let loserHitPercentage = 0;
+
 let themeMusic;
 let hitaudios;
 let missaudios;
@@ -100,7 +114,7 @@ function init() {
     // connect to the server room
     socket.emit("joinRoom", JSON.stringify({code: gameState.code, username: "game"}));
 
-    socket.on("message", msg => handleMessage.apply(this, [{ mario, luigi, msg }, speed, {swingHammer}]));
+    socket.on("message", msg => handleMessage.apply(this, [{ mario, luigi, msg }, speed, { swingHammer }, marioSwingTotal, luigiSwingTotal]));
   }
   
 }
@@ -139,6 +153,9 @@ function preload () {
 }
 
 function create() {
+
+  startTime = this.time.now;
+
   // load background
   backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0).setScale(0.45).setInteractive()
   backgroundImage.smoothed = true;
@@ -173,7 +190,7 @@ function create() {
   miss2audio = this.sound.add('miss2')
   miss3audio = this.sound.add('miss3')
 
-  hitaudios = [hit1audio, hit2audio, hit3audio,hit4audio,hit5audio]
+  hitaudios = [hit1audio, hit2audio, hit3audio,hit4audio,hit5audio] 
   missaudios = [miss1audio, miss2audio, miss3audio]
 
   platforms = this.physics.add.staticGroup({allowGravity: false, immovable: true});
@@ -272,7 +289,9 @@ function create() {
   // hit detection
   this.physics.add.overlap(hammers, luigi, (player, hammer) => {
     if (player.name !== hammer.name) {
+
       player.data.values.health -= 0.5;
+      marioHits = marioHits + 1;
       playHitSound();
      }
      
@@ -281,6 +300,7 @@ function create() {
   this.physics.add.overlap(hammers, mario, (player, hammer) => {
     if (player.name !== hammer.name) {
       player.data.values.health -= 0.5;
+      luigiHits = luigiHits + 1;
       playHitSound();
       } }, null );
 
@@ -315,7 +335,7 @@ function create() {
 function update(time, delta) {
   if (!gameIsOver){
     if (inputDevice === 'keyboard') {
-      inputKeyboardHandle.apply(this, [{ mario, luigi }, speed, cursors, {swingHammer}]);
+    inputKeyboardHandle.apply(this, [{ mario, luigi }, speed, cursors, {swingHammer}, marioSwingTotal, luigiSwingTotal]);
     }
     gameOver.apply(this);
   }
@@ -324,6 +344,7 @@ function update(time, delta) {
 }
 
 function gameOver() {
+
   if (!gameIsOver) {
 
   if ([mario,luigi].some((player) => player.data.values.health <= 0)){
@@ -331,19 +352,42 @@ function gameOver() {
 
     gameOverText.text = `Game Over!\n${winnerList[0].name} Won!`
 
+    // calculate the total time of the game that has elapsed
+    endTime = this.time.now;
+    let totalGameTime = startTime - endTime;
+
+    marioHitPercentage = Math.floor(marioHits/marioSwingTotal);
+    luigiHitPercentage = Math.floor(luigiHits/luigiSwingTotal);
+    //TODO: Add winner animation
     
     // add player score
       if (winnerList[0].name === 'mario') {
           marioScore++;
           mario.play('m-winner')
           luigi.play('l-back')
+          winnerHitPercentage = marioHitPercentage;
+          loserHitPercentage = luigiHitPercentage;
         }else{
           luigiScore++
           luigi.play('l-winner')
           mario.play('m-back')
+          winnerHitPercentage = luigiHitPercentage;
+          loserHitPercentage = marioHitPercentage;
         }
       
       textScore.text = `${mario.name}: ${marioScore}\n${luigi.name}: ${luigiScore}`
+
+
+    // adding game stats object after game over and calling the sendStatdData function
+    gameStats = {
+      winner: winnerList[0].name,
+      loser: winnerList[1].name,
+      time: totalGameTime,
+      winnerHitPercentage: winnerHitPercentage,
+      loserHitPercentage: loserHitPercentage
+    };
+
+    sendStatData(gameStats);
 
 
     // restart game
@@ -352,6 +396,18 @@ function gameOver() {
     gameIsOver = true;
   }
  }
+}
+
+function sendStatData(gameStats) {
+
+  axios.post('/api/games/', gameStats)
+  .then(res => {
+    gameState.players[0].stats.push(res.data);
+    gameState.players[1].stats.push(res.data)
+  })
+
+  
+
 }
 
 function swingHammer (player) {

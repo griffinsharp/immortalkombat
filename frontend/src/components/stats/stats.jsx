@@ -32,8 +32,10 @@ export default class stats extends Component {
                 <hr/>
                 <>
                 {this.state.users.map((user, idx) => {
+
                     if (user.username === this.state.user.username){
                         return <> {idx}. {user.username} {user.highscore}</>
+
                     }
                     })}
                 </>
