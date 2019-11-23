@@ -17,7 +17,7 @@ function App() {
 	  <>
 			<Switch style={{width: '100%', height: '100%'}}>
 				
-				<AuthRoute exact path="/" component={MainPage} />
+				<Route exact path="/" component={MainPage} />
 				<AuthRoute exact path="/login" component={LoginFormContainer} />
 				<AuthRoute exact path="/signup" component={SignupFormContainer} />
 
