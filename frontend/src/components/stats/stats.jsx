@@ -35,7 +35,7 @@ export default class stats extends Component {
                 <>
                 {this.state.users.map((user, idx) => {
                     if (user.username === window.store.getState().session.user.username){
-                        return <> {idx}. {user.username} {user.highscore}</>
+                        return <div> {idx}. {user.username} {user.highscore}</div>
                     }
                     })}
                 </>

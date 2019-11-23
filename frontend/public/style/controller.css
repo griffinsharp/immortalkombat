@@ -260,6 +260,7 @@ body{
 
 @media (max-width: 767px) {
   .controller-container{
+    touch-action: none;
     -moz-transform:rotate(90deg);
     -webkit-transform:rotate(90deg);
     -ms-transform:rotate(90deg);

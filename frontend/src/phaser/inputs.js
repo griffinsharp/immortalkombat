@@ -1,4 +1,5 @@
-export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHammer}) {
+export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHammer}, marioSwingTotal, luigiSwingTotal) {
+  // if (mario.body.onFloor()) && mario.play('jumping', true);
 
    let hammerActionCompleted = (player) => {
      // return true if hammer completed
@@ -18,6 +19,7 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
       marioHammer( () => {
 
       swingHammer.apply(this, [mario])
+      marioSwingTotal = marioSwingTotal + 1;
       // check if right or left 
         if (mario.data.values.facing === 'right') { mario.play('m-hammer-right',false ).setCrop(0, 1, 43, 42);
         }
@@ -89,6 +91,7 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
     if (cursors.space.isDown){
     luigiHammer(() => {
         swingHammer.apply(this, [luigi])
+         luigiSwingTotal += 1;
         // check if right or left 
         if (luigi.data.values.facing === 'right') { luigi.play('l-hammer-right', 1).setCrop(0, 1, 43, 42);
         }
@@ -161,7 +164,7 @@ function luigiHammer (callback) {
     }
 }
 
-export function handleMessage ({luigi, mario, msg}, speed, {swingHammer}) {
+export function handleMessage({ luigi, mario, msg }, speed, { swingHammer }, marioSwingTotal, luigiSwingTotal) {
 
 // player is mario
 // msg.action ? right,left,jump,hammer
@@ -172,6 +175,7 @@ export function handleMessage ({luigi, mario, msg}, speed, {swingHammer}) {
     if (msg.action === 'hammer'){
       marioHammer( () => {
         swingHammer.apply(this, [mario])
+        marioSwingTotal = marioSwingTotal + 1;
         // check if right or left 
         if (mario.data.values.facing === 'right') { mario.play('m-hammer-right', 1).setCrop(0, 1, 43, 42);
         }
@@ -230,6 +234,7 @@ export function handleMessage ({luigi, mario, msg}, speed, {swingHammer}) {
     if (msg.action === 'hammer'){
       luigiHammer( () => {
         swingHammer.apply(this, [luigi])
+        luigiSwingTotal += 1;
         // check if right or left 
         if (luigi.data.values.facing === 'right') { luigi.play('l-hammer-right', true).setCrop(0, 1, 43, 42);
         }
