@@ -1,17 +1,7 @@
 export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHammer}, marioSwingTotal, luigiSwingTotal) {
   // if (mario.body.onFloor()) && mario.play('jumping', true);
 
-   let hammerActionCompleted = (player) => {
-     // return true if hammer completed
-     if (player.anims.currentAnim){ // prevent null obj for game initialize
-      if( player.anims.currentAnim.key.split('-')[1] === 'hammer'){
-          if (player.anims.currentFrame.index === 7){
-          return true
-      }
-     }
-     return false
-    }
-    }
+
 
   if (!cursors.shift.isDown) {
     // hit with hammer
@@ -19,6 +9,7 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
       marioHammer( () => {
 
       swingHammer.apply(this, [mario])
+
       marioSwingTotal = marioSwingTotal + 1;
       // check if right or left 
         if (mario.data.values.facing === 'right') { mario.play('m-hammer-right',false ).setCrop(0, 1, 43, 42);
@@ -39,7 +30,10 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
         // if not in the air
       if (mario.body.touching.down){
 
+    // execute if hammering action completed
+    if (mario.getData('hammerCompleted')){
         mario.play('m-left', 1)
+      }
       }
     }
     // walk right
@@ -49,11 +43,17 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
       // if not in the air 
       if (mario.body.touching.down){
 
+    // execute if hammering action completed
+    if (mario.getData('hammerCompleted')){
           mario.play('m-right', 1)
+        }
       }
     } else {
     
     mario.setVelocityX(0);
+
+    // execute if hammering action completed
+    if (mario.getData('hammerCompleted')){
 
     // display standing facing 
     if (mario.data.values.facing === 'left'){ 
@@ -64,10 +64,7 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
           mario.play('m-face-right', 1)
       }
 
-
-
     // mario is going up 
-
     if (!mario.body.touching.down  &&  mario.body.facing === 11){
         // check prevFacing
         // if (currentAction(mario) !== 'hammer'){
@@ -83,6 +80,7 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
         // }
     }
   }
+    }
 
   } else {
     //LUIGI
@@ -124,7 +122,6 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
     
     luigi.setVelocityX(0);
 
-    if (!hammerActionCompleted(mario)) {
     // display standing facing 
     if (luigi.data.values.facing === 'left'){ luigi.play('l-face-left', 1) }
     if (luigi.data.values.facing === 'right'){ luigi.play('l-face-right', 1) }
@@ -142,7 +139,7 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
       }
     }
   }
-}
+
 
 }
 

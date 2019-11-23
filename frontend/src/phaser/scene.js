@@ -211,6 +211,11 @@ function create() {
   //define player health
   luigi.setData('health', 100)
   mario.setData('health', 100)
+  
+
+  // hammer action completed
+    luigi.setData('hammerCompleted',true)
+    mario.setData('hammerCompleted',true)
 
   // helth bar
   marioBar = this.add.rectangle()
@@ -387,7 +392,6 @@ function gameOver() {
 
     marioHitPercentage = Math.floor(marioHits/marioSwingTotal);
     luigiHitPercentage = Math.floor(luigiHits/luigiSwingTotal);
-    //TODO: Add winner animation
     
     // add player score
       if (winnerList[0].name === 'mario') {
@@ -435,13 +439,14 @@ function sendStatData(gameStats) {
     gameState.players[1].stats.push(res.data)
   })
 
-  
-
 }
 
 function swingHammer (player) {
     let now = this.time.now
     let hammer;
+
+    // hammering action started
+    player.setData('hammerCompleted', false)
 
     // player facing left
     if (player.data.values.facing === 'left'){
@@ -455,10 +460,10 @@ function swingHammer (player) {
       setTimeout(() =>{hammer.x = player.x - 25; hammer.y = player.y - 10}, 400)
       setTimeout(() =>{hammer.x = player.x - 26; hammer.y = player.y + 13}, 500)
       setTimeout(() =>{hammer.x = player.x - 24; hammer.y = player.y }, 600)
-      setTimeout(() =>{hammer.destroy()}, 700)
+      setTimeout(() =>{ hammer.destroy() }, 700)
+      setTimeout(() =>{ player.setData('hammerCompleted', true) }, 950)
     }else {
       hammer = hammers.create( player.x - 25 , player.y + 30, null, null, false )
-      hammer.setData('author',player)
       hammer.name = player.name  // assing name as the author of the action
       hammer.setSize(10,10)
       setTimeout(() =>{hammer.x = player.x - 30; hammer.y = player.y + 0}, 100)
@@ -466,7 +471,10 @@ function swingHammer (player) {
       setTimeout(() =>{hammer.x = player.x + 0; hammer.y = player.y - 30}, 300)
       setTimeout(() =>{hammer.x = player.x + 25; hammer.y = player.y - 10}, 400)
       setTimeout(() =>{hammer.x = player.x + 22; hammer.y = player.y + 15}, 500)
-      setTimeout(() =>{hammer.destroy()}, 700)
+      setTimeout(() =>{ hammer.destroy() }, 700)
+      setTimeout(() =>{ player.setData('hammerCompleted', true) }, 950)
+
+        
     }
 }
 
