@@ -11,6 +11,8 @@ import Game from './Game'
 import WaitRoom from './waitRoom'
 import Stats from './stats/stats_container'
 import ControllerContainer from "./controller/controller_container";
+import leaderboard from './leaderboard/leaderboard_container';
+
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
 
 				<ProtectedRoute exact path="/play" component={PlayContainer} />
 				<ProtectedRoute exact path="/stats" component={Stats} />
+			  	<ProtectedRoute exact path="/leaderboard" component={leaderboard} />
+
 				{/* <ProtectedRoute exact path="/game" component={Game} /> */}
 
 				<Route style={{width: '100%', height: '100%'}} exact path="/testgame" component={Game} />
