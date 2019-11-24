@@ -79,7 +79,7 @@ export default class WaitRoom extends Component {
 
     renderQRCode () {
         return (
-        <QRCode size='200' includeMargin='false' bgColor='#96cedf' value={this.state.code} />
+        <QRCode size='230' value={this.state.code} />
         )
     }
 
