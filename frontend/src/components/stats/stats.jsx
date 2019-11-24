@@ -7,41 +7,46 @@ export default class stats extends Component {
         super(props);
         this.state={
             user: props.currentUser,
-            users:['']
+            username:'',
+            highscore:0,
+            stats:[]
         }
     }
     componentDidMount(){
-        axios.get('/api/users/highscore')
+        //${this.state.user.id} change hardcoded value for that 
+        axios.get(`/api/users/stats/${this.state.user.id}`) 
         .then(res => {
-                
-            this.setState({users: res.data});
             
+            this.setState({username: res.data[0].username});
+            this.setState({highscore: res.data[0].highscore });
+            this.setState({stats: res.data[0].stats});
+
         })
     }
 
     render() {
         return (
 			<>
+                
 			<NavBarContainer />
             <div className='container'>
+                    <h1>{this.state.username}</h1>
+                    <h2>highscore: {this.state.highscore}</h2>
                 <ol>
-                    {this.state.users.map((user,idx) => {
-                    if(idx<10){
-                    return <li>{user.username} {user.highscore}</li>
-                    }
+                    winner loser time winnerHit LoserHit
+                    {this.state.stats.map((stat) => {
+                        return (<li>
+                            {stat.winner} 
+                            {stat.loser} 
+                            {stat.time} 
+                            {stat.winnerHitPercentage} 
+                            {stat.loserHitPercentage}
+                            </li>)
                     })}
                 </ol>
                 <hr/>
                 <hr/>
-                <>
-                {this.state.users.map((user, idx) => {
-
-                    if (user.username === this.state.user.username){
-                        return <> {idx}. {user.username} {user.highscore}</>
-
-                    }
-                    })}
-                </>
+                
             </div>
             </>
         )
