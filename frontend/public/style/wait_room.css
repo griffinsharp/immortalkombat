@@ -8,6 +8,10 @@
     align-items: center;
 }
 
+.waitroom-container ol {
+    font-size: medium;
+}
+
 .players {
     width: 60%;
     margin: 0 auto;
