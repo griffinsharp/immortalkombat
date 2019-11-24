@@ -204,7 +204,7 @@ export function renderSprites (luigi, mario)  {
     frames: this.anims.generateFrameNumbers('luigi',
     { start: 24, end: 30}),
     frameRate: 9,
-    repeat: -1
+    repeat: 0
   });
 
   this.anims.create({
@@ -212,7 +212,7 @@ export function renderSprites (luigi, mario)  {
     frames: this.anims.generateFrameNumbers('luigi', {
        frames: [22, 21, 20, 19, 18, 17, 16] }),
     frameRate: 9,
-    repeat: -1
+    repeat: 0
   });
 
   this.anims.create({
