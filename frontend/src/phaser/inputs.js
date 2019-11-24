@@ -1,24 +1,13 @@
 export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHammer}, marioSwingTotal, luigiSwingTotal) {
   // if (mario.body.onFloor()) && mario.play('jumping', true);
 
-   let hammerActionCompleted = (player) => {
-     // return true if hammer completed
-     if (player.anims.currentAnim){ // prevent null obj for game initialize
-      if( player.anims.currentAnim.key.split('-')[1] === 'hammer'){
-          if (player.anims.currentFrame.index === 7){
-          return true
-      }
-     }
-     return false
-    }
-    }
-
   if (!cursors.shift.isDown) {
     // hit with hammer
     if (cursors.space.isDown){
       marioHammer( () => {
 
       swingHammer.apply(this, [mario])
+
       marioSwingTotal = marioSwingTotal + 1;
       // check if right or left 
         if (mario.data.values.facing === 'right') { mario.play('m-hammer-right',false ).setCrop(0, 1, 43, 42);
@@ -39,7 +28,10 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
         // if not in the air
       if (mario.body.touching.down){
 
+    // execute if hammering action completed
+    if (mario.getData('hammerCompleted')){
         mario.play('m-left', 1)
+      }
       }
     }
     // walk right
@@ -49,11 +41,17 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
       // if not in the air 
       if (mario.body.touching.down){
 
+    // execute if hammering action completed
+    if (mario.getData('hammerCompleted')){
           mario.play('m-right', 1)
+        }
       }
     } else {
     
     mario.setVelocityX(0);
+
+    // execute if hammering action completed
+    if (mario.getData('hammerCompleted')){
 
     // display standing facing 
     if (mario.data.values.facing === 'left'){ 
@@ -64,10 +62,7 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
           mario.play('m-face-right', 1)
       }
 
-
-
     // mario is going up 
-
     if (!mario.body.touching.down  &&  mario.body.facing === 11){
         // check prevFacing
         // if (currentAction(mario) !== 'hammer'){
@@ -83,6 +78,7 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
         // }
     }
   }
+    }
 
   } else {
     //LUIGI
@@ -109,7 +105,9 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
         luigi.setVelocityX(-speed)
         // if not in the air
       if (luigi.body.touching.down){
+    if (luigi.getData('hammerCompleted')){
         luigi.play('l-left', 1)
+      }
       }
     }
     // walk right
@@ -118,31 +116,34 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
       luigi.setVelocityX(speed)
       // if not in the air 
       if (luigi.body.touching.down){
+    if (luigi.getData('hammerCompleted')){
         luigi.play('l-right', 1)
+    }
       }
     } else {
     
     luigi.setVelocityX(0);
 
-    if (!hammerActionCompleted(mario)) {
-    // display standing facing 
-    if (luigi.data.values.facing === 'left'){ luigi.play('l-face-left', 1) }
-    if (luigi.data.values.facing === 'right'){ luigi.play('l-face-right', 1) }
+    if (luigi.getData('hammerCompleted')){
 
-    // luigi is going up 
-    if (!luigi.body.touching.down  &&  luigi.body.facing === 11){
-        // check prevFacing
-        if (luigi.data.values.facing === 'right') { luigi.play('l-jump-right', 1).setCrop(0,1,43,42)}
-        if (luigi.data.values.facing === 'left') { luigi.play('l-jump-left', 1).setCrop(0,1,43,42)}
-    }
-    // luigi is falling
-    if (!luigi.body.touching.down  &&  luigi.body.facing === 12){
-        if (luigi.data.values.facing === 'left') { luigi.play('l-falling-right', 1).setCrop(0,1,43,40)}
-        if (luigi.data.values.facing === 'left') { luigi.play('l-falling-left', 1).setCrop(0,1,43,42)}
+      // display standing facing 
+      if (luigi.data.values.facing === 'left'){ luigi.play('l-face-left', 1) }
+      if (luigi.data.values.facing === 'right'){ luigi.play('l-face-right', 1) }
+
+      // luigi is going up 
+      if (!luigi.body.touching.down  &&  luigi.body.facing === 11){
+          // check prevFacing
+          if (luigi.data.values.facing === 'right') { luigi.play('l-jump-right', 1).setCrop(0,1,43,42)}
+          if (luigi.data.values.facing === 'left') { luigi.play('l-jump-left', 1).setCrop(0,1,43,42)}
+      }
+      // luigi is falling
+      if (!luigi.body.touching.down  &&  luigi.body.facing === 12){
+          if (luigi.data.values.facing === 'left') { luigi.play('l-falling-right', 1).setCrop(0,1,43,40)}
+          if (luigi.data.values.facing === 'left') { luigi.play('l-falling-left', 1).setCrop(0,1,43,42)}
+        }
       }
     }
   }
-}
 
 }
 
@@ -193,7 +194,9 @@ export function handleMessage({ luigi, mario, msg }, speed, { swingHammer }, mar
         mario.setVelocityX(-speed)
         // if not in the air
       if (mario.body.touching.down){
+    if (mario.getData('hammerCompleted')){
         mario.play('m-left', 1)
+    }
       }
     }
     // walk right
@@ -202,29 +205,33 @@ export function handleMessage({ luigi, mario, msg }, speed, { swingHammer }, mar
       mario.setVelocityX(speed)
       // if not in the air 
       if (mario.body.touching.down){
+    if (mario.getData('hammerCompleted')){
         mario.play('m-right', 1)
+        }
       }
     } else {
 
     mario.setVelocityX(0);
     
+    if (mario.getData('hammerCompleted')){
     // display standing facing 
-    if (mario.data.values.facing === 'left'){ mario.play('m-face-left', 1) }
-    if (mario.data.values.facing === 'right'){ mario.play('m-face-right', 1) }
+      if (mario.data.values.facing === 'left'){ mario.play('m-face-left', 1) }
+      if (mario.data.values.facing === 'right'){ mario.play('m-face-right', 1) }
 
 
-    // mario is going up 
-    if (!mario.body.touching.down  &&  mario.body.facing === 11){
-        // check prevFacing
-        if (mario.data.values.facing === 'left') { mario.play('m-jump-right', 1).setCrop(0,1,43,42)}
-        if  (mario.data.values.facing === 'right') { mario.play('m-jump-left', 1).setCrop(0,1,43,42)}
-    }
-    // mario is falling
-    if (!mario.body.touching.down  &&  mario.body.facing === 12){
-        if (mario.data.values.facing === 'right') { mario.play('m-falling-right', 1).setCrop(0,1,43,42)}
-        if (mario.data.values.facing === 'right') { mario.play('m-falling-left', 1).setCrop(0,1,43,42)}
-    }
+      // mario is going up 
+      if (!mario.body.touching.down  &&  mario.body.facing === 11){
+          // check prevFacing
+          if (mario.data.values.facing === 'left') { mario.play('m-jump-right', 1).setCrop(0,1,43,42)}
+          if  (mario.data.values.facing === 'right') { mario.play('m-jump-left', 1).setCrop(0,1,43,42)}
+      }
+      // mario is falling
+      if (!mario.body.touching.down  &&  mario.body.facing === 12){
+          if (mario.data.values.facing === 'right') { mario.play('m-falling-right', 1).setCrop(0,1,43,42)}
+          if (mario.data.values.facing === 'right') { mario.play('m-falling-left', 1).setCrop(0,1,43,42)}
+      }
 
+      }
     }
 
   } else if (msg.username === luigi.name ) {
@@ -252,7 +259,9 @@ export function handleMessage({ luigi, mario, msg }, speed, { swingHammer }, mar
         luigi.setVelocityX(-speed)
         // if not in the air
       if (luigi.body.touching.down){
+    if (luigi.getData('hammerCompleted')){
         luigi.play('l-left', 1)
+    }
       }
     }
     // walk right
@@ -261,28 +270,32 @@ export function handleMessage({ luigi, mario, msg }, speed, { swingHammer }, mar
       luigi.setVelocityX(speed)
       // if not in the air 
       if (luigi.body.touching.down){
+    if (luigi.getData('hammerCompleted')){
         luigi.play('l-right', 1)
+        }
       }
     } else {
     
     luigi.setVelocityX(0);
 
+    if (luigi.getData('hammerCompleted')){
     // display standing facing 
-    if (luigi.data.values.facing === 'left'){ luigi.play('l-face-left', 1) }
-    if (luigi.data.values.facing === 'right'){ luigi.play('l-face-right', 1) }
+      if (luigi.data.values.facing === 'left'){ luigi.play('l-face-left', 1) }
+      if (luigi.data.values.facing === 'right'){ luigi.play('l-face-right', 1) }
 
-    // luigi is going up 
-    if (!luigi.body.touching.down  &&  luigi.body.facing === 11){
-        // check prevFacing
-        if (luigi.data.values.facing === 'right') { luigi.play('l-jump-right', 1).setCrop(0,1,43,42)}
-        if (luigi.data.values.facing === 'left') { luigi.play('l-jump-left', 1).setCrop(0,1,43,42)}
-    }
-    // luigi is falling
-    if (!luigi.body.touching.down  &&  luigi.body.facing === 12){
-        if (luigi.data.values.facing === 'left') { luigi.play('l-falling-right', 1).setCrop(0,1,43,40)}
-        if (luigi.data.values.facing === 'left') { luigi.play('l-falling-left', 1).setCrop(0,1,43,42)}
-    }
+      // luigi is going up 
+      if (!luigi.body.touching.down  &&  luigi.body.facing === 11){
+          // check prevFacing
+          if (luigi.data.values.facing === 'right') { luigi.play('l-jump-right', 1).setCrop(0,1,43,42)}
+          if (luigi.data.values.facing === 'left') { luigi.play('l-jump-left', 1).setCrop(0,1,43,42)}
+      }
+      // luigi is falling
+      if (!luigi.body.touching.down  &&  luigi.body.facing === 12){
+          if (luigi.data.values.facing === 'left') { luigi.play('l-falling-right', 1).setCrop(0,1,43,40)}
+          if (luigi.data.values.facing === 'left') { luigi.play('l-falling-left', 1).setCrop(0,1,43,42)}
+      }
 
+    }
   }
 }
 }
