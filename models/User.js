@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const Game = require('./Game');
+let obj = {};
 
 const UserSchema = new Schema({
 	username: {
@@ -14,17 +16,14 @@ const UserSchema = new Schema({
 		type: String,
 		required: true
 	},
-	highscore:{
+	highscore: {
 		type: Number,
-		default: 0
+		'default': 0
 	},
-	stats:{
-		type: Array
-		
-	},
+	stats: [Game.schema],
 	date: {
 		type: Date,
-		default: Date.now
+		'default': Date.now
 	}
 });
 

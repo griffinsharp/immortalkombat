@@ -8,6 +8,11 @@ const User = require("../../models/User");
 const validateRegisterInput = require("../../validation/registration");
 const validateLoginInput = require("../../validation/login");
 
+router.get("/test", (req, res) => {
+	res.json({ msg: "This is the users route" });
+});
+
+
 router.post("/register", (req, res) => {
 	const { errors, isValid } = validateRegisterInput(req.body);
 
@@ -23,7 +28,9 @@ router.post("/register", (req, res) => {
 			const newUser = new User({
 				username: req.body.username,
 				email: req.body.email,
-				password: req.body.password
+				password: req.body.password,
+				stats: req.body.stats,
+				highscore: req.body.highscore
 			});
 
 			bcrypt.genSalt(10, (err, salt) => {
@@ -121,5 +128,30 @@ router.get('/stats/:user_id',(req,res)=>{
 	User.find({_id: req.params.user_id})
 	.then(user => res.json(user))
 })
+
+router.patch("/:user_id", (req, res) => {
+
+	const newGame = new Game({
+		winner: req.body.winner,
+		loser: req.body.loser,
+		time: req.body.time,
+		winnerHitPercentage: req.body.winnerHitPercentage,
+		loserHitPercentage: req.body.loserHitPercentage
+	})
+
+	newGame.save();
+	
+	User.findOne({_id: req.params.user_id}, (err, doc) => {
+		doc.stats.push(newGame);
+		doc.save();
+	});
+	
+	res.json('done');
+	
+	
+
+	
+});
+
 
 module.exports = router;
