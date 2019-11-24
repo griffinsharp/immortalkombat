@@ -117,4 +117,9 @@ router.post('/stats/:username', (req,res)=>{
 		currentUser.stats.push(req)
 })
 
+router.get('/stats/:user_id',(req,res)=>{
+	User.find({_id: req.params.user_id})
+	.then(user => res.json(user))
+})
+
 module.exports = router;

@@ -22,6 +22,7 @@ export default class leaderboard extends Component {
     render() {
         return (
             <>
+           
                 <NavBarContainer />
                 <div className='container'>
                     <ol>
