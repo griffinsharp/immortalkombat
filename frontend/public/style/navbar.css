@@ -20,14 +20,14 @@ nav img:hover {
   filter: opacity(1);
 }
 
-nav ul {
+nav div {
   padding: 0;
   margin: 0;
   list-style-type: none;
   float: right;
 }
 
-nav li {
+nav a {
   font-size: 1em;
   display: inline-flex;
   padding: 0.7em 2em 0em 2em;
@@ -35,7 +35,7 @@ nav li {
   transition: all 0.2s;
 }
 
-nav li:last-child {
+nav a:last-child {
   padding-right: 10;
 }
 
@@ -78,7 +78,7 @@ header {
 }
 
 @media only screen and (max-width: 768px) {
-  nav ul {
+  nav div {
     font-size: 1em;
     flex-wrap: wrap;
     display: flex;
@@ -90,16 +90,17 @@ header {
 }
 
 @media only screen and (max-width: 520px) {
-  nav div {
+
+  nav img {
     display: none;
   }
-  nav ul {
+  nav div {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
   }
 
-  nav li:last-child {
+  nav a:last-child {
     padding-right: 0em;
   }
 }

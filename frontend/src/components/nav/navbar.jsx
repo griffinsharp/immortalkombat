@@ -21,33 +21,19 @@ class NavBar extends React.Component {
 					<img onClick={() => window.location.hash = '/'} style={{maxWidth: '100%', maxHeight: '100%'}}alt='icon' src={icon}/>
 				</div>
 			{this.props.loggedIn &&  
-				<ul>
-					<li>
-						<NavLink exact activeStyle={{display: 'none'}} to={"/"}>Home</NavLink> 
-					</li>
-					<li>
-						<NavLink exact activeStyle={{display: 'none'}} to={"/stats"}>Stats</NavLink>
-					</li>
-					<li>
-						<NavLink exact activeStyle={{display: 'none'}} to={"/play"}>Play</NavLink>
-					</li>
-					<li>
-						<button className='logout' onClick={this.logoutUser}>Logout</button>
-					</li>
-				</ul>
+			<div>
+				<NavLink exact activeStyle={{display: 'none'}} to={"/"}>Home</NavLink> 
+				<NavLink exact activeStyle={{display: 'none'}} to={"/stats"}>Stats</NavLink>
+				<NavLink exact activeStyle={{display: 'none'}} to={"/play"}>Play</NavLink>
+				<button className='logout' onClick={this.logoutUser}>Logout</button>
+			</div>
 			}
 			{!this.props.loggedIn &&
-				<ul>
-					<li>
-						<NavLink exact activeStyle={{display: 'none'}} to={"/"}>Home</NavLink>
-					</li>
-					<li>
-						<NavLink exact activeStyle={{display: 'none'}} to={"/signup"}>Signup</NavLink>
-					</li>
-					<li>
-						<NavLink exact activeStyle={{display: 'none'}} to={"/login"}>Login</NavLink>
-					</li>
-				</ul>
+				<div>
+					<NavLink exact activeStyle={{display: 'none'}} to={"/"}>Home</NavLink>
+					<NavLink exact activeStyle={{display: 'none'}} to={"/signup"}>Signup</NavLink>
+					<NavLink exact activeStyle={{display: 'none'}} to={"/login"}>Login</NavLink>
+				</div>
 			}
 			</nav>
 		);
