@@ -4,13 +4,13 @@ body{
 }
 
 .controller{
-  margin-top: 100px;
+  margin-top: -22px;
   height: 200px;
   width: 400px;
   background-color: #E6E6E6;
   position: relative;
   box-shadow: 15px 15px 15px rgba(0,0,0,0.2);
-  margin: auto;
+  /* margin: auto; */
   padding: 0;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -18,44 +18,47 @@ body{
 }
 
 .controllerLeft{
-  height: 250px;
-  width: 250px;
+  height: 360px;
+  width: 360px;
   background-color: #E6E6E6;
   position: absolute;
   border-radius: 100%;
-  margin-left: -125px;
+  margin-top: -21px;
+  margin-left: -215px;
   box-shadow: -15px 8px 15px rgba(0,0,0,0.2);
 }
 
 .controllerRight{
-  margin: auto;
+  /* margin: auto; */
   padding: 0;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  height: 250px;
-  width: 250px;
+  height: 322px;
+  width: 322px;
   background-color: #B8B8B8;
   position: relative;
   border-radius: 100%;
-  margin-right: -125px;
+  margin-right: -140px;
+  margin-top: -61px;
+  margin-left: 173px;
   border: solid 15px rgba(230, 230, 230,1);
   box-shadow: 15px 8px 15px rgba(0,0,0,0.2);
   
 }
 
 .circle{
-  height: 150px;
-  width: 150px;
+  height: 301px;
+  width: 301px;
   background-color: #E6E6E6;
   position: absolute;
   border-radius: 100%;
   border: solid 5px rgba(184, 184, 184, 1);
-  margin-left: 42px;
-  margin-top: 52px;
+  margin-left: 24px;
+  margin-top: 30px;
 }
 
 .crossCenter{
-  background-color: #333333;
+  /* background-color: #333333; */
   width: 35px;
   height: 35px;
   margin-top: 110px;
@@ -64,7 +67,7 @@ body{
 }
 
 .crossCircle{
-  background-color: #292929;
+  /* background-color: #292929; */
   width: 25px;
   height: 25px;
   position: absolute;
@@ -93,27 +96,29 @@ body{
 
 .crossLeft{
   background-color: #333333;
-  width: 35px;
-  height: 35px;
+  width: 116px;
+  height: 92px;
   position: absolute;
   border-radius: 15%;
-  margin-left: -30px;
+  margin-left: -56px;
+  margin-top: 25px;
 }
 
 .crossRight{
   background-color: #333333;
-  width: 35px;
-  height: 35px;
+  width: 116px;
+  height: 92px;
   position: absolute;
   border-radius: 15%;
-  margin-left: 30px;
+  margin-left: 91px;
+  margin-top: 25px
 }
 
 .centerBlue{
   position: absolute;
   width: 50px;
   height: 20px;
-  margin-left: 175px;
+  margin-left: 128px;
   margin-top: 30px;
   background-color: #0099FF;
 }
@@ -142,9 +147,9 @@ body{
   position: absolute;
   width: 80px;
   height: 50px;
-  background-color: #E6E6E6;
+  /* background-color: #E6E6E6; */
   -webkit-transform: rotate(-30deg);
-  margin-top: 60px;
+  margin-top: 64px;
   margin-left: 45px;
 }
 
@@ -160,21 +165,23 @@ body{
 
 .cornerLeft1{
   position: absolute;
-  width: 50px;
-  height: 50px;
+  width: 135px;
+  height: 135px;
   background-color: #00B800;
   border-radius: 100%;
-  margin-left: -20px;
+  margin-left: -72px;
+  margin-top: 21px;
   border: solid 5px rgba(230, 230, 230, 1)
 }
 
 .cornerRight1{
   position: absolute;
-  width: 50px;
-  height: 50px;
+  width: 135px;
+  height: 135px;
   background-color: #6699FF;
   border-radius: 100%;
-  margin-left: 60px;
+  margin-top: 48px;
+  margin-left: 69px;
   border: solid 5px rgba(230, 230, 230, 1)
 }
 
@@ -242,7 +249,7 @@ body{
   height: 150px;
   position: absolute;
   margin-left: 49.7%;
-  margin-top: -100px;
+  margin-top: -88px;
   box-shadow: 7px 8px 15px rgba(0,0,0,0.2);
 }
 
