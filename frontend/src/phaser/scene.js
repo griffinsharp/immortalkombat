@@ -20,7 +20,6 @@ import miss3Path from './assets/audio/hitsounds/miss3.mp3'
 import fightPath from './assets/audio/announcer/fight.mp3'
 import mutePath from './assets/images/mute.png'
 import speakerPath from './assets/images/speaker.png'
-import fullscreenPath from './assets/sprites/ui/fullscreen.png'
 import axios from 'axios';
 
 
@@ -28,7 +27,7 @@ import axios from 'axios';
 let inputDevice = window.location.hash === "#/testgame" ? 'keyboard' : 'socket'
 // let inputDevice = 'socket'
 let socket;
-let debug = window.location.hash === "#/testgame"? true : false;
+let debug = true;
 let backgroundImage;
 let mario;
 let luigi;
@@ -48,8 +47,8 @@ let endTime;
 
 let marioSwingTotal = 0;
 let luigiSwingTotal = 0;
-let marioHits;
-let luigiHits;
+let marioHits = 0;
+let luigiHits = 0;
 let marioHitPercentage = 0;
 let luigiHitPercentage = 0;
 let winnerHitPercentage = 0;
@@ -76,7 +75,6 @@ let muteBtn;
 let muteImg;
 let speakerImg
 let mute = true;
-let fullscreenButton;
 
 const scene = {
   game: {
@@ -90,10 +88,6 @@ const scene = {
         debug
       }
     },
-    scale: {
-    autoCenter: Phaser.Scale.CENTER_BOTH,
-    mode: Phaser.Scale.FIT,
-    },
     scene: {
       preload: preload,
       init: init,
@@ -103,8 +97,9 @@ const scene = {
   }
 };
 
+
+
 function init() {
-  
   gameIsOver = false;
 
   if (inputDevice !== 'keyboard'){
@@ -141,8 +136,6 @@ function preload () {
   this.load.image('pipe', pipe);
   this.load.image('pipeRotated', pipeRotated);
   this.load.image('floor', floor);
-  this.load.spritesheet('fullscreen', fullscreenPath, { frameWidth: 29.2, frameHeight: 27.8});
-
 
   this.load.image('mute', mutePath);
   this.load.image('speaker', speakerPath);
@@ -160,6 +153,14 @@ function preload () {
 }
 
 function create() {
+   marioSwingTotal = 0;
+  luigiSwingTotal = 0;
+   marioHits = 0;
+   luigiHits = 0;
+  marioHitPercentage = 0;
+  luigiHitPercentage = 0;
+  winnerHitPercentage = 0;
+ loserHitPercentage = 0;
 
   startTime = this.time.now;
   // load background
@@ -211,11 +212,6 @@ function create() {
   //define player health
   luigi.setData('health', 100)
   mario.setData('health', 100)
-  
-
-  // hammer action completed
-    luigi.setData('hammerCompleted',true)
-    mario.setData('hammerCompleted',true)
 
   // helth bar
   marioBar = this.add.rectangle()
@@ -302,8 +298,8 @@ function create() {
     if (player.name !== hammer.name) {
 
       player.data.values.health -= 0.5;
-      marioHits = marioHits + 1;
-      playHitSound();
+      
+      playHitSound(marioHits);
      }
      
      }, null );
@@ -311,8 +307,8 @@ function create() {
   this.physics.add.overlap(hammers, mario, (player, hammer) => {
     if (player.name !== hammer.name) {
       player.data.values.health -= 0.5;
-      luigiHits = luigiHits + 1;
-      playHitSound();
+      
+      playHitSound(luigiHits);
       } }, null );
 
   this.physics.add.collider(mario, luigi);
@@ -341,29 +337,6 @@ function create() {
   renderSprites.apply(this, [luigi, mario]);
   // add a keyboard as cursor
     cursors = this.input.keyboard.createCursorKeys();
-
-    fullscreenButton = this.add.image(width - 190, 8, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
-    fullscreenButton.setCrop(1.2,1,27,27)
-
-        fullscreenButton.on('pointerup', function () {
-
-            if (this.scale.isFullscreen)
-            {
-                fullscreenButton.setFrame(0);
-
-                this.scale.stopFullscreen();
-            }
-            else
-            {
-//  29.2, frameHeight: 27.8}
-                fullscreenButton.setFrame(1)
-
-                this.scale.startFullscreen();
-            }
-
-        }, this);
-
-
 }
 
 function update(time, delta) {
@@ -388,10 +361,10 @@ function gameOver() {
 
     // calculate the total time of the game that has elapsed
     endTime = this.time.now;
-    let totalGameTime = startTime - endTime;
+    let totalGameTime = endTime - startTime;
+    marioHitPercentage = marioHits && marioSwingTotal ? Math.floor(((marioHits / marioSwingTotal) * 100)) : 0;
+    luigiHitPercentage = luigiHits && luigiSwingTotal ? Math.floor(((luigiHits / luigiSwingTotal) * 100)) : 0;
 
-    marioHitPercentage = Math.floor(marioHits/marioSwingTotal);
-    luigiHitPercentage = Math.floor(luigiHits/luigiSwingTotal);
     
     // add player score
       if (winnerList[0].name === 'mario') {
@@ -418,7 +391,7 @@ function gameOver() {
       time: totalGameTime,
       winnerHitPercentage: winnerHitPercentage,
       loserHitPercentage: loserHitPercentage
-    };
+    }
 
     sendStatData(gameStats);
 
@@ -433,20 +406,24 @@ function gameOver() {
 
 function sendStatData(gameStats) {
 
-  axios.post('/api/games/', gameStats)
-  .then(res => {
-    gameState.players[0].stats.push(res.data);
-    gameState.players[1].stats.push(res.data)
-  })
-
+  gameState = JSON.parse(window.localStorage.getItem('gameRoom'))
+  let id1 = gameState.playerIds[0]
+  let id2 = gameState.playerIds[1]
+  let patchStringOne = 'api/users/' + id1;
+  let patchStringTwo = 'api/users/' + id2;
+  axios.patch(patchStringOne, gameStats)
+  axios.patch(patchStringTwo, gameStats)
 }
 
 function swingHammer (player) {
     let now = this.time.now
     let hammer;
 
-    // hammering action started
-    player.setData('hammerCompleted', false)
+    if (player.texture.key === 'mario') {
+      marioSwingTotal = marioSwingTotal + 1
+    } else {
+      luigiSwingTotal = luigiSwingTotal + 1
+    }
 
     // player facing left
     if (player.data.values.facing === 'left'){
@@ -460,10 +437,10 @@ function swingHammer (player) {
       setTimeout(() =>{hammer.x = player.x - 25; hammer.y = player.y - 10}, 400)
       setTimeout(() =>{hammer.x = player.x - 26; hammer.y = player.y + 13}, 500)
       setTimeout(() =>{hammer.x = player.x - 24; hammer.y = player.y }, 600)
-      setTimeout(() =>{ hammer.destroy() }, 700)
-      setTimeout(() =>{ player.setData('hammerCompleted', true) }, 950)
+      setTimeout(() =>{hammer.destroy()}, 700)
     }else {
       hammer = hammers.create( player.x - 25 , player.y + 30, null, null, false )
+      hammer.setData('author',player)
       hammer.name = player.name  // assing name as the author of the action
       hammer.setSize(10,10)
       setTimeout(() =>{hammer.x = player.x - 30; hammer.y = player.y + 0}, 100)
@@ -471,10 +448,7 @@ function swingHammer (player) {
       setTimeout(() =>{hammer.x = player.x + 0; hammer.y = player.y - 30}, 300)
       setTimeout(() =>{hammer.x = player.x + 25; hammer.y = player.y - 10}, 400)
       setTimeout(() =>{hammer.x = player.x + 22; hammer.y = player.y + 15}, 500)
-      setTimeout(() =>{ hammer.destroy() }, 700)
-      setTimeout(() =>{ player.setData('hammerCompleted', true) }, 950)
-
-        
+      setTimeout(() =>{hammer.destroy()}, 700)
     }
 }
 
@@ -489,10 +463,17 @@ function playMissSound () {
 }
 
 let hitThrottle = false
-function playHitSound () {
+function playHitSound (hits) {
     if (!hitThrottle) {
       hitaudios[Math.floor(Math.random() * hitaudios.length)].play();
       hitThrottle = true
+      
+      if (hits === marioHits) {
+        marioHits = marioHits + 1
+        console.log(marioHits);
+      } else {
+        luigiHits = luigiHits + 1
+      };
       setTimeout(() => hitThrottle = false, 1000)
     }
     

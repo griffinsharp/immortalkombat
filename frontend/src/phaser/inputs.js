@@ -87,7 +87,7 @@ export function inputKeyboardHandle ({luigi, mario}, speed, cursors, {swingHamme
     if (cursors.space.isDown){
     luigiHammer(() => {
         swingHammer.apply(this, [luigi])
-         luigiSwingTotal += 1;
+         luigiSwingTotal = luigiSwingTotal + 1;
         // check if right or left 
         if (luigi.data.values.facing === 'right') { luigi.play('l-hammer-right', 1).setCrop(0, 1, 43, 42);
         }
@@ -241,7 +241,7 @@ export function handleMessage({ luigi, mario, msg }, speed, { swingHammer }, mar
     if (msg.action === 'hammer'){
       luigiHammer( () => {
         swingHammer.apply(this, [luigi])
-        luigiSwingTotal += 1;
+        luigiSwingTotal = luigiSwingTotal + 1;
         // check if right or left 
         if (luigi.data.values.facing === 'right') { luigi.play('l-hammer-right', true).setCrop(0, 1, 43, 42);
         }

@@ -6,7 +6,8 @@ export default class Play extends Component {
 		super(props);
 		this.state = {
 			code: "",
-			username: this.props.currentUser.username
+			username: this.props.currentUser.username,
+			id: this.props.currentUser.id
 		};
 	}
 

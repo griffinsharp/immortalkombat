@@ -33,7 +33,8 @@ io
         io.of("/games").in(msg.code)
             .emit("newUser", JSON.stringify({
                 msg: `${msg.username} joined ${msg.code}`,
-                username: msg.username
+                username: msg.username,
+                id: msg.id
             }))
     });
     socket.on("message", (data) => {

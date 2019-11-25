@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const keys = require("../../config/keys");
 const User = require("../../models/User");
+const Game = require("../../models/Game")
 const validateRegisterInput = require("../../validation/registration");
 const validateLoginInput = require("../../validation/login");
 
@@ -142,6 +143,7 @@ router.patch("/:user_id", (req, res) => {
 	newGame.save();
 	
 	User.findOne({_id: req.params.user_id}, (err, doc) => {
+	
 		doc.stats.push(newGame);
 		doc.save();
 	});

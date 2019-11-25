@@ -15,6 +15,7 @@ export default class WaitRoom extends Component {
             startGame: ''
         }
         this.players = [];
+        this.playerIds = [];
     }
 
     componentDidMount() {
@@ -28,11 +29,13 @@ export default class WaitRoom extends Component {
             console.log(data.msg)
             if (this.players.length < 3 && data.username !== 'Game'){
                 this.players.push(data.username);
+                this.playerIds.push(data.id);
                 if (this.players.length === 1) this.setState({player1: data.username})
                 if (this.players.length === 2) {
                     window.localStorage.setItem('gameRoom', JSON.stringify({
                         code: this.state.code,
-                        players: this.players
+                        players: this.players,
+                        playerIds: this.playerIds
                     }))
                     this.setState({
                         player2: data.username,

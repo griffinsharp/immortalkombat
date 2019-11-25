@@ -8,7 +8,8 @@ export default class Controller extends Component {
         super(props);
         this.state = {
             code: this.props.game.room,
-            username: this.props.currentUser.username
+            username: this.props.currentUser.username,
+            id: this.props.currentUser.id
         }
     }
 
@@ -32,6 +33,7 @@ export default class Controller extends Component {
         return JSON.stringify({
             action: action,
             username: this.state.username,
+            id: this.state.id,
             room: this.state.code
         });
     }
