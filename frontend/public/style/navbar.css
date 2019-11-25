@@ -5,6 +5,8 @@ nav {
   margin: 0 auto;
   top: 0;
   z-index: 3;
+  background-color: #96cedf;;
+  flex-wrap: wrap;
 }
 
 nav div {
@@ -18,6 +20,7 @@ nav img:hover {
     filter: opacity(1);
 }
 
+
 nav ul {
   padding: 0;
   margin: 0;
@@ -27,8 +30,9 @@ nav ul {
 
 
 nav li {
-  font-size: 1.3em;
-  display: inline-block;
+
+  font-size: 1em;
+  display: inline-flex;
   padding: .7em 2em 0em 2em;
   text-align: center;
   transition: all 0.2s;
@@ -66,3 +70,21 @@ nav a:hover {
     z-index: 2;
   
   }
+
+
+@media only screen and (max-width: 768px){
+    /* hide icon */
+ nav div {
+     display: none
+ } 
+ nav li {
+
+  font-size: 1em;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: space-around ;
+  /* padding: .7em 2em 0em 2em; */
+
+ }
+     
+ }

@@ -38,7 +38,7 @@ export default class Play extends Component {
 
   render() {
     return (
-      <>
+      <div className='play'>
         <NavBarContainer />
         <div
           style={{
@@ -97,7 +97,7 @@ export default class Play extends Component {
             )}
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }
