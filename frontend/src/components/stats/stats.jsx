@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import NavBarContainer from "../nav/navbar_container";
-import axios from 'axios'
+import axios from 'axios';
 
 export default class stats extends Component {
     constructor(props){
@@ -29,7 +29,7 @@ export default class stats extends Component {
 			<>
                 
 			<NavBarContainer />
-            <div className='container'>
+            <div className='stats-container'>
                     <h1>{this.state.username}</h1>
                     <h2>highscore: {this.state.highscore}</h2>
                     <table>
