@@ -54,7 +54,7 @@ class LoginForm extends React.Component {
 
 	render() {
 		return (
-			<>
+			<div className='auth-form'>
 			<NavBarContainer />
 			<div>
 				<form onSubmit={this.handleSubmit} className="container">
@@ -80,7 +80,7 @@ class LoginForm extends React.Component {
 					</div>
 				</form>
 			</div>
-			</>
+			</div>
 		);
 	}
 }

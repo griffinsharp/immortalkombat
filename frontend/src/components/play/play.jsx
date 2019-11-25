@@ -38,7 +38,7 @@ export default class Play extends Component {
 
   render() {
     return (
-      <>
+      <div className='play'>
         <NavBarContainer />
         <div
           style={{
@@ -50,7 +50,7 @@ export default class Play extends Component {
             flexDirection: "column",
           }}
         >
-          <div style={{ display: "flex", justifyContent: "center" }}>
+          <div style={{flexWrap:'wrap', wordBreak: 'break-all', display: "flex", justifyContent: "center" }}>
             {" "}
             Add Code{" "}
             <span style={{ color: "red", fontWeight: "500" }}>
@@ -97,7 +97,7 @@ export default class Play extends Component {
             )}
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }

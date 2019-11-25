@@ -1,11 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import icon from '../assets/hammer.png'
 
 class NavBar extends React.Component {
 	constructor(props) {
 		super(props);
 		this.logoutUser = this.logoutUser.bind(this);
-		this.getLinks = this.getLinks.bind(this);
 	}
 
 	logoutUser(e) {
@@ -13,32 +13,29 @@ class NavBar extends React.Component {
 		this.props.logout();
 	}
 
-	getLinks() {
-		if (this.props.loggedIn) {
-			return (
-				<div>
-					<Link to={"/"}>Home</Link>
-					<Link to={"/stats"}>Stats</Link>
-					<Link to={"/play"}>Play</Link>
-					<button onClick={this.logoutUser}>Logout</button>
-				</div>
-			);
-		} else {
-			return (
-				<div>
-					<Link to={"/signup"}>Signup</Link>
-					<Link to={"/login"}>Login</Link>
-				</div>
-			);
-		}
-	}
 
 	render() {
 		return (
+			<nav className='navbar'>
+				<div style={{height: '50px', width: '50px'}} >
+					<img onClick={() => window.location.hash = '/'} style={{maxWidth: '100%', maxHeight: '100%'}}alt='icon' src={icon}/>
+				</div>
+			{this.props.loggedIn &&  
 			<div>
-				<h1>Immortal Kombat</h1>
-				{this.getLinks()}
+				<NavLink exact activeStyle={{display: 'none'}} to={"/"}>Home</NavLink> 
+				<NavLink exact activeStyle={{display: 'none'}} to={"/stats"}>Stats</NavLink>
+				<NavLink exact activeStyle={{display: 'none'}} to={"/play"}>Play</NavLink>
+				<button className='logout' onClick={this.logoutUser}>Logout</button>
 			</div>
+			}
+			{!this.props.loggedIn &&
+				<div>
+					<NavLink exact activeStyle={{display: 'none'}} to={"/"}>Home</NavLink>
+					<NavLink exact activeStyle={{display: 'none'}} to={"/signup"}>Signup</NavLink>
+					<NavLink exact activeStyle={{display: 'none'}} to={"/login"}>Login</NavLink>
+				</div>
+			}
+			</nav>
 		);
 	}
 }
