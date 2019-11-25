@@ -27,7 +27,7 @@ import axios from 'axios';
 let inputDevice = window.location.hash === "#/testgame" ? 'keyboard' : 'socket'
 // let inputDevice = 'socket'
 let socket;
-let debug = true;
+let debug = false;
 let backgroundImage;
 let mario;
 let luigi;
@@ -364,10 +364,11 @@ function gameOver() {
     let totalGameTime = endTime - startTime;
     marioHitPercentage = marioHits && marioSwingTotal ? Math.floor(((marioHits / marioSwingTotal) * 100)) : 0;
     luigiHitPercentage = luigiHits && luigiSwingTotal ? Math.floor(((luigiHits / luigiSwingTotal) * 100)) : 0;
-
+    console.log(marioHitPercentage)
+    console.log(luigiHitPercentage)
     
     // add player score
-      if (winnerList[0].name === 'mario') {
+      if (winnerList[0].name === mario.name) {
           marioScore++;
           mario.play('m-winner')
           luigi.play('l-back')
