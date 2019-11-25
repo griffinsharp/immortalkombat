@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as io from "socket.io-client";
 import mario from './assets/mario_peace.png';
 import luigi from './assets/luigi_peace.png';
+import QRCode from 'qrcode.react'
 
 export default class WaitRoom extends Component {
 
@@ -76,6 +77,12 @@ export default class WaitRoom extends Component {
         </div>
     }
 
+    renderQRCode () {
+        return (
+        <QRCode size='230' value={this.state.code} />
+        )
+    }
+
     render() {
         return (
             <div className="waitroom-container">
@@ -86,7 +93,10 @@ export default class WaitRoom extends Component {
                     <li>Click 'Join Game'</li>
                     <li>Enter the code below:</li>
                 </ol>
-                <span>{this.state.code}</span>
+                <div style={{display: 'flex', flexDirection:'column', justifyContent:'center'}} className='code-display'>
+                    <span style={{fontWeight: 'bold', textAlign:'center', paddingBottom: '1em', fontSize: '1.4em'}}>{this.state.code}</span>
+                    {this.renderQRCode()}
+                </div>
                 {this.renderPlayers()}
                 {this.renderStartMsg()}
             </div>
