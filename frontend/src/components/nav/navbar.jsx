@@ -16,7 +16,7 @@ class NavBar extends React.Component {
 
 	render() {
 		return (
-			<nav>
+			<nav className='navbar'>
 				<div style={{height: '50px', width: '50px'}} >
 					<img onClick={() => window.location.hash = '/'} style={{maxWidth: '100%', maxHeight: '100%'}}alt='icon' src={icon}/>
 				</div>
@@ -32,7 +32,7 @@ class NavBar extends React.Component {
 						<Link to={"/play"}>Play</Link>
 					</li>
 					<li>
-						<button onClick={this.logoutUser}>Logout</button>
+						<button className='logout' onClick={this.logoutUser}>Logout</button>
 					</li>
 				</ul>
 			}
