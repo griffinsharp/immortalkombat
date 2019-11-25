@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import icon from '../assets/hammer.png'
 
 class NavBar extends React.Component {
 	constructor(props) {
 		super(props);
 		this.logoutUser = this.logoutUser.bind(this);
-		this.getLinks = this.getLinks.bind(this);
 	}
 
 	logoutUser(e) {
@@ -13,32 +13,43 @@ class NavBar extends React.Component {
 		this.props.logout();
 	}
 
-	getLinks() {
-		if (this.props.loggedIn) {
-			return (
-				<div>
-					<Link to={"/"}>Home</Link>
-					<Link to={"/stats"}>Stats</Link>
-					<Link to={"/play"}>Play</Link>
-					<button onClick={this.logoutUser}>Logout</button>
-				</div>
-			);
-		} else {
-			return (
-				<div>
-					<Link to={"/signup"}>Signup</Link>
-					<Link to={"/login"}>Login</Link>
-				</div>
-			);
-		}
-	}
 
 	render() {
 		return (
-			<div>
-				<h1>Immortal Kombat</h1>
-				{this.getLinks()}
-			</div>
+			<nav>
+				<div style={{height: '50px', width: '50px'}} >
+					<img onClick={() => window.location.hash = '/'} style={{maxWidth: '100%', maxHeight: '100%'}}alt='icon' src={icon}/>
+				</div>
+			{this.props.loggedIn &&  
+				<ul>
+					<li>
+						<Link to={"/"}>Home</Link> 
+					</li>
+					<li>
+						<Link to={"/stats"}>Stats</Link>
+					</li>
+					<li>
+						<Link to={"/play"}>Play</Link>
+					</li>
+					<li>
+						<button onClick={this.logoutUser}>Logout</button>
+					</li>
+				</ul>
+			}
+			{!this.props.loggedIn &&
+				<ul>
+					<li>
+						<Link to={"/"}>Home</Link>
+					</li>
+					<li>
+						<Link to={"/signup"}>Signup</Link>
+					</li>
+					<li>
+						<Link to={"/login"}>Login</Link>
+					</li>
+				</ul>
+			}
+			</nav>
 		);
 	}
 }
