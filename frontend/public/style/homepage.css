@@ -8,7 +8,7 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     color: white;
-    height: 1300px;
+    height: 1150px;
 }
 
 .title {
@@ -41,9 +41,9 @@
 
 .tagline {
     font-size: 20px;
-    text-align: left;
+    text-align: center;
     width: 70%;
-    padding-left: 50px;
+
     display: flex;
     flex-direction: column;
 }
@@ -87,7 +87,6 @@
     margin: auto;
     display: flex;
     width: 70%;
-    flex-direction: row;
 }
 
 .button-container {
@@ -96,3 +95,107 @@
     justify-content: space-around;
 }
 
+@media (max-width: 950px) {
+  .home-container {
+    background-color: #96cedf;;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    color: white;
+    height: 1200px;
+}
+
+.title {
+    font-family: 'Press Start 2P', sans-serif;
+    font-weight: none;
+    font-size: 70px;
+    margin: auto;
+}
+
+.home-inner-container{ 
+    max-width: 1200px;
+    flex-direction: column;
+    justify-content: center;
+    margin: 100px auto;
+    height: 100%;
+}
+
+.title {
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.subtitle {
+    font-size: 25px;
+    margin-bottom: 50px;
+}
+
+.top-container {
+    display: flex;
+}
+
+.tagline {
+    font-size: 20px;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.cloud-container {
+    display: none;
+    position: absolute;
+}
+
+.cloud {
+    display: none;
+    width: 70%;
+    transform: translateY(-260px) translateX(-130px);
+}
+
+.cloudtwo {
+    display: none;
+    width: 70%;
+    transform: translateY(-399px) translateX(960px);
+}
+
+
+.iphone-mockup {
+    display: none;
+    width: 323px;
+    transform: rotate(25deg) translateX(475px) translateY(-468px);
+    position: absolute;
+}
+
+.btn-play {
+    width: 300px !important;
+    margin: 10px 10px;
+    color: white !important;
+    font-family: 'Montserrat', sans-serif;
+    background-color: #669aff !important;
+    padding: 0.7rem 1.75rem !important;
+
+}
+
+.btn-play:hover {
+    background-color: #4888ff !important;
+
+}
+
+.iphone-tag {
+    margin: auto;
+    display: flex;
+    width: 70%;
+    flex-direction: row;
+}
+
+.button-container {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+}
