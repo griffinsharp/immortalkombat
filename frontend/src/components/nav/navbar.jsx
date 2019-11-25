@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import icon from '../assets/hammer.png'
 
 class NavBar extends React.Component {
@@ -23,13 +23,13 @@ class NavBar extends React.Component {
 			{this.props.loggedIn &&  
 				<ul>
 					<li>
-						<Link to={"/"}>Home</Link> 
+						<NavLink exact activeStyle={{display: 'none'}} to={"/"}>Home</NavLink> 
 					</li>
 					<li>
-						<Link to={"/stats"}>Stats</Link>
+						<NavLink exact activeStyle={{display: 'none'}} to={"/stats"}>Stats</NavLink>
 					</li>
 					<li>
-						<Link to={"/play"}>Play</Link>
+						<NavLink exact activeStyle={{display: 'none'}} to={"/play"}>Play</NavLink>
 					</li>
 					<li>
 						<button className='logout' onClick={this.logoutUser}>Logout</button>
@@ -39,13 +39,13 @@ class NavBar extends React.Component {
 			{!this.props.loggedIn &&
 				<ul>
 					<li>
-						<Link to={"/"}>Home</Link>
+						<NavLink exact activeStyle={{display: 'none'}} to={"/"}>Home</NavLink>
 					</li>
 					<li>
-						<Link to={"/signup"}>Signup</Link>
+						<NavLink exact activeStyle={{display: 'none'}} to={"/signup"}>Signup</NavLink>
 					</li>
 					<li>
-						<Link to={"/login"}>Login</Link>
+						<NavLink exact activeStyle={{display: 'none'}} to={"/login"}>Login</NavLink>
 					</li>
 				</ul>
 			}

@@ -3,6 +3,9 @@ body {
 }
 
 
-.play {
-    margin-top: 6em;
+@media only screen and (max-width: 733px){
+
 }
+/* .play {
+    margin-top: 6em;
+} */
