@@ -11,6 +11,7 @@ export default class Controller extends Component {
       id: this.props.currentUser.id,
       vibration: false,
     };
+    this.controllerRef = React.createRef();
   }
 
   componentDidMount() {
@@ -29,6 +30,7 @@ export default class Controller extends Component {
       });
       // this.socket.on("message", msg => console.log(msg));
     }
+    this.openFullscreen();
   }
 
   createAction(action) {
@@ -89,15 +91,33 @@ export default class Controller extends Component {
     );
   }
 
+    openFullscreen() {
+        console.log(this.controllerReF)
+      if (this.controllerRef.requestFullscreen) {
+        this.controllerRef.requestFullscreen();
+      } else if (this.controllerRef.mozRequestFullScreen) {
+        /* Firefox */
+        this.controllerRef.mozRequestFullScreen();
+      } else if (this.controllerRef.webkitRequestFullscreen) {
+        /* Chrome, Safari and Opera */
+        this.controllerRef.webkitRequestFullscreen();
+      } else if (this.controllerRef.msRequestFullscreen) {
+        /* IE/Edge */
+        this.controllerRef.msRequestFullscreen();
+      }
+    }
+
   render() {
     return (
-      <div className="controller-container">
+      <div ref={this.controllerRef} className="controller-container">
         <div className="cable"></div>
         <div className="controller">
           <div className="centerBlue">
             <div className="centerLeft"></div>
             <div className="centerRight"></div>
-          <div style={{zIndex: '3', position:'absolute'}}>{this.state.code}</div>
+            <div style={{ zIndex: "3", position: "absolute" }}>
+              {this.state.code}
+            </div>
           </div>
           <div className="centerStart">
             <div className="SLeft"></div>
