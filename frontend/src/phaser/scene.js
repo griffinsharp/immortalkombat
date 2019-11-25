@@ -258,8 +258,8 @@ function create() {
 
   // assign username to player
   if (gameState) {
-    mario.setName(gameState.players[1])
-    luigi.setName(gameState.players[0])
+    mario.setName(gameState.players[0])
+    luigi.setName(gameState.players[1])
   }else {
     luigi.setName('luigi')
     mario.setName('mario')
@@ -295,10 +295,9 @@ function create() {
   luigi.setSize(14,31)
   luigi.setOffset(16,12)
 
-  mario.on('animationcomplete', function (anim, frame) {
-    console.log(anim,frame)
+  // mario.on('animationcomplete', function (anim, frame) {
     // this.emit('animationcomplete_' + anim.key, anim, frame);
-  }, mario);
+  // }, mario);
 
   // set colision and global phisycs
   this.physics.add.collider(platforms, mario);

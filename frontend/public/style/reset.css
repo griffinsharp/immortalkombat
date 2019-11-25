@@ -25,10 +25,6 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
-body {
-	line-height: 1;
-	background-color: #0093D8;
-}
 ol, ul {
 	list-style: none;
 }
