@@ -30,7 +30,7 @@ const Home = () => {
                             </p>
                             <div className="button-container">
                                 <Link to='/waitroom' ><button type="button" className='btn btn-play '>Create Game</button></Link>
-                                <Link to='/login' ><button type="button" className='btn btn-play '>Join Game</button></Link>
+                                <Link to='/play' ><button type="button" className='btn btn-play '>Join Game</button></Link>
                             </div>
                             
                         </div>
