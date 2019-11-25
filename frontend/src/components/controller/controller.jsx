@@ -42,7 +42,7 @@ export default class Controller extends Component {
 
   vibration(action) {
     let that = this;
-    if (!this.vibration) {
+    if (!this.state.vibration) {
       this.setState({ vibrate: true });
 
       switch (action) {
@@ -97,6 +97,7 @@ export default class Controller extends Component {
           <div className="centerBlue">
             <div className="centerLeft"></div>
             <div className="centerRight"></div>
+          <div style={{zIndex: '3', position:'absolute'}}>{this.state.code}</div>
           </div>
           <div className="centerStart">
             <div className="SLeft"></div>
