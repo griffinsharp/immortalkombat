@@ -3,13 +3,16 @@ import QrReader from "react-qr-reader";
 import NavBarContainer from "../nav/navbar_container";
 
 export default class Play extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      code: "",
-      username: this.props.currentUser.username,
-    };
-  }
+
+	constructor(props) {
+		super(props);
+		this.state = {
+			code: "",
+			username: this.props.currentUser.username,
+			id: this.props.currentUser.id
+		};
+	}
+
 
   handleScan = data => {
     if (data) {

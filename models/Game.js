@@ -3,18 +3,22 @@ const Schema = mongoose.Schema;
 
 const GameSchema = new Schema({
     winner: {
-        type: Schema.ObjectId,
+        type: String,
         required: true
     },
     loser: {
-        type: Schema.ObjectId,
+        type: String,
         required: true
     },
-    winnerScore: {
+    time: {
         type: Number,
         required: true
     },
-    loserScore: {
+    winnerHitPercentage: {
+        type: Number,
+        required: true
+    },
+    loserHitPercentage: {
         type: Number,
         required: true
     },
