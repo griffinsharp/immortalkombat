@@ -29,18 +29,18 @@ ImmarioKombat will utilize the MERN stack: MongoDB, expressJS, reactJS, and node
 
 ## Functionality & MVP
 
-   - [ ] User authorization: sign up and log in
-   - [ ] Saving of game data to database (number of punches, high score, time, etc.)
-   - [ ] Two players able to play against each other at the same time.
-   - [ ] Render game sprites to the canvas that change with the game's logic.
-   - [ ] Rendering events in real time between both players to see changes in real time. 
-   - [ ] Production README
-   - [ ] Deployment to Heroku
+   - [x] User authorization: sign up and log in
+   - [x] Saving of game data to database (number of punches, high score, time, etc.)
+   - [x] Two players able to play against each other at the same time.
+   - [x] Render game sprites to the canvas that change with the game's logic.
+   - [x] Rendering events in real time between both players to see changes in real time. 
+   - [x] Production README
+   - [x] Deployment to Heroku
 
 #### Bonus Features
-   - [ ] Real time communication between desktop browser and mobile browser.
-   - [ ] Connect to the game via QR code that serves the game ID
-   - [ ] Display game status on mobile
+   - [x] Real time communication between desktop browser and mobile browser.
+   - [x] Connect to the game via QR code that serves the game ID
+   - [x] Display game status on mobile
    - [ ] Player select screen and 1 player vs computer version
 
 ## Group Members & Work Breakdown
