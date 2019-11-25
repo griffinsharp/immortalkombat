@@ -1,21 +1,21 @@
-# immortalkombat
+# immariokombat
 
 
 ## Background and Overview
 
-ImmortalKombat is a web-based, real-time fighting game that applies newer, more readily available software and hardware to the old style fighter games that we all know and love. After playing these older games on deprecated consoles, our group thought we could make a desktop version that utilized our cellphones as the input devices and a desktop to display the game rendering itself. 
+[ImmarioKombat](https://immariokombat.herokuapp.com/#/) is a web-based, real-time fighting game that applies newer, more readily available software and hardware to the old style fighter games that we all know and love. After playing these older games on deprecated consoles, our group thought we could make a desktop version that utilized our cellphones as the input devices and a desktop to display the game rendering itself. 
 
-ImmortalKombat will utilize the MERN stack: MongoDB, expressJS, reactJS, and nodeJS. 
+ImmarioKombat will utilize the MERN stack: MongoDB, expressJS, reactJS, and nodeJS. 
 
 ### PROJECT FLOW (TOP TO BOTTOM):
 
-### create.immortalkombat.com
+### create.immariokombat.com
 
 `/` - Welcome page with hello and button to generate a room.
 
 `/room` - Code generated and presented on screen. Directions on how to go to your phone and enter in code (just like Kahoot).
 
-### immortalkombat.com
+### immariokombat.com
 
 `/signin` or `/signup` - Prompt to sign in our sign out.
 
@@ -23,7 +23,7 @@ ImmortalKombat will utilize the MERN stack: MongoDB, expressJS, reactJS, and nod
 
 `/joystick` - joystick for the player inputs to the game (jump, punch, duck, etc. for each player)
 
-### create.immortalkombat.com
+### create.immariokombat.com
 
 `/game` - actual game canvas with player 1 and player 2 loaded and ready to play
 
@@ -104,5 +104,3 @@ On the frontend of our app, we decided to utilize React with Redux to manage and
 We will be incorporating websockets that will allow players to communicate with the game in real time.
 The game will create new rooms for each game through websockets and two players can connect to a single room and upon the established connection players can send game inputs in real time.
 We will be displaying the real time changes by processing the game inputs of the players and show it in the game window.
-
-### Wireframe
