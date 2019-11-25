@@ -20,6 +20,7 @@ import miss3Path from './assets/audio/hitsounds/miss3.mp3'
 import fightPath from './assets/audio/announcer/fight.mp3'
 import mutePath from './assets/images/mute.png'
 import speakerPath from './assets/images/speaker.png'
+import fullscreenPath from './assets/sprites/ui/fullscreen.png'
 import axios from 'axios';
 
 
@@ -27,7 +28,7 @@ import axios from 'axios';
 let inputDevice = window.location.hash === "#/testgame" ? 'keyboard' : 'socket'
 // let inputDevice = 'socket'
 let socket;
-let debug = false;
+let debug = window.location.hash === "#/testgame" ? true : false;
 let backgroundImage;
 let mario;
 let luigi;
@@ -75,6 +76,7 @@ let muteBtn;
 let muteImg;
 let speakerImg
 let mute = true;
+let fullscreenButton;
 
 const scene = {
   game: {
@@ -87,6 +89,10 @@ const scene = {
         gravity: { y: 300 },
         debug
       }
+    },
+    scale: {
+      autoCenter: Phaser.Scale.CENTER_BOTH,
+      mode: Phaser.Scale.FIT,
     },
     scene: {
       preload: preload,
@@ -136,6 +142,7 @@ function preload () {
   this.load.image('pipe', pipe);
   this.load.image('pipeRotated', pipeRotated);
   this.load.image('floor', floor);
+  this.load.spritesheet('fullscreen', fullscreenPath, { frameWidth: 29.2, frameHeight: 27.8 });
 
   this.load.image('mute', mutePath);
   this.load.image('speaker', speakerPath);
@@ -213,7 +220,11 @@ function create() {
   luigi.setData('health', 100)
   mario.setData('health', 100)
 
-  // helth bar
+  // hammer action completed
+  luigi.setData('hammerCompleted', true)
+  mario.setData('hammerCompleted', true)
+
+  // health bar
   marioBar = this.add.rectangle()
   luigiBar = this.add.rectangle()
   marioBar.setOrigin(0,0)
@@ -337,6 +348,27 @@ function create() {
   renderSprites.apply(this, [luigi, mario]);
   // add a keyboard as cursor
     cursors = this.input.keyboard.createCursorKeys();
+
+
+  fullscreenButton = this.add.image(width - 190, 8, 'fullscreen', 0).setOrigin(1, 0).setInteractive();
+  fullscreenButton.setCrop(1.2, 1, 27, 27)
+
+  fullscreenButton.on('pointerup', function () {
+
+    if (this.scale.isFullscreen) {
+      fullscreenButton.setFrame(0);
+
+      this.scale.stopFullscreen();
+    }
+    else {
+      //  29.2, frameHeight: 27.8}
+      fullscreenButton.setFrame(1)
+
+      this.scale.startFullscreen();
+    }
+
+  }, this);
+
 }
 
 function update(time, delta) {
@@ -420,6 +452,7 @@ function swingHammer (player) {
     let now = this.time.now
     let hammer;
 
+    player.setData('hammerCompleted', false)
     if (player.texture.key === 'mario') {
       marioSwingTotal = marioSwingTotal + 1
     } else {
@@ -439,6 +472,7 @@ function swingHammer (player) {
       setTimeout(() =>{hammer.x = player.x - 26; hammer.y = player.y + 13}, 500)
       setTimeout(() =>{hammer.x = player.x - 24; hammer.y = player.y }, 600)
       setTimeout(() =>{hammer.destroy()}, 700)
+      setTimeout(() => { player.setData('hammerCompleted', true) }, 950)
     }else {
       hammer = hammers.create( player.x - 25 , player.y + 30, null, null, false )
       hammer.setData('author',player)
@@ -450,6 +484,7 @@ function swingHammer (player) {
       setTimeout(() =>{hammer.x = player.x + 25; hammer.y = player.y - 10}, 400)
       setTimeout(() =>{hammer.x = player.x + 22; hammer.y = player.y + 15}, 500)
       setTimeout(() =>{hammer.destroy()}, 700)
+      setTimeout(() => { player.setData('hammerCompleted', true) }, 950)
     }
 }
 
