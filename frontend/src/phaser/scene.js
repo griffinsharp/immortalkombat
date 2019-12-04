@@ -345,8 +345,8 @@ function create() {
     (player, hammer) => {
       if (player.name !== hammer.name) {
         player.data.values.health -= 0.5;
-
         playHitSound();
+        addHitMario();
       }
     },
     null
@@ -358,8 +358,8 @@ function create() {
     (player, hammer) => {
       if (player.name !== hammer.name) {
         player.data.values.health -= 0.5;
-
-        playHitSound(luigiHits);
+        playHitSound();
+        addHitLuigi();
       }
     },
     null
@@ -455,7 +455,7 @@ function gameOver() {
           ? Math.floor((luigiHits / luigiSwingTotal) * 100)
           : 0;
 
-      // console.log(marioHitPercentage, marioHits, marioSwingTotal);
+      console.log(marioHitPercentage, marioHits, marioSwingTotal);
 
       // add player score
       if (winnerList[0].name === mario.name) {
@@ -504,12 +504,29 @@ function sendStatData(gameStats) {
   axios.patch(patchStringTwo, gameStats);
 }
 
-function addHit(player) {
-  let name = player.getData("character");
-  if (name === "mario") {
+// let hitThrottle = false;
+// function playHitSound() {
+//   if (!hitThrottle) {
+//     hitaudios[Math.floor(Math.random() * hitaudios.length)].play();
+//     hitThrottle = true;
+
+//     setTimeout(() => (hitThrottle = false), 700);
+//   }
+// }
+let marioHitThrottle = false;
+let luigiHitThrottle = false;
+function addHitMario() {
+  if (!marioHitThrottle) {
     marioHits++;
-  } else {
-    luigiHits--;
+    marioHitThrottle = true;
+    setTimeout(() => (marioHitThrottle = false), 700);
+  }
+}
+function addHitLuigi() {
+  if (!luigiHitThrottle) {
+    luigiHits++;
+    luigiHitThrottle = true;
+    setTimeout(() => (luigiHitThrottle = false), 700);
   }
 }
 
@@ -518,9 +535,9 @@ function swingHammer(player) {
 
   player.setData("hammerCompleted", false);
   if (player.texture.key === "mario") {
-    marioSwingTotal = marioSwingTotal + 1;
+    marioSwingTotal++;
   } else {
-    luigiSwingTotal = luigiSwingTotal + 1;
+    luigiSwingTotal++;
   }
 
   // player facing left
@@ -555,7 +572,6 @@ function swingHammer(player) {
     }, 600);
     setTimeout(() => {
       hammer.destroy();
-      addHit(player);
     }, 700);
     setTimeout(() => {
       player.setData("hammerCompleted", true);
@@ -587,7 +603,6 @@ function swingHammer(player) {
     }, 500);
     setTimeout(() => {
       hammer.destroy();
-      addHit(player);
     }, 700);
     setTimeout(() => {
       player.setData("hammerCompleted", true);
