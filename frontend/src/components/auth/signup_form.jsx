@@ -16,15 +16,16 @@ class SignupForm extends React.Component {
 
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.clearedErrors = false;
+		this.demoUserLogin = this.demoUserLogin.bind(this);
 	}
 
-	componentWillReceiveProps(nextProps) {
-		if (nextProps.signedIn === true) {
-			this.props.history.push("/login");
-		}
+	// componentWillReceiveProps(nextProps) {
+	// 	if (nextProps.signedIn === true) {
+	// 		this.props.history.push("/");
+	// 	}
 
-		this.setState({ errors: nextProps.errors });
-	}
+	// 	this.setState({ errors: nextProps.errors });
+	// }
 
 	update(field) {
 		return e =>
@@ -42,7 +43,44 @@ class SignupForm extends React.Component {
 			password2: this.state.password2
 		};
 
-		this.props.signup(user, this.props.history);
+		this.props.signup(user).then(() => this.props.login(user));
+	}
+
+
+	demoUserLogin(e) {
+		e.preventDefault();
+		let dictionary = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
+
+		function findNum (dictionary) { 
+
+			let counter = 0;
+			let num = '';
+
+			while (counter < 4) {
+				num += dictionary[Math.floor(Math.random() * 62)];
+				counter = counter + 1;
+			} 
+
+			return num;
+		}
+
+		let randNum = findNum(dictionary);
+
+		const user = Object.assign({}, {
+			email: `demouser${randNum}@demo.com`,
+			username: `Demo${randNum}`,
+			password: 'password',
+			password2: 'password'
+		});
+
+		this.setState({ email: user.email });
+		this.setState({ username: user.username });
+		this.setState({ password: user.password });
+		this.setState({ password2: user.password2 });
+
+		this.props.signup(user).then( () => this.props.login(user));
+		
 	}
 
 	renderErrors() {
@@ -94,6 +132,9 @@ class SignupForm extends React.Component {
 						<button type="submit" className="btn btn-flat">
 							Submit
 						</button>
+							<button type="submit" className="btn btn-flat" onClick={this.demoUserLogin}> 
+								Demo User
+							</button>
 						{this.renderErrors()}
 					</div>
 				</form>
