@@ -278,6 +278,10 @@ function create() {
   luigi.setData("facing", "right");
   mario.setData("facing", "left");
 
+  //set character name for hit
+  luigi.setData("character", "luigi");
+  mario.setData("character", "mario");
+
   mario.setBounce(0.2);
   mario.setCollideWorldBounds(true);
   luigi.setBounce(0.2);
@@ -342,7 +346,7 @@ function create() {
       if (player.name !== hammer.name) {
         player.data.values.health -= 0.5;
 
-        playHitSound(marioHits);
+        playHitSound();
       }
     },
     null
@@ -441,6 +445,7 @@ function gameOver() {
       // calculate the total time of the game that has elapsed
       endTime = this.time.now;
       let totalGameTime = endTime - startTime;
+
       marioHitPercentage =
         marioHits && marioSwingTotal
           ? Math.floor((marioHits / marioSwingTotal) * 100)
@@ -449,8 +454,8 @@ function gameOver() {
         luigiHits && luigiSwingTotal
           ? Math.floor((luigiHits / luigiSwingTotal) * 100)
           : 0;
-      console.log(marioHitPercentage);
-      console.log(luigiHitPercentage);
+
+      // console.log(marioHitPercentage, marioHits, marioSwingTotal);
 
       // add player score
       if (winnerList[0].name === mario.name) {
@@ -477,8 +482,9 @@ function gameOver() {
         winnerHitPercentage: winnerHitPercentage,
         loserHitPercentage: loserHitPercentage
       };
+      console.log(gameStats);
 
-      sendStatData(gameStats);
+      // sendStatData(gameStats);
 
       // restart game
       setTimeout(() => this.scene.restart(), 5000);
@@ -496,6 +502,15 @@ function sendStatData(gameStats) {
   let patchStringTwo = "api/users/" + id2;
   axios.patch(patchStringOne, gameStats);
   axios.patch(patchStringTwo, gameStats);
+}
+
+function addHit(player) {
+  let name = player.getData("character");
+  if (name === "mario") {
+    marioHits++;
+  } else {
+    luigiHits--;
+  }
 }
 
 function swingHammer(player) {
@@ -540,6 +555,7 @@ function swingHammer(player) {
     }, 600);
     setTimeout(() => {
       hammer.destroy();
+      addHit(player);
     }, 700);
     setTimeout(() => {
       player.setData("hammerCompleted", true);
@@ -571,6 +587,7 @@ function swingHammer(player) {
     }, 500);
     setTimeout(() => {
       hammer.destroy();
+      addHit(player);
     }, 700);
     setTimeout(() => {
       player.setData("hammerCompleted", true);
@@ -588,18 +605,12 @@ function playMissSound() {
 }
 
 let hitThrottle = false;
-function playHitSound(hits) {
+function playHitSound() {
   if (!hitThrottle) {
     hitaudios[Math.floor(Math.random() * hitaudios.length)].play();
     hitThrottle = true;
 
-    if (hits === marioHits) {
-      marioHits = marioHits + 1;
-      console.log(marioHits);
-    } else {
-      luigiHits = luigiHits + 1;
-    }
-    setTimeout(() => (hitThrottle = false), 1000);
+    setTimeout(() => (hitThrottle = false), 700);
   }
 }
 
