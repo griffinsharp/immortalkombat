@@ -477,7 +477,7 @@ function gameOver() {
         loserHitPercentage: loserHitPercentage
       };
 
-      // sendStatData(gameStats);
+      sendStatData(gameStats);
 
       // restart game
       setTimeout(() => this.scene.restart(), 5000);
