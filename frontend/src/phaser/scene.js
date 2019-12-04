@@ -278,6 +278,10 @@ function create() {
   luigi.setData("facing", "right");
   mario.setData("facing", "left");
 
+  //set character name for hit
+  luigi.setData("character", "luigi");
+  mario.setData("character", "mario");
+
   mario.setBounce(0.2);
   mario.setCollideWorldBounds(true);
   luigi.setBounce(0.2);
@@ -326,10 +330,6 @@ function create() {
   luigi.setSize(14, 31);
   luigi.setOffset(16, 12);
 
-  // mario.on('animationcomplete', function (anim, frame) {
-  // this.emit('animationcomplete_' + anim.key, anim, frame);
-  // }, mario);
-
   // set colision and global phisycs
   this.physics.add.collider(platforms, mario);
   this.physics.add.collider(platforms, luigi);
@@ -341,8 +341,8 @@ function create() {
     (player, hammer) => {
       if (player.name !== hammer.name) {
         player.data.values.health -= 0.5;
-
-        playHitSound(marioHits);
+        playHitSound();
+        addHitMario();
       }
     },
     null
@@ -354,8 +354,8 @@ function create() {
     (player, hammer) => {
       if (player.name !== hammer.name) {
         player.data.values.health -= 0.5;
-
-        playHitSound(luigiHits);
+        playHitSound();
+        addHitLuigi();
       }
     },
     null
@@ -441,6 +441,7 @@ function gameOver() {
       // calculate the total time of the game that has elapsed
       endTime = this.time.now;
       let totalGameTime = endTime - startTime;
+
       marioHitPercentage =
         marioHits && marioSwingTotal
           ? Math.floor((marioHits / marioSwingTotal) * 100)
@@ -449,8 +450,6 @@ function gameOver() {
         luigiHits && luigiSwingTotal
           ? Math.floor((luigiHits / luigiSwingTotal) * 100)
           : 0;
-      console.log(marioHitPercentage);
-      console.log(luigiHitPercentage);
 
       // add player score
       if (winnerList[0].name === mario.name) {
@@ -498,14 +497,31 @@ function sendStatData(gameStats) {
   axios.patch(patchStringTwo, gameStats);
 }
 
+let marioHitThrottle = false;
+let luigiHitThrottle = false;
+function addHitMario() {
+  if (!marioHitThrottle) {
+    marioHits++;
+    marioHitThrottle = true;
+    setTimeout(() => (marioHitThrottle = false), 700);
+  }
+}
+function addHitLuigi() {
+  if (!luigiHitThrottle) {
+    luigiHits++;
+    luigiHitThrottle = true;
+    setTimeout(() => (luigiHitThrottle = false), 700);
+  }
+}
+
 function swingHammer(player) {
   let hammer;
 
   player.setData("hammerCompleted", false);
   if (player.texture.key === "mario") {
-    marioSwingTotal = marioSwingTotal + 1;
+    marioSwingTotal++;
   } else {
-    luigiSwingTotal = luigiSwingTotal + 1;
+    luigiSwingTotal++;
   }
 
   // player facing left
@@ -588,18 +604,12 @@ function playMissSound() {
 }
 
 let hitThrottle = false;
-function playHitSound(hits) {
+function playHitSound() {
   if (!hitThrottle) {
     hitaudios[Math.floor(Math.random() * hitaudios.length)].play();
     hitThrottle = true;
 
-    if (hits === marioHits) {
-      marioHits = marioHits + 1;
-      console.log(marioHits);
-    } else {
-      luigiHits = luigiHits + 1;
-    }
-    setTimeout(() => (hitThrottle = false), 1000);
+    setTimeout(() => (hitThrottle = false), 700);
   }
 }
 
