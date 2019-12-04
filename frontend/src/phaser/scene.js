@@ -238,7 +238,7 @@ function create() {
     .refreshBody()
     .setBounce(0, 0);
   platforms
-    .create(850, 430, "pipeRotated")
+    .create(850, 465, "pipeRotated")
     .setScale(0.4)
     .refreshBody();
   platforms
