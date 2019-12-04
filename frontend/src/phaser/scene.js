@@ -1,8 +1,8 @@
 import Phaser from "phaser";
 import marioSprite from "./assets/sprites/mario/mario.png";
 import luigiSprite from "./assets/sprites/luigi/luigi.png";
-import marioBackground from "./assets/sprites/stages/mario-background.jpg";
-import floor from "./assets/sprites/stages/floor.png";
+import background from "./assets/images/back.jpg";
+import floor from "./assets/images/floor.jpg";
 import pipe from "./assets/sprites/stages/pipe.png";
 import pipeRotated from "./assets/sprites/stages/piperotated.png";
 import { renderSprites } from "./sprite_animation";
@@ -144,7 +144,8 @@ function preload() {
   this.load.audio("miss2", miss2Path);
   this.load.audio("miss3", miss3Path);
 
-  this.load.image("background", marioBackground);
+  // this.load.image("background", marioBackground);
+  this.load.image("background", background);
   this.load.image("pipe", pipe);
   this.load.image("pipeRotated", pipeRotated);
   this.load.image("floor", floor);
@@ -182,7 +183,7 @@ function create() {
   backgroundImage = this.add
     .image(0, 0, "background")
     .setOrigin(0, 0)
-    .setScale(0.45)
+    .setScale(1.8)
     .setInteractive();
   backgroundImage.smoothed = true;
 
@@ -241,10 +242,7 @@ function create() {
     .create(850, 465, "pipeRotated")
     .setScale(0.4)
     .refreshBody();
-  platforms
-    .create(400, 600, "floor")
-    .setScale(1)
-    .setBounce(0, 0);
+  platforms.create(450, 575, "floor").setBounce(0, 0);
 
   //define players init pos
   luigi = this.physics.add.sprite(300, 410, "luigi");
