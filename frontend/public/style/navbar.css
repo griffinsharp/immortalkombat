@@ -75,6 +75,7 @@ header {
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
+  padding: 0 32px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -95,7 +96,7 @@ header {
   text-decoration: none;
   display: inline-block;
   font-size: 7px;
-  padding: 0 20px;
+  padding: 0 32px;
   padding-top: 2px;
 }
 
@@ -130,7 +131,7 @@ header {
   text-decoration: none;
   display: inline-block;
   font-size: 7px;
-  padding: 0 20px;
+  padding: 0 14px;
   padding-top: 2px;
 }
 }

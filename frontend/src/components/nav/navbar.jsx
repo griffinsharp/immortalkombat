@@ -24,7 +24,7 @@ class NavBar extends React.Component {
 			<div>
 				<NavLink exact activeStyle={{display: 'none'}} to={"/"}>Home</NavLink> 
 				<NavLink exact activeStyle={{display: 'none'}} to={"/stats"}>Stats</NavLink>
-				<NavLink exact activeStyle={{ display: 'none' }} to={"/leaderboard"}>Leaderboard</NavLink>
+				{/* <NavLink exact activeStyle={{ display: 'none' }} to={"/leaderboard"}>Leaderboard</NavLink> */}
 				<NavLink exact activeStyle={{display: 'none'}} to={"/play"}>Play</NavLink>
 				<NavLink exact activeStyle={{ display: 'none' }} to={"/howto"}>How To</NavLink>
 				

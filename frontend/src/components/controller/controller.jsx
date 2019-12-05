@@ -92,7 +92,7 @@ export default class Controller extends Component {
   }
 
     openFullscreen() {
-        console.log(this.controllerReF)
+        
       if (this.controllerRef.requestFullscreen) {
         this.controllerRef.requestFullscreen();
       } else if (this.controllerRef.mozRequestFullScreen) {
