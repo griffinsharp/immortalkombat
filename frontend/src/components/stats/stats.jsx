@@ -27,7 +27,6 @@ export default class stats extends Component {
     render() {
         return (
 			<>
-                
 			<NavBarContainer />
             <div className='stats-container'>
                     <h1>{this.state.username}</h1>
@@ -49,9 +48,10 @@ export default class stats extends Component {
                             <tr>
                                 <td>{stat.winner}</td>
                                 <td>{stat.loser}</td>
-                                <td>{stat.time}</td>
+                                <td>{(stat.time / 60 ).toFixed(0)} sec</td>
                                 <td>{stat.winnerHitPercentage}</td>
                                 <td>{stat.loserHitPercentage}</td>
+                                {console.log(stat)}
                             </tr> 
                                 )
                     })}
