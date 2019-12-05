@@ -35,6 +35,7 @@ class NavBar extends React.Component {
 					<NavLink exact activeStyle={{display: 'none'}} to={"/"}>Home</NavLink>
 					<NavLink exact activeStyle={{display: 'none'}} to={"/signup"}>Signup</NavLink>
 					<NavLink exact activeStyle={{display: 'none'}} to={"/login"}>Login</NavLink>
+					<NavLink exact activeStyle={{display: 'none'}} to={"/howto"}>How To</NavLink>
 				</div>
 			}
 			</nav>

@@ -12,6 +12,7 @@ import WaitRoom from './waitRoom'
 import Stats from './stats/stats_container'
 import ControllerContainer from "./controller/controller_container";
 import leaderboard from './leaderboard/leaderboard_container';
+import HowTo from './howto/Howto'
 
 
 function App() {
@@ -31,6 +32,7 @@ function App() {
 
 				<Route style={{width: '100%', height: '100%'}} exact path="/testgame" component={Game} />
 				<Route exact path="/game" component={Game} />
+				<Route exact path="/howto" component={HowTo} />
 				<ProtectedRoute path="/controller" component={ControllerContainer} />
 				<Route exact path="/waitroom" component={WaitRoom} />
 			</Switch>
