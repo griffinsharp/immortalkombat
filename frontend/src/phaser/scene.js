@@ -313,7 +313,7 @@ function create() {
   textScore = this.add.text();
   // textScore.setFont('Press Start 2P')
   textScore.setOrigin(0.5);
-  textScore.setX(190);
+  textScore.setX(300);
   textScore.setY(40);
   // textScore.setPadding(10,40,10,10)
   textScore.setFontSize(27);
