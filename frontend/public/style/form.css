@@ -8,6 +8,7 @@ input{
 .container {
     width: 100%;
     height: 100%;
+    padding-top: 5px;
 }
 
 form {
@@ -17,15 +18,40 @@ form {
 }
 
 form button {
-    width: 100px !important;
-    margin-top: 0.4em;
+    width: 100% !important;
+    margin-top: 10px;
     text-align: center;
     color: white !important;
     font-family: 'Montserrat', sans-serif;
     background-color: #669aff !important;
-    /* padding: 0.7rem 1.75rem !important */
 }
 
-.auth-form {
- 
+form button:hover {
+    background-color: #84adff !important;
+}
+
+.form-input {
+    margin-bottom: 15px;
+}
+
+.input-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+.auth-greeting {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 50px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+}
+
+.login-form {
+    width: 250px;
 }

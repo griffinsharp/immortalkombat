@@ -50,7 +50,7 @@ export default class Play extends Component {
             flexDirection: "column",
           }}
         >
-          <div style={{flexWrap:'wrap', wordBreak: 'break-all', display: "flex", justifyContent: "center" }}>
+          <div style={{flexWrap:'wrap', wordBreak: 'break-all', display: "flex", justifyContent: "center", marginTop: "50px"}}>
             {" "}
             Add Code{" "}
             <span style={{ color: "red", fontWeight: "500" }}>
@@ -58,9 +58,9 @@ export default class Play extends Component {
             </span>{" "}
             scan QR code.
           </div>
-          <form style={{ display: "flex", justifyContent: "center" }}>
+          <form className="play-form">
             <input
-              style={{ width: "30%" }}
+              style={{ textAlign: "center"}}
               type="text"
               placeholder="Code"
               value={this.state.code}
