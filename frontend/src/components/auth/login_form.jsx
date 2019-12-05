@@ -57,22 +57,25 @@ class LoginForm extends React.Component {
 			<div className='auth-form'>
 			<NavBarContainer />
 			<div>
+				<div className="auth-greeting">Log In!</div>
 				<form onSubmit={this.handleSubmit} className="container">
-					<div>
+						<div className="login-form">
 						<input
+							className="form-input"
 							type="text"
 							value={this.state.username}
 							onChange={this.update("username")}
 							placeholder="Username"
 						/>
-						<br />
+						
 						<input
+							className="form-input"
 							type="password"
 							value={this.state.password}
 							onChange={this.update("password")}
 							placeholder="Password"
 						/>
-						<br />
+						
 						<button type="submit" className="btn btn-flat">
 							Login
 						</button>

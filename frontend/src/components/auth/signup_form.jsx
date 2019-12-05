@@ -98,43 +98,50 @@ class SignupForm extends React.Component {
 			<div className='auth-form'>
 			<NavBarContainer />
 			<div className="login-form-container">
+					<div className="auth-greeting">Sign Up!</div>
 				<form onSubmit={this.handleSubmit} className="container">
 					<div className="login-form">
-						<br />
+					
 						<input
+							className="form-input"
 							type="text"
 							value={this.state.email}
 							onChange={this.update("email")}
 							placeholder="Email"
 						/>
-						<br />
+						
 						<input
+							className="form-input"
 							type="text"
 							value={this.state.username}
 							onChange={this.update("username")}
 							placeholder="Username"
 						/>
-						<br />
+						
 						<input
+							className="form-input"	
 							type="password"
 							value={this.state.password}
 							onChange={this.update("password")}
 							placeholder="Password"
 						/>
-						<br />
+						
 						<input
+							className="form-input"
 							type="password"
 							value={this.state.password2}
 							onChange={this.update("password2")}
 							placeholder="Confirm Password"
 						/>
-						<br />
-						<button type="submit" className="btn btn-flat">
-							Submit
-						</button>
+						
+						<div className="input-buttons">
+							<button type="submit" className="btn btn-flat">
+								Submit
+							</button>
 							<button type="submit" className="btn btn-flat" onClick={this.demoUserLogin}> 
 								Demo User
 							</button>
+						</div>
 						{this.renderErrors()}
 					</div>
 				</form>
