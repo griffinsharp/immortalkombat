@@ -74,12 +74,12 @@ header {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 @media only screen and (max-width: 768px) {
   nav div {
-    font-size: 1em;
+    font-size: 7px;
     flex-wrap: wrap;
     display: flex;
     flex-direction: row;
@@ -87,20 +87,50 @@ header {
     justify-content: left;
   }
 
+   .logout {
+  background-color: rgba(166, 209, 167, 0);
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 7px;
+  padding: 0 20px;
+  padding-top: 2px;
+}
+
 }
 
 @media only screen and (max-width: 520px) {
 
-  nav img {
-    display: none;
-  }
-  nav div {
+  .navbar {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  nav img {
+  }
+  nav div {
+     font-size: 7px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
   }
 
   nav a:last-child {
     padding-right: 0em;
   }
+
+  .logout {
+  background-color: rgba(166, 209, 167, 0);
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 7px;
+  padding: 0 20px;
+  padding-top: 2px;
+}
 }

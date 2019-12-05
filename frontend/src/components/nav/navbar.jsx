@@ -26,6 +26,7 @@ class NavBar extends React.Component {
 				<NavLink exact activeStyle={{display: 'none'}} to={"/stats"}>Stats</NavLink>
 				<NavLink exact activeStyle={{ display: 'none' }} to={"/leaderboard"}>Leaderboard</NavLink>
 				<NavLink exact activeStyle={{display: 'none'}} to={"/play"}>Play</NavLink>
+				<NavLink exact activeStyle={{ display: 'none' }} to={"/howto"}>How To</NavLink>
 				
 				<button className='logout' onClick={this.logoutUser}>Logout</button>
 			</div>
@@ -33,7 +34,7 @@ class NavBar extends React.Component {
 			{!this.props.loggedIn &&
 				<div>
 					<NavLink exact activeStyle={{display: 'none'}} to={"/"}>Home</NavLink>
-					<NavLink exact activeStyle={{display: 'none'}} to={"/signup"}>Signup</NavLink>
+					<NavLink exact activeStyle={{display: 'none'}} to={"/signup"}>Sign Up</NavLink>
 					<NavLink exact activeStyle={{display: 'none'}} to={"/login"}>Login</NavLink>
 					<NavLink exact activeStyle={{display: 'none'}} to={"/howto"}>How To</NavLink>
 				</div>
