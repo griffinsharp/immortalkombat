@@ -29,16 +29,16 @@ export default class stats extends Component {
 			<>
 			<NavBarContainer />
             <div className='stats-container'>
-                    <h1>{this.state.username}</h1>
-                    <h2>highscore: {this.state.highscore}</h2>
+                    <h1>{this.state.username}'s Game Statistics</h1>
+                    {/* <h2>highscore: {this.state.highscore}</h2> */}
                     <table>
                         <thead>
                             <tr>
                                 <th>Winner</th>
                                 <th>Loser</th>
                                 <th>Time</th>
-                                <th>WinnerHit</th>
-                                <th>LoserHit</th>
+                                <th>Winner Hit %</th>
+                                <th>Loser Hit %</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -48,10 +48,9 @@ export default class stats extends Component {
                             <tr>
                                 <td>{stat.winner}</td>
                                 <td>{stat.loser}</td>
-                                <td>{(stat.time / 60 ).toFixed(0)} sec</td>
-                                <td>{stat.winnerHitPercentage}</td>
-                                <td>{stat.loserHitPercentage}</td>
-                                {console.log(stat)}
+                                <td>{(stat.time / 600 ).toFixed(0)} sec</td>
+                                <td>{stat.winnerHitPercentage}%</td>
+                                <td>{stat.loserHitPercentage}%</td>
                             </tr> 
                                 )
                     })}

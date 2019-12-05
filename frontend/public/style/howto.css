@@ -19,6 +19,13 @@
   justify-content: center;
 }
 
+.howto-info h2 {
+  padding-top: 20px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
 .directions {
   display: flex;
   flex-direction: row;
@@ -26,7 +33,7 @@
 }
 
 .howto-requirement {
-  margin-top: 30px;
+  margin-top: 10px;
   font-size: 15px;
   font-family: "Montserrat", sans-serif;
   align-self: center;
