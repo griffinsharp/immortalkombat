@@ -25,7 +25,6 @@ mongoose
 io
     .of("/games")
     .on("connection", (socket) => {
-        // console.log("New Client");
         socket.emit("welcome", "You are connected to games area.");
     socket.on("joinRoom", (data) => {
         let msg = JSON.parse(data);
