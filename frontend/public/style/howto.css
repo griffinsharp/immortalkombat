@@ -1,43 +1,89 @@
 .howto-container {
   background-color: #96cedf;
+  color: white;
   display: flex;
   flex-direction: column;
   text-align: justify;
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
+  align-items: center;
 }
-.howto-requirement {
-  font-size: 0.75em;
-  font-family: "Montserrat", sans-serif;
-  align-self: center;
-  font-weight: 700;
-  color: #d42f2f;
-}
-.howto-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  /* align-items: center; */
-  /* align-content: center; */
-  margin: 0 auto;
 
-  flex-wrap: wrap;
-  padding: 2em;
-  color: whitesmoke;
-  font-family: "Press Start 2P", sans-serif;
-  font-weight: none;
-  /* font-size: px; */
-  max-width: 1300px;
-  font-size: 1.1em;
+.howto-info {
+ 
 }
 
 .howto-info h1 {
-  padding-bottom: 0.5em;
-  align-self: center;
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
 }
 
-.howto-container footer {
-  align-self: center;
-  position: absolute;
-  bottom: 0;
+.directions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; 
 }
+
+.howto-requirement {
+  margin-top: 30px;
+  font-size: 15px;
+  font-family: "Montserrat", sans-serif;
+  align-self: center;
+  font-weight: 700;
+  color: #ca6f6f;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.mobile-howto {
+  padding-right: 60px;
+}
+
+.desktop-howto {
+  border-left: 1px white solid;
+  padding-left: 60px;
+}
+
+
+.howto-container footer {
+  margin-top: 50px;
+}
+
+@media (max-width: 1200px) {
+ .directions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+ }
+  .howto-requirement {
+  margin-top: 30px;
+  font-size: 15px;
+  font-family: "Montserrat", sans-serif;
+  align-self: center;
+  font-weight: 700;
+  color: #ca6f6f;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.mobile-howto {
+  padding-right: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.desktop-howto {
+  border-left: none;
+  padding-left: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+}
+
