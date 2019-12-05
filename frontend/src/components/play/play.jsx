@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import QrReader from "react-qr-reader";
 import NavBarContainer from "../nav/navbar_container";
+import { BrowserView, MobileView, isBrowser, isMobile } from "react-device-detect";
 
 export default class Play extends Component {
 
@@ -40,6 +41,13 @@ export default class Play extends Component {
     return (
       <div className='play'>
         <NavBarContainer />
+          <BrowserView >
+              <div style={{display:'flex',flexDirection:'column', justifyContent:'center',paddingTop:'4em', alignItems:"center"}} >
+            <h1> This is rendered only in browser </h1>
+              <p> Please acces this page on you mobile phone </p>
+                </div>
+        </BrowserView>
+          <MobileView>
         <div
           style={{
             fontFamily: "Montserrat",
@@ -97,6 +105,7 @@ export default class Play extends Component {
             )}
           </div>
         </div>
+        </MobileView>
       </div>
     );
   }
