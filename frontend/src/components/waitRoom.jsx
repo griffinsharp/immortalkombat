@@ -3,6 +3,7 @@ import * as io from "socket.io-client";
 import mario from './assets/mario_peace.png';
 import luigi from './assets/luigi_peace.png';
 import QRCode from 'qrcode.react'
+import NavBarContainer from './nav/navbar_container';
 
 export default class WaitRoom extends Component {
 
@@ -85,6 +86,8 @@ export default class WaitRoom extends Component {
 
     render() {
         return (
+            <>
+            <NavBarContainer />
             <div className="waitroom-container">
                 <h1>Waiting for players to join...</h1>
                 
@@ -100,6 +103,7 @@ export default class WaitRoom extends Component {
                 {this.renderPlayers()}
                 {this.renderStartMsg()}
             </div>
+            </>
         )
     }
 }

@@ -43,8 +43,8 @@ export default class Play extends Component {
         <NavBarContainer />
           <BrowserView >
               <div style={{display:'flex',flexDirection:'column', justifyContent:'center',paddingTop:'4em', alignItems:"center"}} >
-            <h1> This is rendered only in browser </h1>
-              <p> Please acces this page on you mobile phone </p>
+            <h1>Please access this page on you mobile phone. </h1>
+              <p>(You are seeing this warning if you are on a desktop browser!)</p>
                 </div>
         </BrowserView>
           <MobileView>
