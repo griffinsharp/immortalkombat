@@ -1,0 +1,43 @@
+.howto-container {
+  background-color: #96cedf;
+  display: flex;
+  flex-direction: column;
+  text-align: justify;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+}
+.howto-requirement {
+  font-size: 0.75em;
+  font-family: "Montserrat", sans-serif;
+  align-self: center;
+  font-weight: 700;
+  color: #d42f2f;
+}
+.howto-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+  /* align-content: center; */
+  margin: 0 auto;
+
+  flex-wrap: wrap;
+  padding: 2em;
+  color: whitesmoke;
+  font-family: "Press Start 2P", sans-serif;
+  font-weight: none;
+  /* font-size: px; */
+  max-width: 1300px;
+  font-size: 1.1em;
+}
+
+.howto-info h1 {
+  padding-bottom: 0.5em;
+  align-self: center;
+}
+
+.howto-container footer {
+  align-self: center;
+  position: absolute;
+  bottom: 0;
+}
