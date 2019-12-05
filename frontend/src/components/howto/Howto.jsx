@@ -11,6 +11,7 @@ function HowTo() {
         <div className="howto-container">
     <div className='howto-info'> 
         <h1>Game Setup Instructions</h1>
+        <h2>Shortened URL: https://bit.ly/2Ynl3R6</h2>
         <p className='howto-requirement'> Requirements: 1 Laptop/Computer (Display), 2 Mobile Phones (Controller) </p>
          
          <div className="directions">

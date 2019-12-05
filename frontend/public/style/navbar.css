@@ -113,7 +113,7 @@ header {
   nav img {
   }
   nav div {
-     font-size: 7px;
+    font-size: 7px;
     display: flex;
     flex-direction: row;
     justify-content: center;
