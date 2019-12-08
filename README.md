@@ -52,46 +52,11 @@ Project Timeline: November 18 - 25
 **Bob Andre**,
 **Ricardo**
 
-### Day 1 (November 18) 
-  - Setup basic architecture for the project - **All**
-  - Create MongoDB database and build out schema with test routes - **All**
-  - Basic React landing page, start building out frontend components - **Bob**
-  - Setup canvas with sprites - **Ricardo and Griffin**
-  - Websocket setup and research - **Chanakya**
-
-### Day 2 (November 19) 
-  - Start on game logic and functionality - **Ricardo and Griffin**
-  - Continue websocket setup and research - **Chanakya**
-  - Connect React frontend to our database - **Bob**
-
-### Day 3 (November 20) 
-  - User authentication - **Chanakya**
-  - Testing of game logic and display of sprites - **Ricardo and Griffin**
-  - Building out backend Express routes - **Bob and Chanakya** 
-
-### Day 4 (November 21) 
-  - Connect the server side to the client side - **All**
-  - Run tests of basic desktop only game - **Griffin and Ricardo**
-  - Front end components to be displayed on mobile side - **Bob**
-
-### Day 5 (November 22) 
-  - Connection to the mobile side of the app - **All**
-  - Seed data for tests/demo users - **Chanakya**
-  - Leaderboard functionality and persistence to the back end - **Griffin, Bob, and Ricardo**
-
-### Day 6 (November 23) 
-  - Polish up design aspects, such as CSS and HTML - **All**
-  - Push to Heroku - **All**
-
-### Day 7 (November 24) 
-  - Complete Production README.md - **Griffin and Chanakya**
-  - Keep testing and debugging each part of the project  - **All**
-
 ## Technologies and Technical Challenges
 
 ###  Backend: nodeJS, expressJS, MongoDB
 
-Node simply gives our project the speed of the Chrome's V8 engine, able to develop our app in Javascript in a scalable manner. It's lightweight, efficient, and perfect for getting a web-app off the ground and running quickly. 
+Node simply gives our project the speed of the Chrome's V8 engine, able to develop our app in Javascript in a scalable manner. It's efficient and perfect for getting a web-app off the ground and running quickly. 
 
 Express will be the backend framework since its an extremely lightweight, minimal web-server that runs well with Node.js. The middleware and HTTP methods supplied by express makes setting up and adding extra API endpoints as we build out our app quite simple, manageable, and flexible.
 
@@ -100,7 +65,9 @@ MongoDB was our groups first introduction to a non-SQL relational database. Mong
 ### Frontend: React and Redux
 On the frontend of our app, we decided to utilize React with Redux to manage and persist state. The visual component of our game renders within an HTML canvas, however most other front-end facing portion are coded via React to give the feel the smooth navigation feeling of a single page web application. Redux helps our app keep track and manage the various states of our app and let it know what's available for each React component to render on the current page. 
 
+React's active developer community provided many npm packages to further supplement the library itself. `react-repeatable` is one such package, which helped tackle one of our many problems with making a reponsive controller within a mobile browser, allowing a user to simply hold down an action, such as move-left or move-right, without having to repeatedly tap the button on the controller. Throughout the development process, we realized using both a phone and a computer can be a hindrance to just getting a game session up and running. To further cut down on this time and get users right into the action, `qrcode.react` allowed for the generation of unique QR codes to handle entry of the game lobby code. Not exactly game changing, but another fun feature and excuse to explore something potentially crucial for a project later down the line. Making our app responsive to handle both mobile and desktop browsers was make-or-break in relation to the overall experience. `react-device-detect` allowed our team to steer users in the right direction based on which device they are using to access the page. Our `/howto` serves to clear up how to play the game, but this package is another added measure to prevent users accidently trying to play with a controller designed for mobile touch screens from a desktop browser. 
+
 ### Realtime Communication
 We will be incorporating websockets that will allow players to communicate with the game in real time.
-The game will create new rooms for each game through websockets and two players can connect to a single room and upon the established connection players can send game inputs in real time.
-We will be displaying the real time changes by processing the game inputs of the players and show it in the game window.
+The game will create new rooms for each game through websockets and two players can connect to a single room, and upon the established connection, players can send game inputs in real time. These inputs are sent via the mobile phone controller of each player to the game client. In simple terms, think of it like a groupchat between player 1, player 2, and the game client. A player presses the button to jump, which the client receives, and subsequently delivers the appropriate action by displaying it in the game window. 
+
