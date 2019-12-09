@@ -7,7 +7,13 @@
 
 ImmarioKombat will utilize the `MERN` stack: `MongoDB`, `Express.js`, `React.js`, and `Node.js`. 
 
-### Our Team & Code Snippets
+## Our App
+
+Here are a few screenshots and gifs to give you an idea of what Immario Kombat is all about.
+
+![landingpage](https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/Landing%20Page.png)
+
+## Our Team & Code Snippets
 
 ![teampic](https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/immarioteampic.png)
 
@@ -23,6 +29,15 @@ Each developer on this team has a general, overarching focus, but every member w
 
 This being said, here are parts of our project's source code that we would like to additionally highlight:
 
+![codesnip1](https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/GameStatsAxiosRouting.png)
+
+![socketcodesnip](https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/SocketCodeSnippet.png)
+
+![spriteanim](https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/SpriteAnimationandHitCalculation.png)
+
+![userauth](https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/UserAuth.png)
+
+![userschema](https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/UserSchema.png)
 
 ## Technologies and Technical Challenges
 
