@@ -121,14 +121,14 @@ router.get("/highscore", (req, res) => {
 
 router.post('/stats/:username', (req,res)=>{
 	const currentUser = User
-		.find({username: req.params.username})
-		currentUser.stats.push(req)
-})
+		.find({username: req.params.username});
+		currentUser.stats.push(req);
+});
 
 router.get('/stats/:user_id',(req,res)=>{
 	User.find({_id: req.params.user_id})
-	.then(user => res.json(user))
-})
+	.then(user => res.json(user));
+});
 
 router.patch("/:user_id", (req, res) => {
 

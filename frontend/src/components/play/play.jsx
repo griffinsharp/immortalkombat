@@ -88,7 +88,7 @@ export default class Play extends Component {
           </form>
           <div
             style={{
-              paddingTop: "2em",
+              paddingBottom: "1em",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
