@@ -7,15 +7,15 @@
 
 ImmarioKombat will utilize the `MERN` stack: `MongoDB`, `Express.js`, `React.js`, and `Node.js`. 
 
-### 
+### Our Team & Code Snippets
 
-### Code Snippets
+![teampic](https://github.com/griffinsharp/teampicurlgoeshere!)
 
 Each developer on this team has a general, overarching focus, but every member was expected to be able to work on any one part as our needs changed. One of the perks of the MERN stack was its full JavaScript environment, which allowed each member to easily jump from creating a `React` component, altering the `Redux` state, changing a column in our `MongoDB`, or creating an `Express.js` route, whether or not that feature was their main focus. 
-Chanakya handled websockets due to having prior experience working on a Whatsapp clone. He also deployed our app to production on Heroku and helped design the game lobby and mobile controller.
-Ricardo was the main designer of the game and heavily utilized Phaser.js to setup movement/physics, calculate collisions and game conditions, render the correct sprite animations, and more.
-Griffin co-handled the game logic and design with Ricardo, but also styled and created the components/assets for the landing and how-to pages, handled the `Express.js` backend routing of game statistics to our `MongoDB` after the completion of each game, allowed for the ability to play as a demo user, and wrote out this comprehensive ReadMe (wink). 
-Bob setup the user authentication, designed the mobile controller, created many of our react components, and handled basic styling across our app. 
+[Chanakya](https://github.com/chanakyav) handled websockets due to having prior experience working on a Whatsapp clone. He also deployed our app to production on Heroku and helped design the game lobby and mobile controller.
+[Ricardo](https://github.com/arrudaricardo) was the main designer of the game and heavily utilized Phaser.js to setup movement/physics, calculate collisions and game conditions, render the correct sprite animations, and more.
+[Griffin](https://github.com/griffinsharp) co-handled the game logic and design with Ricardo, but also styled and created the components/assets for the landing and how-to pages, handled the `Express.js` backend routing of game statistics to our `MongoDB` after the completion of each game, allowed for the ability to play as a demo user, and wrote out this comprehensive ReadMe (wink). 
+[Bob](https://github.com/bppandre) setup the user authentication, designed the mobile controller, created many of our react components, and handled basic styling across our app. 
 
 This being said, here are parts of our project's source code that we would like to highlight:
 
@@ -45,4 +45,4 @@ A game isn't much without the ability to play with friends and brag about your a
 Don't want to take the time to fully sign up? No problem. With the option to play as a Demo User, you can immediately start playing with friends. However, your game progress and stats will not be saved!
 
 ## Future of Our Project
-In the future, we'd like to add the ability to play with 2+ people, choose from multiple maps and characters, 
+In the future, we'd like to add the ability to play with 2+ people and choose from multiple maps and characters.

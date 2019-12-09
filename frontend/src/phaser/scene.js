@@ -618,18 +618,15 @@ function updateBar() {
   const luigiHealth = Math.floor(luigi.data.values.health);
 
   marioBar.width = 100 + (marioHealth - 100);
-  //fix
   marioBar.x = mario.x - 50;
   marioBar.y = mario.y - 50;
   marioBar.height = 3;
 
   luigiBar.width = 100 + (luigiHealth - 100);
-  // fix
   luigiBar.y = luigi.y - 50;
   luigiBar.x = luigi.x - 50;
   luigiBar.height = 3;
 
-  // increase when health go down
   luigiBar.alpha = ((luigiHealth - 100) / 100) * -1;
   marioBar.alpha = ((marioHealth - 100) / 100) * -1;
 

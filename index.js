@@ -34,11 +34,11 @@ io
                 msg: `${msg.username} joined ${msg.code}`,
                 username: msg.username,
                 id: msg.id
-            }))
+            }));
     });
     socket.on("message", (data) => {
         let msg = JSON.parse(data);
-        io.of("games").in(msg.room).emit("message", msg)
+        io.of("games").in(msg.room).emit("message", msg);
     });
 });
 
