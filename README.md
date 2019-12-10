@@ -45,9 +45,11 @@ This being said, here are parts of our project's source code that we would like 
 
 `Node.js` simply gives our project the speed of the Chrome's V8 engine, able to develop our app in Javascript in a scalable manner. It's efficient and perfect for getting a web-app off the ground and running quickly. 
 
-`Express.js` will be the backend framework since its an extremely lightweight, minimal web-server that runs well with `Node.js`. The middleware and HTTP methods supplied by `Express.js` makes setting up and adding extra API endpoints as we build out our app quite simple, manageable, and flexible.
+`Express.js` is utilized as our backend framework since its an extremely lightweight, minimal web-server that runs well with `Node.js`. The middleware and HTTP methods supplied by `Express.js` makes setting up and adding extra API endpoints as we build out our app quite simple, manageable, and flexible.
 
 `MongoDB` was our groups first introduction to a non-SQL relational database. `MongoDB` excels in low-latency real time communication, is highly accessible in terms of data transfer, with a very quick setup time. It's preferred for apps that need seamless, real time communication and consist of simple relationships. 
+
+`Phaser.js` is the game library we utilized to help with physics, collisions, and other game mechanics. Endless fun to tweak and experiment with, it really helped to add a classic arcade feel to the overall playstyle. 
 
 ### Frontend: React and Redux
 On the frontend of our app, we decided to utilize `React` with `Redux` to manage and persist state. The visual component of our game renders within an HTML canvas, however most other front-end facing portion are coded via `React` to give the feel the smooth navigation feeling of a single page web application. `Redux` helps our app keep track and manage the various states of our app and let it know what's available for each `React` component to render on the current page. 
