@@ -80,13 +80,10 @@ export default class Controller extends Component {
     return (
       <Repeatable
         className={btnClassName}
-        repeatDelay={0}
-        repeatInterval={10}
-        onPress={() => this.setAction(action)}
-        onHoldStart={() => this.setAction(action)}
+        tag="button"
+        type="button"
         onHold={() => this.setAction(action)}
-        onHoldEnd={() => this.setAction("")}
-        onRelease={() => this.setAction("")}
+        onRelease={() => this.setAction(action)}
       />
     );
   }
