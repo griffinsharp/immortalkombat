@@ -73,22 +73,22 @@ export default class Controller extends Component {
 
   setAction(action) {
     this.socket.emit("message", this.createAction(action));
-    this.vibration(action);
+    // this.vibration(action);
   }
 
   renderButton(btnClassName, action) {
     return (
-      <Repeatable
-        className={btnClassName}
-        repeatDelay={0}
-        repeatInterval={10}
-        onPress={() => this.setAction(action)}
-        onHoldStart={() => this.setAction(action)}
-        onHold={() => this.setAction(action)}
-        onHoldEnd={() => this.setAction("")}
-        onRelease={() => this.setAction("")}
-      />
-    );
+			<Repeatable
+				className={btnClassName}
+				repeatDelay={0}
+				repeatInterval={10}
+				onPress={() => this.setAction(action)}
+				onHoldStart={() => this.setAction(action)}
+				onHold={() => this.setAction(action)}
+				onHoldEnd={() => this.setAction("")}
+				onRelease={() => this.setAction("")}
+			/>
+		);
   }
 
     openFullscreen() {
