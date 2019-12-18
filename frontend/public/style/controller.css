@@ -102,7 +102,6 @@ body{
   border-radius: 15%;
   margin-left: -56px;
   margin-top: 25px;
-  cursor: pointer;
 }
 
 .crossRight{
@@ -113,7 +112,6 @@ body{
   border-radius: 15%;
   margin-left: 91px;
   margin-top: 25px;
-  cursor: pointer;
 }
 
 .centerBlue{
@@ -174,7 +172,6 @@ body{
   margin-left: -72px;
   margin-top: 21px;
   border: solid 5px rgba(230, 230, 230, 1);
-  cursor: pointer;
 }
 
 .cornerRight1{
@@ -186,7 +183,6 @@ body{
   margin-top: 48px;
   margin-left: 69px;
   border: solid 5px rgba(230, 230, 230, 1);
-  cursor: pointer;
 }
 
 .cornerLeft2{
@@ -197,7 +193,6 @@ body{
   border-radius: 100%;
   margin-left: -20px;
   border: solid 5px rgba(230, 230, 230, 1);
-  cursor: pointer;
 }
 
 .cornerRight2{
@@ -208,7 +203,6 @@ body{
   border-radius: 100%;
   margin-left: 60px;
   border: solid 5px rgba(230, 230, 230, 1);
-  cursor: pointer;
 }
 
 .centerStart{
