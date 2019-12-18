@@ -89,10 +89,10 @@ export default class WaitRoom extends Component {
             <>
             <NavBarContainer />
             <div className="waitroom-container">
-                <h1>Waiting for players to join...</h1>
-                
+                <h1 className="wait-header">Waiting for players to join...</h1>
+                    <h3 className="wait-subheader">Shortened Url: https://bit.ly/2Ynl3R6</h3>
                 <ol>
-                    <li>Open our website (in browser) on a smartphone</li>
+                    <li>Open our website (in mobile browser) on a smartphone</li>
                     <li>Click 'Join Game'</li>
                     <li>Enter the code below:</li>
                 </ol>

@@ -80,7 +80,7 @@ header {
 
 @media only screen and (max-width: 768px) {
   nav div {
-    font-size: 7px;
+     font-size: 15px;
     flex-wrap: wrap;
     display: flex;
     flex-direction: row;
@@ -95,9 +95,9 @@ header {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 7px;
-  padding: 0 32px;
-  padding-top: 2px;
+  font-size: 15px;
+  padding: 0 14px;
+  padding-top: 10px;
 }
 
 }
@@ -113,7 +113,7 @@ header {
   nav img {
   }
   nav div {
-    font-size: 7px;
+    font-size: 15px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -130,8 +130,8 @@ header {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 7px;
+  font-size: 15px;
   padding: 0 14px;
-  padding-top: 2px;
+  padding-top: 10px;
 }
 }

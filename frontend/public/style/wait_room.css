@@ -10,6 +10,7 @@
 
 .waitroom-container ol {
     font-size: medium;
+    padding-bottom: 20px;
 }
 
 .players {
@@ -52,4 +53,14 @@
     text-align: center;
 }
 
+.wait-header {
+    text-align: center;
+    padding-top: 30px;
+}
 
+.wait-subheader {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 15px;
+    font-size: 25px;
+}
