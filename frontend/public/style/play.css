@@ -5,3 +5,13 @@
     width: 90%;
     margin: auto;
 }
+
+.desktop-warning {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 4em; 
+    align-items: center;
+    text-align: center;
+    color: white;
+}

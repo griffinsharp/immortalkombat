@@ -73,22 +73,22 @@ export default class Controller extends Component {
 
   setAction(action) {
     this.socket.emit("message", this.createAction(action));
-    this.vibration(action);
+    // this.vibration(action);
   }
 
   renderButton(btnClassName, action) {
     return (
-      <Repeatable
-        className={btnClassName}
-        repeatDelay={0}
-        repeatInterval={10}
-        onPress={() => this.setAction(action)}
-        onHoldStart={() => this.setAction(action)}
-        onHold={() => this.setAction(action)}
-        onHoldEnd={() => this.setAction("")}
-        onRelease={() => this.setAction("")}
-      />
-    );
+			<Repeatable
+				className={btnClassName}
+				repeatDelay={0}
+				repeatInterval={10}
+				onPress={() => this.setAction(action)}
+				onHoldStart={() => this.setAction(action)}
+				onHold={() => this.setAction(action)}
+				onHoldEnd={() => this.setAction("")}
+				onRelease={() => this.setAction("")}
+			/>
+		);
   }
 
     openFullscreen() {
@@ -119,21 +119,12 @@ export default class Controller extends Component {
               {this.state.code}
             </div>
           </div>
-          <div className="centerStart">
-            <div className="SLeft"></div>
-            <div className="SRight"></div>
-          </div>
-          <div className="centerSelect">
-            <div className="SLeft"></div>
-            <div className="SRight"></div>
-          </div>
-
+          
           <div className="controllerLeft">
             <div className="circle"></div>
             <div className="crossCenter">
               {this.renderButton("crossLeft", "left")}
               {this.renderButton("crossRight", "right")}
-              <div className="crossCircle"></div>
             </div>
           </div>
           <div className="controllerRight">
