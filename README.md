@@ -11,11 +11,15 @@ ImmarioKombat will utilize the `MERN` stack: `MongoDB`, `Express.js`, `React.js`
 
 Here are a few screenshots and gifs to give you an idea of what Immario Kombat is all about.
 
-![landingpage](https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/Landing%20Page.png)
+<p align="center"> 
+<img src="https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/Landing%20Page.png">
+</p>
 
 ## Our Team & Code Snippets
 
-![teampic](https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/immarioteampic.png)
+<p align="center"> 
+<img src="https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/immarioteampic.png">
+</p>
 
 Each developer on this team has a general, overarching focus, but every member was expected to be able to work on any one part as our needs changed. One of the perks of the MERN stack was its full JavaScript environment, which allowed each member to easily jump from creating a `React` component, altering the `Redux` state, changing a column in our `MongoDB`, or creating an `Express.js` route, whether or not that feature was their main focus. 
 
@@ -29,15 +33,35 @@ Each developer on this team has a general, overarching focus, but every member w
 
 This being said, here are parts of our project's source code that we would like to additionally highlight:
 
-![codesnip1](https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/GameStatsAxiosRouting.png)
+**Axios Routing**
 
-![socketcodesnip](https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/SocketCodeSnippet.png)
+<p align="center"> 
+<img src="https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/GameStatsAxiosRouting.png">
+</p>
 
-![spriteanim](https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/SpriteAnimationandHitCalculation.png)
+**Web Socket**
 
-![userauth](https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/UserAuth.png)
+<p align="center"> 
+<img src="https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/SocketCodeSnippet.png">
+</p>
 
-![userschema](https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/UserSchema.png)
+**Sprite Animation and Hit Calculation**
+
+<p align="center"> 
+<img src="https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/SpriteAnimationandHitCalculation.png">
+</p>
+
+**User Authentication**
+
+<p align="center"> 
+<img src="https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/UserAuth.png">
+</p>
+
+**User Schema**
+
+<p align="center"> 
+<img src="https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/UserSchema.png">
+</p>
 
 ## Technologies and Technical Challenges
 
