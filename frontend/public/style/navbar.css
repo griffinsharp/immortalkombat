@@ -113,7 +113,7 @@ header {
   nav img {
   }
   nav div {
-    font-size: 15px;
+    font-size: 11px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -130,7 +130,7 @@ header {
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size: 15px;
+  font-size: 11px;
   padding: 0 14px;
   padding-top: 10px;
 }

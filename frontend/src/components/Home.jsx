@@ -26,7 +26,7 @@ const Home = () => {
                             </p>
                             <p>
                                 Use your mobile device in this 2D fighter rendition of a classic title.
-                                Duke it out as Mario and Luigi to settle the age-old discussion: who has the better moustache?.
+                                Duke it out as Mario and Luigi to settle the age-old discussion: who has the better moustache?
                             </p>
                             <div className="button-container">
                                 <Link to='/waitroom' ><button type="button" className='btn btn-play '>Create Game</button></Link>
