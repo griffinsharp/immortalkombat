@@ -11,9 +11,27 @@ ImmarioKombat will utilize the `MERN` stack: `MongoDB`, `Express.js`, `React.js`
 
 Here are a few screenshots and gifs to give you an idea of what Immario Kombat is all about.
 
+### Landing Page
 <p align="center"> 
 <img src="https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/Landing%20Page.png">
 </p>
+
+
+### Loading Screen
+<p align="center"> 
+<img src="https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/immarioload.gif">
+</p>
+
+### 2v2 Game Play
+<p align="center" > 
+<img src="https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/immarioplay.gif">
+</p>
+
+### Game Stats
+<p align="center" width="80%"> 
+<img src="https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/scoreboard.png">
+</p>
+
 
 ## Our Team & Code Snippets
 
