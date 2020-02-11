@@ -24,7 +24,7 @@ router.post('/',(req,res)=>{
         loserHitPercentage: req.body.loserHitPercentage
     });
     newGame.save().then((game) => res.json(game));
-})
+});
 //  
 //we could need validations if we want for the game but lets add them after 
 // checking if it works\
