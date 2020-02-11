@@ -53,33 +53,139 @@ This being said, here are parts of our project's source code that we would like 
 
 **Axios Routing**
 
-<p align="center"> 
-<img src="https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/GameStatsAxiosRouting.png">
-</p>
+Example of a function that gathers the needed inputs to create a game object once our game logic determines that one of the players has reached 0% health. This fires an axios `PATCH` to create a new Game instance within our the database. This allows for a scoreboard, because now we can fetch some information on all user's past games.
+
+```javascript
+function sendStatData(gameStats) {
+  gameState = JSON.parse(window.localStorage.getItem("gameRoom"));
+  let id1 = gameState.playerIds[0];
+  let id2 = gameState.playerIds[1];
+  let patchStringOne = "api/users/" + id1;
+  let patchStringTwo = "api/users/" + id2;
+  axios.patch(patchStringOne, gameStats);
+  axios.patch(patchStringTwo, gameStats);
+}
+```
 
 **Web Socket**
 
-<p align="center"> 
-<img src="https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/SocketCodeSnippet.png">
-</p>
+`Socket.io` was utilized here to open seamless communication between the game client and the two players. Upon joining a game, each user is put into a "room" or waiting lobby until both users join up. When the game starts and a user clicks a button, a `json` message is sent in this room, which gets parsed and interpreted by the listening client to perform some game logic (such as a punch action which may lead to an animation event, a player collision, opponent health decrease, game over, etc.) A simple model of this relationship would be one of a group chat between player1 and player2, with the game client perfoming actions based on this overheard communication. More on this below.
+
+```javascript
+io
+    .of("/games")
+    .on("connection", (socket) => {
+        socket.emit("welcome", "You are connected to games area.");
+    socket.on("joinRoom", (data) => {
+        let msg = JSON.parse(data);
+        socket.join(msg.code);
+        io.of("/games").in(msg.code)
+            .emit("newUser", JSON.stringify({
+                msg: `${msg.username} joined ${msg.code}`,
+                username: msg.username,
+                id: msg.id
+            }));
+    });
+    socket.on("message", (data) => {
+        let msg = JSON.parse(data);
+        io.of("games").in(msg.room).emit("message", msg);
+    });
+});
+```
 
 **Sprite Animation and Hit Calculation**
 
-<p align="center"> 
-<img src="https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/SpriteAnimationandHitCalculation.png">
-</p>
+Here is an example of how the game client interprets this `json` message sent in the `socket.io` above. Everytime a message gets sent, a `handleMessage` function is called. The character has already been determined to be player1/mario at this point in the code. If the `msg` has an `action` key with the value of `hammer,` then a variety of things need to happen, such as calling a swing function to handle the sprites of mario swinging a hammer, adding to the swing total for stats, and more.
 
+```javascript
+// --- game logic ---
+if (msg.action === "hammer") {
+      marioHammer(() => {
+        swingHammer.apply(this, [mario]);
+        marioSwingTotal = marioSwingTotal + 1;
+        // check if right or left
+        if (mario.data.values.facing === "right") {
+          mario.play("m-hammer-right", 1).setCrop(0, 1, 43, 42);
+        }
+        if (mario.data.values.facing === "left") {
+          mario.play("m-hammer-left", 1).setCrop(2, 2, 44, 42);
+        }
+      });
+    }
+// --- more game logic ---
+```
 **User Authentication**
 
-<p align="center"> 
-<img src="https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/UserAuth.png">
-</p>
+We rolled our own user authentication for this project using JSON Web Tokens and bcrypt to salt and hash password data. This is the backend `Express.js` route that is fired when a user attempts to login. 
+
+```javascript 
+router.post("/login", (req, res) => {
+  const { errors, isValid } = validateLoginInput(req.body);
+  if (!isValid) {
+    return res.status(400).json(errors);
+  }
+
+  const username = req.body.username;
+  const password = req.body.password;
+
+  User.findOne({ username }).then(user => {
+    if (!user)
+      return res.status(404).json({ username: "This user does not exist" });
+
+    bcrypt.compare(password, user.password).then(isMatch => {
+      if (isMatch) {
+        const payload = { id: user.id, username: user.username };
+
+        jwt.sign(
+          payload,
+          keys.secretOrKey,
+          { expiresIn: 3600 },
+          (err, token) => {
+            res.json({
+              success: true,
+              token: "Bearer " + token
+            });
+          }
+        );
+      } else {
+        return res.status(400).json({ password: "Incorrect password" });
+      }
+    });
+  });
+});
+```
 
 **User Schema**
 
-<p align="center"> 
-<img src="https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/UserSchema.png">
-</p>
+This is an example schema table from our MongoDB database. The models we utilized were `Game`, `Stat` and `User`.
+
+```javascript
+const UserSchema = new Schema({
+  username: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  highscore: {
+    type: Number,
+    default: 0
+  },
+  stats: [Game.schema],
+  date: {
+    type: Date,
+    default: Date.now
+  }
+});
+
+module.exports = User = mongoose.model("users", UserSchema);
+```
 
 ## Technologies and Technical Challenges
 
@@ -105,7 +211,7 @@ Making our app responsive to handle both mobile and desktop browsers was make-or
 ## Realtime Communication
 We will be incorporating websockets that will allow players to communicate with the game in real time.
 
-The game will create new rooms for each game through websockets and two players can connect to a single room, and upon the established connection, players can send game inputs in real time. These inputs are sent via the mobile phone controller of each player to the game client.
+The game will create new rooms for each game through websocket (`socket.io`) and two players can connect to a single room, and upon the established connection, players can send game inputs in real time. These inputs are sent via the mobile phone controller of each player to the game client.
 
 In simple terms, think of it like a groupchat between player 1, player 2, and the game client. A player presses the button to jump, which the client receives, and subsequently delivers the appropriate action by displaying it in the game window. 
 
