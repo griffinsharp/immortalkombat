@@ -1,5 +1,6 @@
-# immariokombat
-
+<p align="center"> 
+<img src="https://github.com/griffinsharp/immortalkombat/blob/master/frontend/src/components/assets/Logo.png">
+</p>
 
 ## Background and Overview
 
